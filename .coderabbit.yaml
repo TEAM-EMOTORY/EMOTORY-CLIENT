@@ -1,0 +1,40 @@
+language: "ko-KR"
+early_access: false
+enable_free_tier: true
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: false
+
+  sequence_diagrams: true
+  poem: false
+
+  suggested_labels: true
+  suggested_reviewers: true
+
+  path_instructions:
+    - path: "src/**/*.{js,jsx,ts,tsx}"
+      instructions: |
+        - 리액트 컴포넌트의 가독성과 재사용성을 고려해 주세요.
+        - 타입스크립트 타입을 더 명확하게 정의할 수 있는 방법이 있다면 제안해 주세요.
+        - 초보자도 이해하기 쉽게 공식 문서 링크나 키워드를 함께 제공해 주면 좋습니다.
+    - path: "**/*.css"
+      instructions: "공통 스타일 가이드를 준수했는지, 중복된 스타일은 없는지 확인해 주세요."
+
+  tools:
+    eslint:
+      enabled: true
+    gitleaks:
+      enabled: true
+
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+
+chat:
+  auto_reply: true
