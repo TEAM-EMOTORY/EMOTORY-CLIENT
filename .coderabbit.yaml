@@ -25,6 +25,12 @@ reviews:
     - path: "**/*.css"
       instructions: "공통 스타일 가이드를 준수했는지, 중복된 스타일은 없는지 확인해 주세요."
 
+  tools:
+    eslint:
+      enabled: true
+    gitleaks:
+      enabled: true
+
   auto_review:
     enabled: true
     auto_incremental_review: true
@@ -32,9 +38,3 @@ reviews:
 
 chat:
   auto_reply: true
-
-tools:
-  eslint:
-    enabled: true
-  gitleaks:
-    enabled: true
