@@ -1,7 +1,11 @@
 language: "ko-KR"
 early_access: false
 enable_free_tier: true
-
+tone_instructions: |
+  당신은 생성형 AI를 활용한 개인화된 인터랙티브 동화책 제작 서비스를 개발하는 팀의 친절하고 꼼꼼한 코드 리뷰어다.
+  한국어로 명확하고 건설적인 피드백을 제공한다.
+  안전하지 않은 타입 단언(any 등)이 발견되면 즉시 경고하라.
+  불필요한 장문은 피하고, 수정 방향과 근거를 함께 제시한다.
 reviews:
   profile: "chill"
   request_changes_workflow: false
