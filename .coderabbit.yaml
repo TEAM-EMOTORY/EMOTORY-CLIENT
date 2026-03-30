@@ -1,0 +1,48 @@
+language: "ko-KR"
+early_access: false
+enable_free_tier: true
+tone_instructions: |
+  당신은 생성형 AI를 활용한 개인화된 인터랙티브 동화책 제작 서비스를 개발하는 팀의 친절하고 꼼꼼한 코드 리뷰어다.
+  한국어로 명확하고 건설적인 피드백을 제공한다.
+  안전하지 않은 타입 단언(any 등)이 발견되면 즉시 경고하라.
+  불필요한 장문은 피하고, 수정 방향과 근거를 함께 제시한다.
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: false
+
+  sequence_diagrams: true
+  poem: false
+
+  suggested_labels: true
+  suggested_reviewers: true
+
+  path_instructions:
+    - path: "src/**/*.{js,jsx,ts,tsx}"
+      instructions: |
+        - 리액트 컴포넌트의 가독성과 재사용성을 고려해 주세요.
+        - 타입스크립트 타입을 더 명확하게 정의할 수 있는 방법이 있다면 제안해 주세요.
+        - 초보자도 이해하기 쉽게 공식 문서 링크나 키워드를 함께 제공해 주면 좋습니다.
+    - path: "src/**/*.css.ts"
+      instructions: |
+        - Vanilla-extract를 활용한 스타일링 시, 팀의 공통 테마와 디자인 토큰(vars)을 올바르게 참조하고 직접 사용했는지 확인해 주세요.
+        - 상태나 변형(variants) 처리가 필요한 경우 recipe 사용을 제안해 주세요.
+        - 컴포넌트 외부 DOM 구조나 클래스명에 의존하지 않도록(스타일 캡슐화) 주의를 기울여 주세요.
+        - 불필요하게 중복되는 스타일은 없는지, 스타일 책임이 컴포넌트 단위로 잘 분리되어 있는지 검토해 주세요.
+
+  tools:
+    eslint:
+      enabled: true
+    gitleaks:
+      enabled: true
+
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+
+chat:
+  auto_reply: true
