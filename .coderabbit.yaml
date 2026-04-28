@@ -12,9 +12,9 @@ reviews:
 
   high_level_summary: false
   review_status: true
-  collapse_walkthrough: false
+  collapse_walkthrough: true
 
-  sequence_diagrams: true
+  sequence_diagrams: false
   poem: false
 
   suggested_labels: true
