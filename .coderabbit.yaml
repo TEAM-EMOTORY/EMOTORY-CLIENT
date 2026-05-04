@@ -12,11 +12,7 @@ reviews:
   request_changes_workflow: false
 
   high_level_summary: true
-<<<<<<< HEAD
   review_status: true
-=======
-  review_status: false
->>>>>>> d0c9bd5d8436ee2fd0ca898477b740a92d20813c
   collapse_walkthrough: true
 
   sequence_diagrams: false
