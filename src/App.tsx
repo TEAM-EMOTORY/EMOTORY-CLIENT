@@ -1,7 +1,7 @@
-import "./App.css";
+import './App.css'
 
 function App() {
-  return <>emotory</>;
+  return <>emotory</>
 }
 
-export default App;
+export default App
