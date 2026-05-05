@@ -1,4 +1,4 @@
-import AgreementPage from '../Agreement'
+import AgreementPage from '../agreement/agreement'
 
 const HomePage = () => {
   return (

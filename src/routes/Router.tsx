@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
-import HomePage from '@pages/home'
-import AgreementPage from '@pages/Agreement'
-import ChildInfoPage from '@pages/ChildInfo'
-import EmotionSelectPage from '@pages/EmotionSelect'
-import StoryPage from '@pages/Story'
-import ResultPage from '@pages/Result'
+import HomePage from '@pages/home/home'
+import AgreementPage from '@pages/agreement/agreement'
+import ChildInfoPage from '@pages/child-info/child-info'
+import EmotionSelectPage from '@pages/emotion-select/emotion-select'
+import StoryPage from '@pages/story/story'
+import ResultPage from '@pages/result/result'
 
 const router = createBrowserRouter([
   {
