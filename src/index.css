@@ -1,31 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'TmoneyRoundWind', sans-serif;
-}
-
 :root {
-  --head-eb-60: 800 60px/1.5 'TmoneyRoundWind';
-  --head-eb-55: 800 55px/1.5 'TmoneyRoundWind';
-  --head-eb-40: 800 40px/1.5 'TmoneyRoundWind';
-  --head-eb-32: 800 32px/1.5 'TmoneyRoundWind';
-  --head-eb-24: 800 24px/1.5 'TmoneyRoundWind';
-  --head-eb-20: 800 20px/1.45 'TmoneyRoundWind';
-  --head-eb-18: 800 18px/1.5 'TmoneyRoundWind';
-  --head-eb-16: 800 16px/1.45 'TmoneyRoundWind';
-
-  --head2-r-28: 400 28px/1.5 'TmoneyRoundWind';
-  --head2-r-24: 400 24px/1.5 'TmoneyRoundWind';
-  --head2-r-20: 400 20px/1.5 'TmoneyRoundWind';
-  --head2-r-18: 400 18px/1.5 'TmoneyRoundWind';
-  --head2-r-16: 400 16px/1.5 'TmoneyRoundWind';
-  --head2-r-14: 400 14px/1.45 'TmoneyRoundWind';
-
-  --ls-1: 0.01em;
+  --weight-eb: 800;
+  --weight-r: 400;
+  --ls-1: -0.01em;
 
   --white: #ffffff;
   --orange: #f5622e;
@@ -42,60 +18,37 @@ body {
   --brown200: #68462b;
 }
 
-.head-eb-60 {
-  font: var(--head-eb-60);
-  letter-spacing: var(--ls-1);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.head-eb-55 {
-  font: var(--head-eb-55);
-  letter-spacing: var(--ls-1);
-}
-.head-eb-40 {
-  font: var(--head-eb-40);
-  letter-spacing: var(--ls-1);
-}
-.head-eb-32 {
-  font: var(--head-eb-32);
-  letter-spacing: var(--ls-1);
-}
-.head-eb-24 {
-  font: var(--head-eb-24);
-  letter-spacing: var(--ls-1);
-}
-.head-eb-20 {
-  font: var(--head-eb-20);
-  letter-spacing: var(--ls-1);
-}
-.head-eb-18 {
-  font: var(--head-eb-18);
-  letter-spacing: var(--ls-1);
-}
-.head-eb-16 {
-  font: var(--head-eb-16);
+
+body {
+  font-family: 'TmoneyRoundWind', sans-serif;
   letter-spacing: var(--ls-1);
 }
 
-.head2-r-28 {
-  font: var(--head2-r-28);
-  letter-spacing: var(--ls-1);
+.head-eb-60 {
+  font-weight: var(--weight-eb);
+  font-size: 60px;
+  line-height: 1.5;
 }
-.head2-r-24 {
-  font: var(--head2-r-24);
-  letter-spacing: var(--ls-1);
+
+.head-eb-24 {
+  font-weight: var(--weight-eb);
+  font-size: 24px;
+  line-height: 1.5;
 }
-.head2-r-20 {
-  font: var(--head2-r-20);
-  letter-spacing: var(--ls-1);
-}
+
 .head2-r-18 {
-  font: var(--head2-r-18);
-  letter-spacing: var(--ls-1);
+  font-weight: var(--weight-r);
+  font-size: 18px;
+  line-height: 1.5;
 }
-.head2-r-16 {
-  font: var(--head2-r-16);
-  letter-spacing: var(--ls-1);
-}
+
 .head2-r-14 {
-  font: var(--head2-r-14);
-  letter-spacing: var(--ls-1);
+  font-weight: var(--weight-r);
+  font-size: 14px;
+  line-height: 1.45;
 }
