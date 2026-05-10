@@ -18,7 +18,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'TmoneyRoundWind', sans-serif !important; /* 모든 요소에 강제 적용 */
+}
+
+body {
+  font-family: 'TmoneyRoundWind', sans-serif;
 }
 
 :root {
@@ -41,7 +44,6 @@
   --ls-1: 0.01em;
 
   --white: #ffffff;
-  --background: #f8faf9;
   --orange: #f5622e;
 
   --primary-100: #fff9f0;
