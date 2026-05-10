@@ -1,19 +1,3 @@
-@font-face {
-  font-family: 'TmoneyRoundWind';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff')
-    format('woff');
-  font-weight: 800;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'TmoneyRoundWind';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff')
-    format('woff');
-  font-weight: 400;
-  font-display: swap;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -46,16 +30,16 @@ body {
   --white: #ffffff;
   --orange: #f5622e;
 
-  --primary-100: #fff9f0;
-  --primary-200: #fef1d3;
-  --primary-300: #f8e5cd;
-  --primary-500: #fcc944;
+  --primary100: #fff9f0;
+  --primary200: #fef1d3;
+  --primary300: #f8e5cd;
+  --primary500: #fcc944;
 
-  --navy-100: #1c599d;
-  --navy-200: #0f154d;
+  --navy100: #1c599d;
+  --navy200: #0f154d;
 
-  --brown-100: #ccbba6;
-  --brown-200: #68462b;
+  --brown100: #ccbba6;
+  --brown200: #68462b;
 }
 
 .head-eb-60 {
