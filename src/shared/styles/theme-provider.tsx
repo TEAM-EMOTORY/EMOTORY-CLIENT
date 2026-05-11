@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react'
 
-import './reset.css'
+import './index.css'
 import { themeClass } from './theme.css'
 
 export default function ThemeProvider({

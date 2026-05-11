@@ -7,4 +7,5 @@ export const bgcolor = style({
 
 export const fontstyle = style({
   ...themeVars.fontStyles.body_60eb,
+  color: themeVars.color.primary300,
 })
