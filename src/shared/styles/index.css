@@ -1,23 +1,3 @@
-:root {
-  --weight-eb: 800;
-  --weight-r: 400;
-  --ls-1: -0.01em;
-
-  --white: #ffffff;
-  --orange: #f5622e;
-
-  --primary100: #fff9f0;
-  --primary200: #fef1d3;
-  --primary300: #f8e5cd;
-  --primary500: #fcc944;
-
-  --navy100: #1c599d;
-  --navy200: #0f154d;
-
-  --brown100: #ccbba6;
-  --brown200: #68462b;
-}
-
 * {
   margin: 0;
   padding: 0;
