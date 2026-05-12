@@ -12,6 +12,9 @@ export const buttonVariants = recipe({
     borderRadius: '5rem',
     ...themeVars.fontStyles.body_24eb,
     color: themeVars.color.brown200,
+    border: `1px solid ${themeVars.color.primary300}`,
+    boxShadow:
+      'inset 0px 3px 6px rgba(255, 255, 255, 0.41), inset 0px -3px 5px rgba(0, 0, 0, 0.08)',
   },
 
   variants: {

@@ -31,7 +31,6 @@ globalStyle('::before, ::after', {
 globalStyle('html, :host', {
   lineHeight: '1.5' /*1 */,
   WebkitTextSizeAdjust: '100%' /*2 */,
-  fontFamily: `'Pretendard Variable', sans-serif`,
   fontFeatureSettings: 'normal' /*5 */,
   fontVariationSettings: 'normal' /*6 */,
   WebkitTapHighlightColor: 'transparent' /*7 */,
@@ -92,19 +91,6 @@ globalStyle('p', {
 })
 
 /*
-1. Use the user's configured `mono` font-family by default.
-2. Use the user's configured `mono` font-feature-settings by default.
-3. Use the user's configured `mono` font-variation-settings by default.
-4. Correct the odd `em` font sizing in all browsers.
-*/
-globalStyle('code, kbd, samp, pre', {
-  fontFamily: `'Pretendard Variable', sans-serif`,
-  fontFeatureSettings: 'normal' /*2 */,
-  fontVariationSettings: 'normal' /*3 */,
-  fontSize: '1em' /*4 */,
-})
-
-/*
 Add the correct font size in all browsers.
 */
 globalStyle('small', {
@@ -146,7 +132,7 @@ globalStyle('table', {
 3. Remove default padding in all browsers.
 */
 globalStyle('button, input, optgroup, select, textarea', {
-  fontFamily: `'Pretendard Variable', sans-serif`,
+  fontFamily: 'inherit' /*1 */,
   fontFeatureSettings: 'inherit' /*1 */,
   fontVariationSettings: 'inherit' /*1 */,
   fontSize: '100%' /*1 */,
