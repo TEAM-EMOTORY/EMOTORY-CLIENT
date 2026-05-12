@@ -2,7 +2,7 @@ import { createTheme } from '@vanilla-extract/css'
 
 import { fontStyles } from './tokens/font-style'
 import { typography } from './tokens/typography'
-import { color } from './tokens/colors'
+import { color } from './tokens/color.css'
 
 const tokens = {
   color: color,
