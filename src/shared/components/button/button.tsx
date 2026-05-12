@@ -4,7 +4,7 @@ import * as styles from './button.css'
 interface ButtonProps {
   children: ReactNode
   disabled?: boolean
-  color: 'yellow' | 'cream'
+  color: 'yellow' | 'cream' | 'white'
   onClick: () => void
 }
 
