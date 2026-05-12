@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# PWA dev assets
+dev-dist
+devDist
+sw.js
+sw.js.map
+workbox-*.js
+worker-*.js
