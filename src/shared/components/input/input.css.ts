@@ -6,7 +6,7 @@ import { themeVars } from '@shared/styles/theme.css';
 export const inputVariants = recipe({
   base: {
     width: '100%',
-    height: '60px',
+    height: '6rem',
     padding: '1.3rem 1.2rem',
     border: `2px solid ${themeVars.color.primary300}`,
     backgroundColor: themeVars.color.primary100,
@@ -14,7 +14,7 @@ export const inputVariants = recipe({
     outline: 'none',
     fontFamily: 'inherit',
 
-    ...themeVars.fontStyles.button2_sb_14,
+    ...themeVars.fontStyles.head_eb_18,
 
     selectors: {
       '&::placeholder': { color: themeVars.color.brown100 },

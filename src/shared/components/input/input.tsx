@@ -18,19 +18,14 @@ const Input = ({ value, errorState, onChange, placeholder }: InputProps) => {
   };
 
   return (
-    <div
-      className={styles.inputContainer}
-      onClick={handleContainer}
-    >
-      <input
-        ref={inputRef}
-        // enterKeyHint="done" 
-        value={value}
-        className={styles.inputVariants({ hasError: !!errorState })}
-        onChange={onChange}
-        placeholder={placeholder}
+    <input
+      ref={inputRef}
+      nterKeyHint="done" 
+      value={value}
+      className={styles.inputVariants({ hasError: !!errorState })}
+      onChange={onChange}
+      placeholder={placeholder}
       />
-    </div>
   );
 };
 
