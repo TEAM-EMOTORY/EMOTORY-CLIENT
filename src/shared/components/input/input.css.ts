@@ -1,7 +1,8 @@
-import { style } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
+import { style } from '@vanilla-extract/css'
+import { recipe } from '@vanilla-extract/recipes'
 
-import { themeVars } from '@shared/styles/theme.css';
+import { themeVars } from '@shared/styles/theme.css'
+import { fontStyles } from '@shared/styles/tokens/font-style'
 
 export const inputVariants = recipe({
   base: {
@@ -14,7 +15,7 @@ export const inputVariants = recipe({
     outline: 'none',
     fontFamily: 'inherit',
 
-    ...themeVars.fontStyles.head_eb_18,
+    ...fontStyles.body_18eb,
 
     selectors: {
       '&::placeholder': { color: themeVars.color.brown100 },
@@ -27,10 +28,11 @@ export const inputVariants = recipe({
   },
 
   variants: {
-    hasError: { 
-      false: {}, 
-      
-      true: { 
+    hasError: {
+      false: {},
+
+      true: {
+        borderColor: themeVars.color.brown200,
         selectors: {
           '&:not(:placeholder-shown)': {
             color: themeVars.color.brown200,
@@ -40,16 +42,16 @@ export const inputVariants = recipe({
             color: 'transparent',
           },
         },
-      }, 
+      },
     },
   },
 
   defaultVariants: {
-    hasError: false, 
+    hasError: false,
   },
-});
+})
 
 export const inputContainer = style({
   display: 'flex',
   justifyContent: 'center',
-});
+})
