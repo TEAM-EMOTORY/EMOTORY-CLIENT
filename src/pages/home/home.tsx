@@ -1,22 +1,13 @@
-import { useState } from 'react'
-import Input from '@shared/components/input/input'
+import AgreementPage from '../agreement/agreement'
 
 const HomePage = () => {
-  const [name, setName] = useState('')
-  const [age, setAge] = useState('')
-
   return (
-    <div style={{ padding: '50px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder='이름을 입력해주세요.'
-      />
-      <Input
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-        placeholder='정답을 입력하세요.'
-      />
+    <div style={{ padding: '20px' }}>
+      <h1>🏠 홈 (시작 화면)</h1>
+      <p>EMOTORY: 아이들을 위한 AI 감정 스토리텔링 서비스입니다.</p>
+      <button type='button' onClick={AgreementPage}>
+        동의하고 진행하기
+      </button>
     </div>
   )
 }

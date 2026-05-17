@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import type { ChangeEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import * as styles from './agreement.css'
 import Button from '../../shared/components/button/button'
 
 const AgreementPage = () => {
   const [isConsented, setIsConsented] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const handleConsentChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsConsented(e.target.checked)
@@ -18,7 +20,7 @@ const AgreementPage = () => {
   // 동의하고 가기 버튼을 클릭했을 때 (막기)
   const handleSubmitClick = () => {
     if (!isConsented) return
-    console.log('동의 완료 - 다음 로직 실행')
+    navigate('/child-info')
   }
 
   return (
