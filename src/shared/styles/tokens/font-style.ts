@@ -41,4 +41,15 @@ export const fontStyles = {
     fontWeight: typography.fontWeight.extraBold,
     lineHeight: typography.lineHeight[150],
   },
+
+  sub_16r: {
+    fontSize: typography.fontSize[16],
+    fontWeight: typography.fontWeight.regular,
+    lineHeight: typography.lineHeight[150],
+  },
+  sub_12r: {
+    fontSize: typography.fontSize[12],
+    fontWeight: typography.fontWeight.regular,
+    lineHeight: typography.lineHeight[150],
+  },
 }

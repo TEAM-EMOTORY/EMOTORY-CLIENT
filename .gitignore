@@ -31,3 +31,14 @@ sw.js
 sw.js.map
 workbox-*.js
 worker-*.js
+
+.claude/
+.claudefiles/
+.claude-edits.log
+CLAUDE.md
+PROJECT_KNOWLEDGE.md
+TROUBLESHOOTING.md
+agents/
+skills/
+slash-commands/
+dev/
