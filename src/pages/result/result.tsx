@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '@shared/components/button/button'
 import * as styles from './result.css'
 import StoryCard from './components/StoryCard/StoryCard'
@@ -8,6 +9,7 @@ import type { ResultData } from './types/result.types'
 import { MOCK_RESULT_DATA } from './mocks/result.mock'
 
 const ResultPage = () => {
+  const navigate = useNavigate()
   const [data] = useState<ResultData>(MOCK_RESULT_DATA)
 
   return (
@@ -30,7 +32,7 @@ const ResultPage = () => {
         <TipsSection tips={data.tips} />
 
         <div className={styles.bottomNav}>
-          <Button color='white' onClick={() => {}}>
+          <Button color='white' onClick={() => navigate('/')}>
             🏠 처음으로
           </Button>
           <button type='button' className={styles.ctaButton}>

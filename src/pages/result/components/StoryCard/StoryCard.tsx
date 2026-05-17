@@ -9,7 +9,7 @@ interface StoryCardProps {
 
 const StoryCard = ({ story, className }: StoryCardProps) => {
   return (
-    <Card icon='📖' title='오늘의 이야기 요약' className={className}>
+    <Card icon='📖' title='오늘의 이야기 요약' headerVariant='light' className={className}>
       <div className={styles.body}>
         <div className={styles.imageBox}>
           {story.imageUrl ? (

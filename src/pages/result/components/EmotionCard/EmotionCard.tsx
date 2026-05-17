@@ -11,7 +11,7 @@ const StarIcon = () => <span className={styles.headerStar}>★</span>
 
 const EmotionCard = ({ emotion, className }: EmotionCardProps) => {
   return (
-    <Card icon={<StarIcon />} title='토리가 느낀 감정' className={className}>
+    <Card icon={<StarIcon />} title='토리가 느낀 감정' cardVariant='warm' className={className}>
       <div className={styles.body}>
         <div className={styles.characterBlock}>
           <div className={styles.characterBox}>

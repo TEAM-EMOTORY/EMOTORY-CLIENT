@@ -3,10 +3,23 @@ import { style, styleVariants } from '@vanilla-extract/css'
 
 export const card = style({
   position: 'relative',
-  backgroundColor: themeVars.color.white,
   borderRadius: '2rem',
   padding: '4rem 2.4rem 2.4rem',
-  border: `0.15rem solid ${themeVars.color.primary200}`,
+})
+
+export const cardVariants = styleVariants({
+  light: {
+    backgroundColor: themeVars.color.white,
+    border: `0.15rem solid ${themeVars.color.primary200}`,
+  },
+  soft: {
+    backgroundColor: themeVars.color.primary100,
+    border: `0.15rem solid ${themeVars.color.primary200}`,
+  },
+  warm: {
+    backgroundColor: themeVars.color.primary150,
+    border: `0.15rem solid ${themeVars.color.primary200}`,
+  },
 })
 
 export const header = style({
