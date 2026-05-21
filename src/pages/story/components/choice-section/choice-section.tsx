@@ -1,6 +1,10 @@
-import type { StoryChoice } from '../../types/story.types'
 import ChoiceCard from '../choice-card/choice-card'
 import * as styles from './choice-section.css'
+
+interface StoryChoice {
+  id: string
+  text: string
+}
 
 interface ChoiceSectionProps {
   choices: StoryChoice[]
@@ -15,10 +19,11 @@ const ChoiceSection = ({ choices, onChoiceSelect }: ChoiceSectionProps) => {
         <span className={styles.star}>★</span>
       </div>
       <div className={styles.cards}>
-        {choices.map((choice) => (
+        {choices.map((choice, i) => (
           <ChoiceCard
             key={choice.id}
             text={choice.text}
+            color={(['yellow', 'blue', 'purple'] as const)[i % 3]}
             onClick={() => onChoiceSelect(choice.id)}
           />
         ))}
