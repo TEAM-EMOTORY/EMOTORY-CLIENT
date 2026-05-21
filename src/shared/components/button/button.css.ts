@@ -31,7 +31,7 @@ export const buttonVariants = recipe({
         ...themeVars.fontStyles.body_16eb,
         boxShadow: 'none',
         border: 'none',
-        backgroundColor: themeVars.color.primary100,
+        backgroundColor: themeVars.color.primary50,
         padding: '1.7rem 3rem',
       },
     },

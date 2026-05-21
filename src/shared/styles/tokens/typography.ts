@@ -8,6 +8,7 @@ export const typography = {
     20: '2rem',
     18: '1.8rem',
     16: '1.6rem',
+    12: '1.2rem',
   },
   fontWeight: {
     extraBold: '800',
