@@ -6,27 +6,11 @@ export const body = style({
   gap: '2rem',
 })
 
-export const imageBox = style({
+export const image = style({
   width: '16rem',
   height: '16rem',
-  backgroundColor: themeVars.color.primary200,
-  borderRadius: '1.6rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  overflow: 'hidden',
-})
-
-export const image = style({
-  width: '100%',
-  height: '100%',
   objectFit: 'cover',
-  borderRadius: '1.6rem',
-})
-
-export const imagePlaceholder = style({
-  fontSize: '6rem',
-  lineHeight: '1',
+  borderRadius: '16px',
 })
 
 export const textBlock = style({

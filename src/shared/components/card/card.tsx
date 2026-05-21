@@ -6,11 +6,12 @@ interface CardProps {
   title: string
   children: ReactNode
   cardVariant?: 'light' | 'warm'
+  className?: string
 }
 
-const Card = ({ icon, title, children, cardVariant = 'light' }: CardProps) => {
+const Card = ({ icon, title, children, cardVariant = 'light', className }: CardProps) => {
   return (
-    <div className={styles.card({ color: cardVariant })}>
+    <div className={`${styles.card({ color: cardVariant })}${className ? ` ${className}` : ''}`}>
       <div className={styles.header({ color: cardVariant })}>
         <span>{icon}</span>
         <span>{title}</span>

@@ -1,6 +1,6 @@
 export interface StoryResult {
   imageUrl?: string
-  summaryLines: string[]
+  summary: string
 }
 
 export interface EmotionResult {
