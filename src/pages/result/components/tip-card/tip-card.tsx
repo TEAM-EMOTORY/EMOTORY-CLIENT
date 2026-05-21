@@ -1,5 +1,5 @@
 import Card from '@shared/components/card/card'
-import * as styles from './TipCard.css'
+import * as styles from './tip-card.css'
 
 interface TipCardProps {
   tips: { imageUrl: string; title: string; description: string }[]

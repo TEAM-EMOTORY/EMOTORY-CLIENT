@@ -1,5 +1,5 @@
 import Card from '@shared/components/card/card'
-import * as styles from './StoryCard.css'
+import * as styles from './story-card.css'
 
 interface StoryCardProps {
   imageUrl: string
