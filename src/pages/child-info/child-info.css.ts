@@ -3,37 +3,26 @@ import { style } from '@vanilla-extract/css'
 
 export const page = style({
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  minHeight: '100vh',
-  padding: '2.4rem',
+  gap: '8rem',
+  flexDirection: 'column',
+  padding: '10rem 20rem 0rem 20rem',
   color: themeVars.color.brown200,
 })
 
-export const wrapper = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  width: '100%',
-  maxWidth: '72rem',
-  gap: '2.4rem',
-})
-
-export const titleSection = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '0.8rem',
-  textAlign: 'center',
-})
-
 export const title = style({
-  ...themeVars.fontStyles.body_32eb,
+  display: 'flex',
+  flexDirection: 'column',
+  ...themeVars.fontStyles.body_40eb,
+  alignItems: 'center',
+})
+
+export const titleRow = style({
   display: 'flex',
   alignItems: 'center',
 })
 
 export const titleStar = style({
+  padding: '1rem',
   color: themeVars.color.primary500,
   fontSize: themeVars.fontSize[24],
 })
@@ -43,23 +32,12 @@ export const pointText = style({
 })
 
 export const subtitle = style({
-  fontSize: themeVars.fontSize[16],
-  fontWeight: themeVars.fontWeight.regular,
-  lineHeight: themeVars.lineHeight[150],
+  ...themeVars.fontStyles.sub_16r,
 })
 
-export const card = style({
+export const container = style({
   display: 'flex',
   gap: '3.2rem',
-  backgroundColor: themeVars.color.white,
-  borderRadius: '2.4rem',
-  padding: '3.2rem',
-  width: '100%',
-})
-
-export const photoSection = style({
-  flexShrink: 0,
-  width: '24rem',
 })
 
 export const formSection = style({
@@ -68,4 +46,12 @@ export const formSection = style({
   flexDirection: 'column',
   justifyContent: 'center',
   gap: '2rem',
+})
+
+export const nameLabel = style({ ...themeVars.fontStyles.body_18eb })
+
+export const notice = style({
+  ...themeVars.fontStyles.sub_12r,
+  display: 'flex',
+  alignItems: 'center',
 })

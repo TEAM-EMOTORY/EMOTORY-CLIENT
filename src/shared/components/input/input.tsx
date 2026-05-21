@@ -1,32 +1,24 @@
-import { useRef } from 'react';
-import type { ChangeEvent } from 'react';
-
-import * as styles from './input.css';
+import * as styles from './input.css'
 
 interface InputProps {
-  value: string;
-  errorState?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
+  placeholder?: string
+  value: string
+  onChange: (value: string) => void
+  type?: string
 }
 
-const Input = ({ value, errorState, onChange, placeholder }: InputProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleContainer = () => {
-    inputRef.current?.focus();
-  };
-
+const Input = ({ placeholder, value, onChange, type = 'text' }: InputProps) => {
   return (
-    <input
-      ref={inputRef}
-      nterKeyHint="done" 
-      value={value}
-      className={styles.inputVariants({ hasError: !!errorState })}
-      onChange={onChange}
-      placeholder={placeholder}
+    <div className={styles.wrapper}>
+      <input
+        type={type}
+        className={styles.input}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
       />
-  );
-};
+    </div>
+  )
+}
 
-export default Input;
+export default Input
