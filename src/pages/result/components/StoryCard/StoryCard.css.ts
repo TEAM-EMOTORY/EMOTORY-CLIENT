@@ -13,13 +13,6 @@ export const image = style({
   borderRadius: '16px',
 })
 
-export const textBlock = style({
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.2rem',
-})
-
 export const line = style({
   ...themeVars.fontStyles.sub_16r,
 })

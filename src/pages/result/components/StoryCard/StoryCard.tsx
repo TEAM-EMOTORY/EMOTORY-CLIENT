@@ -12,9 +12,7 @@ const StoryCard = ({ imageUrl, summary, className }: StoryCardProps) => {
     <Card icon='📖' title='오늘의 이야기 요약' cardVariant='light' className={className}>
       <div className={styles.body}>
         <img src={imageUrl} className={styles.image} />
-        <div className={styles.textBlock}>
-          <p className={styles.line}>{summary}</p>
-        </div>
+        <p className={styles.line}>{summary}</p>
       </div>
     </Card>
   )

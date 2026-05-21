@@ -1,32 +1,30 @@
 import Card from '@shared/components/card/card'
-import type { EmotionResult } from '../../types/result.types'
 import * as styles from './EmotionCard.css'
 
 interface EmotionCardProps {
-  emotion: EmotionResult
+  name: string
+  imageUrl: string
+  title: string
+  summary: string
+  tags: string[]
   className?: string
 }
 
-const StarIcon = () => <span className={styles.headerStar}>★</span>
-
-const EmotionCard = ({ emotion, className }: EmotionCardProps) => {
+const EmotionCard = ({ name, imageUrl, title, summary, tags, className }: EmotionCardProps) => {
   return (
-    <Card icon={<StarIcon />} title='토리가 느낀 감정' cardVariant='warm' className={className}>
+    <Card
+      icon={<span className={styles.headerStar}>★</span>}
+      title={`${name}가 느낀 감정`}
+      cardVariant='warm'
+      className={className}
+    >
       <div className={styles.body}>
-        <div className={styles.characterBlock}>
-          <div className={styles.characterBox}>
-            {emotion.characterImageUrl ? (
-              <img src={emotion.characterImageUrl} alt='토리' className={styles.characterImage} />
-            ) : (
-              <span className={styles.characterPlaceholder}>🐥</span>
-            )}
-          </div>
-        </div>
+        <img src={imageUrl} className={styles.characterImage} />
         <div className={styles.infoBlock}>
-          <h2 className={styles.emotionTitle}>{emotion.title}</h2>
-          <p className={styles.description}>{emotion.description}</p>
+          <p className={styles.emotionTitle}>{title}</p>
+          <p className={styles.summary}>{summary}</p>
           <div className={styles.tags}>
-            {emotion.tags.map((tag) => (
+            {tags.map((tag) => (
               <span key={tag} className={styles.tag}>
                 {tag}
               </span>
