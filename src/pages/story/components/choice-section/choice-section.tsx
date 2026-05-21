@@ -1,6 +1,6 @@
 import type { StoryChoice } from '../../types/story.types'
-import ChoiceCard from '../ChoiceCard/ChoiceCard'
-import * as styles from './ChoiceSection.css'
+import ChoiceCard from '../choice-card/choice-card'
+import * as styles from './choice-section.css'
 
 interface ChoiceSectionProps {
   choices: StoryChoice[]

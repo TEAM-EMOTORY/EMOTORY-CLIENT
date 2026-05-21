@@ -1,4 +1,4 @@
-import * as styles from './StoryScene.css'
+import * as styles from './story-scene.css'
 
 interface StorySceneProps {
   imageUrl: string

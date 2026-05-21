@@ -1,4 +1,4 @@
-import * as styles from './ChoiceCard.css'
+import * as styles from './choice-card.css'
 
 interface ChoiceCardProps {
   text: string

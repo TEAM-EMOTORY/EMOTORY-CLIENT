@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import StoryHeader from './components/StoryHeader/StoryHeader'
-import StoryScene from './components/StoryScene/StoryScene'
-import StoryContent from './components/StoryContent/StoryContent'
-import ChoiceSection from './components/ChoiceSection/ChoiceSection'
-import StoryNav from './components/StoryNav/StoryNav'
+import StoryHeader from './components/story-header/story-header'
+import StoryScene from './components/story-scene/story-scene'
+import StoryContent from './components/story-content/story-content'
+import ChoiceSection from './components/choice-section/choice-section'
+import StoryNav from './components/story-nav/story-nav'
 import * as styles from './story.css'
 
 // TODO: API 연동 시 제거

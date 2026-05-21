@@ -1,4 +1,4 @@
-import * as styles from './StoryNav.css'
+import * as styles from './story-nav.css'
 
 interface StoryNavProps {
   currentPage: number

@@ -1,4 +1,4 @@
-import * as styles from './StoryHeader.css'
+import * as styles from './story-header.css'
 
 interface StoryHeaderProps {
   emotionLabel: string

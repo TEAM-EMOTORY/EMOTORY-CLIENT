@@ -1,4 +1,4 @@
-import * as styles from './StoryContent.css'
+import * as styles from './story-content.css'
 
 interface StoryContentProps {
   title: string
