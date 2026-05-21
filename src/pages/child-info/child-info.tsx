@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import Button from '@shared/components/Button/Button'
-import Input from '@shared/components/Input/Input'
+import Button from '@shared/components/button/button'
+import Input from '@shared/components/input/input'
 import * as styles from './child-info.css'
 import PhotoUpload from './components/PhotoUpload/PhotoUpload'
 
