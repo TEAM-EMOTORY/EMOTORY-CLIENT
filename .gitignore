@@ -32,7 +32,7 @@ sw.js.map
 workbox-*.js
 worker-*.js
 
-.claude/
+ .claude/
 .claudefiles/
 .claude-edits.log
 CLAUDE.md

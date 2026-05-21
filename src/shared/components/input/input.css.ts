@@ -1,55 +1,28 @@
-import { style } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
+import { themeVars } from '@shared/styles/theme.css'
+import { style } from '@vanilla-extract/css'
 
-import { themeVars } from '@shared/styles/theme.css';
-
-export const inputVariants = recipe({
-  base: {
-    width: '100%',
-    height: '6rem',
-    padding: '1.3rem 1.2rem',
-    border: `2px solid ${themeVars.color.primary300}`,
-    backgroundColor: themeVars.color.primary100,
-    borderRadius: '10px',
-    outline: 'none',
-    fontFamily: 'inherit',
-
-    ...themeVars.fontStyles.head_eb_18,
-
-    selectors: {
-      '&::placeholder': { color: themeVars.color.brown100 },
-      '&:focus': {
-        borderColor: themeVars.color.primary500,
-      },
-
-      '&:focus::placeholder': { color: 'transparent' },
-    },
-  },
-
-  variants: {
-    hasError: { 
-      false: {}, 
-      
-      true: { 
-        selectors: {
-          '&:not(:placeholder-shown)': {
-            color: themeVars.color.brown200,
-            borderColor: themeVars.color.brown200,
-          },
-          '&:focus::placeholder': {
-            color: 'transparent',
-          },
-        },
-      }, 
-    },
-  },
-
-  defaultVariants: {
-    hasError: false, 
-  },
-});
-
-export const inputContainer = style({
+export const wrapper = style({
   display: 'flex',
-  justifyContent: 'center',
-});
+  flexDirection: 'column',
+  gap: '0.8rem',
+})
+
+export const input = style({
+  fontSize: themeVars.fontSize[18],
+  fontWeight: themeVars.fontWeight.regular,
+  lineHeight: themeVars.lineHeight[150],
+  fontFamily: 'inherit',
+  color: themeVars.color.navy200,
+  backgroundColor: themeVars.color.white,
+  border: `0.2rem solid ${themeVars.color.brown100}`,
+  borderRadius: '1.2rem',
+  padding: '1.4rem 1.8rem',
+  width: '100%',
+  outline: 'none',
+  selectors: {
+    '&::placeholder': {
+      color: themeVars.color.brown100,
+      fontWeight: themeVars.fontWeight.regular,
+    },
+  },
+})

@@ -1,5 +1,5 @@
 import Card from '@shared/components/card/card'
-import * as styles from './EmotionCard.css'
+import * as styles from './emotion-card.css'
 
 interface EmotionCardProps {
   name: string
