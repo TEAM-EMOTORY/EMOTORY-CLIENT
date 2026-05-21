@@ -21,7 +21,6 @@ const EmotionCard = ({ emotion, className }: EmotionCardProps) => {
               <span className={styles.characterPlaceholder}>🐥</span>
             )}
           </div>
-          <div className={styles.bubble}>{emotion.bubbleIcon ?? '💭'}</div>
         </div>
         <div className={styles.infoBlock}>
           <h2 className={styles.emotionTitle}>{emotion.title}</h2>

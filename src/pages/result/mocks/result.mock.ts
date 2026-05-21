@@ -14,9 +14,8 @@ export const MOCK_RESULT_DATA: ResultData = {
   },
   emotion: {
     title: '불안했어요',
-    description:
-      '토리는 친구가 보이지 않아 앞으로 어떤 일이 생길지 몰라 불안한 마음이 들었어요.',
-    tags: ['걱정', '두려움', '조마조마함'],
+    description: '토리는 친구가 보이지 않아 앞으로 어떤 일이 생길지 몰라 불안한 마음이 들었어요.',
+    tags: ['걱정', '두려움'],
     bubbleIcon: '💭',
   },
   tips: [

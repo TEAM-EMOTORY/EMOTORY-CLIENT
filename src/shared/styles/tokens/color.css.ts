@@ -1,8 +1,9 @@
 export const color = {
   white: '#FFFFFF',
   orange: '#F5622E',
+  primary50: '#fffefa',
   primary100: '#FFF9F0',
-  primary150: '#FDF7E6',
+  primary150: '#fffbf0',
   primary200: '#FEF1D3',
   primary300: '#F8E5CD',
   primary500: '#FCC944',
