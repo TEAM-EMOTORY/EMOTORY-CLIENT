@@ -57,6 +57,12 @@ export const emotionCard = style({
   flex: 4,
 })
 
+export const tipsGrid = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: '1.2rem',
+})
+
 export const bottomNav = style({
   display: 'flex',
   alignItems: 'center',
