@@ -1,6 +1,8 @@
 export const color = {
   white: '#FFFFFF',
   orange: '#F5622E',
+  amber: '#F5A93A',
+  gray: '#888888',
   primary100: '#FFF9F0',
   primary200: '#FEF1D3',
   primary300: '#F8E5CD',
