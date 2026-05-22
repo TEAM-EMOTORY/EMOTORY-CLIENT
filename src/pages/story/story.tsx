@@ -18,7 +18,8 @@ const PLACEHOLDER_PAGE = {
   sceneImageUrl:
     'https://media.istockphoto.com/id/2148757239/ko/%EC%82%AC%EC%A7%84/%EC%95%84%EC%8B%9C%EC%95%84-%EC%9E%91%EC%9D%80-%EB%B0%9C%ED%86%B1-%EC%88%98%EB%8B%AC.jpg?s=612x612&w=0&k=20&c=xkH9d6pwEDkkzflv6tMelrv8DtXkUX5fX6ruUPt82Ak=',
   title: '소중한 친구가 없어진 걸까?',
-  content: '토리는 가장 친한 친구 포포를 만나러 갔어요. 그런데 아무리 찾아도 보이지 않았어요. 토리는 마음이 조마조마해졌어요.',
+  content:
+    '토리는 가장 친한 친구 포포를 만나러 갔어요. 그런데 아무리 찾아도 보이지 않았어요. 토리는 마음이 조마조마해졌어요.',
   choices: [
     { id: '1', text: '혼자서 조금 더 찾아본다' },
     { id: '2', text: '친구에게 전화해서 물어본다' },
