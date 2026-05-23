@@ -6,8 +6,9 @@ export const bgContainer = style({
   width: '100vw',
   height: '100dvh',
   backgroundImage: `url(${homeBg})`,
-  backgroundSize: 'contain',
+  backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
 })
 
 export const button = style({
