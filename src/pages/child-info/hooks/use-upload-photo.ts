@@ -7,6 +7,8 @@ export const useUploadPhoto = () =>
     mutationFn: async (file: File) => {
       const { uploadUrl, fileKey } = await fetchPresignedUrl(file.type)
       await uploadToS3(uploadUrl, file)
-      return fileKey
+      const s3Url = new URL(uploadUrl.split('?')[0])
+      s3Url.hostname = import.meta.env.VITE_CLOUDFRONT_DOMAIN
+      return { fileKey, faceImageUrl: s3Url.toString() }
     },
   })
