@@ -1,7 +1,5 @@
 import * as styles from './story-nav.css'
 
-const MAX_STEPS = 10
-
 interface StoryNavProps {
   nodeOrder: number
   onHome: () => void
@@ -9,7 +7,7 @@ interface StoryNavProps {
 }
 
 const StoryNav = ({ nodeOrder, onHome, onPrev }: StoryNavProps) => {
-  const progress = Math.min((nodeOrder / MAX_STEPS) * 100, 100)
+  const progress = Math.min(nodeOrder * 8, 90)
 
   return (
     <nav className={styles.nav}>
