@@ -8,6 +8,7 @@ import StoryNav from './components/story-nav/story-nav'
 import * as styles from './story.css'
 import { usePlaySession } from './hooks/use-play-session'
 import { useStoryNode } from './hooks/use-story-node'
+import { useSelectChoice } from './hooks/use-select-choice'
 
 // TODO: API 연동 시 제거
 const PLACEHOLDER_INFO = {
@@ -33,12 +34,17 @@ const StoryPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
   const { data: sessionData } = usePlaySession(state?.playSessionId)
-  const { data: nodeData } = useStoryNode(state?.currentNodeId)
+  const [currentNodeId, setCurrentNodeId] = useState<number>(state?.currentNodeId)
+  const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
+  const { mutate: selectChoice } = useSelectChoice()
   const [info] = useState(PLACEHOLDER_INFO)
 
-  const handleChoiceSelect = (id: string) => {
-    // TODO: API 연동
-    console.log('선택:', id)
+  const handleChoiceSelect = (choiceId: string) => {
+    if (!state?.playSessionId) return
+    selectChoice(
+      { playSessionId: state.playSessionId, choiceId: Number(choiceId) },
+      { onSuccess: ({ currentNodeId: nextNodeId }) => setCurrentNodeId(nextNodeId) },
+    )
   }
 
   const handlePrev = () => {
@@ -48,14 +54,18 @@ const StoryPage = () => {
   return (
     <div className={styles.page}>
       <StoryHeader emotionLabel={info.emotionLabel} />
-      <div className={styles.main}>
-        <StoryScene imageUrl={PLACEHOLDER_PAGE.sceneImageUrl} />
-        <StoryContent title={PLACEHOLDER_PAGE.title} content={nodeData?.content ?? PLACEHOLDER_PAGE.content} />
+      <div key={currentNodeId} className={styles.fadeInContent}>
+        <div className={styles.main}>
+          <StoryScene imageUrl={PLACEHOLDER_PAGE.sceneImageUrl} />
+          <StoryContent title={PLACEHOLDER_PAGE.title} content={nodeData?.content ?? PLACEHOLDER_PAGE.content} />
+        </div>
+        {!isFetching && nodeData && (
+          <ChoiceSection
+            choices={nodeData.choices.map(({ choiceId, content }) => ({ id: String(choiceId), text: content }))}
+            onChoiceSelect={handleChoiceSelect}
+          />
+        )}
       </div>
-      <ChoiceSection
-        choices={nodeData?.choices.map(({ choiceId, content }) => ({ id: String(choiceId), text: content })) ?? PLACEHOLDER_PAGE.choices}
-        onChoiceSelect={handleChoiceSelect}
-      />
       <StoryNav
         currentPage={info.currentPage}
         totalPages={info.totalPages}
