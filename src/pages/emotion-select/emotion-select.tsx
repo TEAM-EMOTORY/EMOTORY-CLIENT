@@ -18,7 +18,7 @@ const EmotionSelectPage = () => {
       { memberId: 1, storyId },
       {
         onSuccess: ({ playSessionId, currentNodeId }) => {
-          navigate('/story', { state: { playSessionId, currentNodeId } })
+          navigate(`/story/${currentNodeId}`, { state: { playSessionId } })
         },
       },
     )

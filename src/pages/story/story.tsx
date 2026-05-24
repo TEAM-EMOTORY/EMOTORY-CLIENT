@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import StoryHeader from './components/story-header/story-header'
 import StoryScene from './components/story-scene/story-scene'
 import StoryContent from './components/story-content/story-content'
@@ -33,9 +33,9 @@ const PLACEHOLDER_PAGE = {
 const StoryPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
+  const { storyNodeId } = useParams()
   const { data: sessionData } = usePlaySession(state?.playSessionId)
-  const [currentNodeId, setCurrentNodeId] = useState<number>(state?.currentNodeId)
-  const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
+  const { data: nodeData, isFetching } = useStoryNode(Number(storyNodeId))
   const { mutate: selectChoice } = useSelectChoice()
   const [info] = useState(PLACEHOLDER_INFO)
 
@@ -43,25 +43,29 @@ const StoryPage = () => {
     if (!state?.playSessionId) return
     selectChoice(
       { playSessionId: state.playSessionId, choiceId: Number(choiceId) },
-      { onSuccess: ({ currentNodeId: nextNodeId }) => setCurrentNodeId(nextNodeId) },
+      { onSuccess: ({ currentNodeId: nextNodeId }) => navigate(`/story/${nextNodeId}`, { state }) },
     )
   }
 
-  const handlePrev = () => {
-    // TODO: 이전 페이지 로직
-  }
+  const handlePrev = () => navigate(-1)
 
   return (
     <div className={styles.page}>
       <StoryHeader emotionLabel={info.emotionLabel} />
-      <div key={currentNodeId} className={styles.fadeInContent}>
+      <div key={storyNodeId}>
         <div className={styles.main}>
           <StoryScene imageUrl={PLACEHOLDER_PAGE.sceneImageUrl} />
-          <StoryContent title={PLACEHOLDER_PAGE.title} content={nodeData?.content ?? PLACEHOLDER_PAGE.content} />
+          <StoryContent
+            title={PLACEHOLDER_PAGE.title}
+            content={nodeData?.content ?? PLACEHOLDER_PAGE.content}
+          />
         </div>
         {!isFetching && nodeData && (
           <ChoiceSection
-            choices={nodeData.choices.map(({ choiceId, content }) => ({ id: String(choiceId), text: content }))}
+            choices={nodeData.choices.map(({ choiceId, content }) => ({
+              id: String(choiceId),
+              text: content,
+            }))}
             onChoiceSelect={handleChoiceSelect}
           />
         )}
