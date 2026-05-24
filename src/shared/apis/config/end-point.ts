@@ -8,7 +8,6 @@ export const END_POINT = {
     PLAY_SESSIONS: '/play-sessions',
   },
   STORY: {
-    PLAY_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}`,
     STORY_NODE: (storyNodeId: number) => `/story-nodes/${storyNodeId}`,
     SELECT_CHOICE: (playSessionId: number) => `/play-sessions/${playSessionId}/choices`,
   },

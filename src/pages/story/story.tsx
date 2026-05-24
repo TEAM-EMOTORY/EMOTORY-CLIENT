@@ -1,20 +1,17 @@
-import { useState } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
+
 import StoryHeader from './components/story-header/story-header'
 import StoryScene from './components/story-scene/story-scene'
 import StoryContent from './components/story-content/story-content'
 import ChoiceSection from './components/choice-section/choice-section'
 import StoryNav from './components/story-nav/story-nav'
 import * as styles from './story.css'
-import { usePlaySession } from './hooks/use-play-session'
 import { decodeNodeId, encodeNodeId } from '@shared/utils/encode-node-id'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 
-// TODO: API 연동 시 제거
 const PLACEHOLDER_INFO = {
   emotionLabel: '기쁨 이야기',
-  currentPage: 0,
   totalPages: 5,
 }
 
@@ -36,10 +33,8 @@ const StoryPage = () => {
   const { state } = useLocation()
   const { storyNodeId } = useParams()
   const currentNodeId = storyNodeId ? decodeNodeId(storyNodeId) : undefined
-  const { data: sessionData } = usePlaySession(state?.playSessionId)
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
   const { mutate: selectChoice } = useSelectChoice()
-  const [info] = useState(PLACEHOLDER_INFO)
 
   const handleChoiceSelect = (choiceId: string) => {
     if (!state?.playSessionId) return
@@ -53,7 +48,7 @@ const StoryPage = () => {
 
   return (
     <div className={styles.page}>
-      <StoryHeader emotionLabel={info.emotionLabel} />
+      <StoryHeader emotionLabel={PLACEHOLDER_INFO.emotionLabel} />
       <div key={storyNodeId}>
         <div className={styles.main}>
           <StoryScene imageUrl={PLACEHOLDER_PAGE.sceneImageUrl} />
@@ -73,8 +68,7 @@ const StoryPage = () => {
         )}
       </div>
       <StoryNav
-        currentPage={info.currentPage}
-        totalPages={info.totalPages}
+        nodeOrder={nodeData?.nodeOrder ?? 1}
         onHome={() => navigate('/')}
         onPrev={handlePrev}
       />
