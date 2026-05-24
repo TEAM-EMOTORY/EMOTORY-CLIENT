@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import StoryHeader from './components/story-header/story-header'
 import StoryScene from './components/story-scene/story-scene'
 import StoryContent from './components/story-content/story-content'
 import ChoiceSection from './components/choice-section/choice-section'
 import StoryNav from './components/story-nav/story-nav'
 import * as styles from './story.css'
+import { usePlaySession } from './hooks/use-play-session'
 
 // TODO: API 연동 시 제거
 const PLACEHOLDER_INFO = {
@@ -29,6 +30,8 @@ const PLACEHOLDER_PAGE = {
 
 const StoryPage = () => {
   const navigate = useNavigate()
+  const { state } = useLocation()
+  const { data: sessionData } = usePlaySession(state?.playSessionId)
   const [info] = useState(PLACEHOLDER_INFO)
   const [pageData] = useState(PLACEHOLDER_PAGE)
 

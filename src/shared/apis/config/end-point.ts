@@ -8,7 +8,7 @@ export const END_POINT = {
     PLAY_SESSIONS: '/play-sessions',
   },
   STORY: {
-    // 동화 생성/조회
+    PLAY_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}`,
   },
   RESULT: {
     // 결과 조회
