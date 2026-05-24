@@ -7,6 +7,7 @@ import ChoiceSection from './components/choice-section/choice-section'
 import StoryNav from './components/story-nav/story-nav'
 import * as styles from './story.css'
 import { usePlaySession } from './hooks/use-play-session'
+import { decodeNodeId, encodeNodeId } from '@shared/utils/encode-node-id'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 
@@ -34,8 +35,9 @@ const StoryPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
   const { storyNodeId } = useParams()
+  const currentNodeId = storyNodeId ? decodeNodeId(storyNodeId) : undefined
   const { data: sessionData } = usePlaySession(state?.playSessionId)
-  const { data: nodeData, isFetching } = useStoryNode(Number(storyNodeId))
+  const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
   const { mutate: selectChoice } = useSelectChoice()
   const [info] = useState(PLACEHOLDER_INFO)
 
@@ -43,7 +45,7 @@ const StoryPage = () => {
     if (!state?.playSessionId) return
     selectChoice(
       { playSessionId: state.playSessionId, choiceId: Number(choiceId) },
-      { onSuccess: ({ currentNodeId: nextNodeId }) => navigate(`/story/${nextNodeId}`, { state }) },
+      { onSuccess: ({ currentNodeId: nextNodeId }) => navigate(`/story/${encodeNodeId(nextNodeId)}`, { state }) },
     )
   }
 
