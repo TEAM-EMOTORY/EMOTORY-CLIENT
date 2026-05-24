@@ -1,19 +1,27 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '@shared/components/button/button'
 import Input from '@shared/components/input/input'
 import * as styles from './child-info.css'
 import PhotoUpload from './components/PhotoUpload/photo-upload'
+import { useUploadPhoto } from './hooks/use-upload-photo'
 
 const ChildInfoPage = () => {
+  const navigate = useNavigate()
   const [name, setName] = useState('')
   const [photoUrl, setPhotoUrl] = useState<string>()
+  const [fileKey, setFileKey] = useState<string | null>(null)
+
+  const { mutate: uploadPhoto, isPending: isUploading } = useUploadPhoto()
 
   const handlePhotoSelect = (file: File) => {
     setPhotoUrl(URL.createObjectURL(file))
+    setFileKey(null)
+    uploadPhoto(file, { onSuccess: (key) => setFileKey(key) })
   }
 
   const handleNext = () => {
-    // TODO: 다음 페이지 이동
+    navigate('/emotion-select')
   }
 
   return (
@@ -38,7 +46,12 @@ const ChildInfoPage = () => {
             <span className={styles.titleStar}>★</span>
             이름은 언제든지 변경할 수 있어요.
           </p>
-          <Button children='다음으로 >' color='yellow' onClick={handleNext} />
+          <Button
+            children='다음으로 >'
+            color='yellow'
+            onClick={handleNext}
+            disabled={isUploading || !name.trim() || !fileKey}
+          />
         </div>
       </div>
     </div>

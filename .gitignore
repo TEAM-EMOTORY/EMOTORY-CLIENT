@@ -42,3 +42,4 @@ agents/
 skills/
 slash-commands/
 dev/
+.env
