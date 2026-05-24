@@ -7,6 +7,7 @@ import ChoiceSection from './components/choice-section/choice-section'
 import StoryNav from './components/story-nav/story-nav'
 import * as styles from './story.css'
 import { usePlaySession } from './hooks/use-play-session'
+import { useStoryNode } from './hooks/use-story-node'
 
 // TODO: API 연동 시 제거
 const PLACEHOLDER_INFO = {
@@ -32,8 +33,8 @@ const StoryPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
   const { data: sessionData } = usePlaySession(state?.playSessionId)
+  const { data: nodeData } = useStoryNode(state?.currentNodeId)
   const [info] = useState(PLACEHOLDER_INFO)
-  const [pageData] = useState(PLACEHOLDER_PAGE)
 
   const handleChoiceSelect = (id: string) => {
     // TODO: API 연동
@@ -48,10 +49,13 @@ const StoryPage = () => {
     <div className={styles.page}>
       <StoryHeader emotionLabel={info.emotionLabel} />
       <div className={styles.main}>
-        <StoryScene imageUrl={pageData.sceneImageUrl} />
-        <StoryContent title={pageData.title} content={pageData.content} />
+        <StoryScene imageUrl={PLACEHOLDER_PAGE.sceneImageUrl} />
+        <StoryContent title={PLACEHOLDER_PAGE.title} content={nodeData?.content ?? PLACEHOLDER_PAGE.content} />
       </div>
-      <ChoiceSection choices={pageData.choices} onChoiceSelect={handleChoiceSelect} />
+      <ChoiceSection
+        choices={nodeData?.choices.map(({ choiceId, content }) => ({ id: String(choiceId), text: content })) ?? PLACEHOLDER_PAGE.choices}
+        onChoiceSelect={handleChoiceSelect}
+      />
       <StoryNav
         currentPage={info.currentPage}
         totalPages={info.totalPages}

@@ -9,6 +9,7 @@ export const END_POINT = {
   },
   STORY: {
     PLAY_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}`,
+    STORY_NODE: (storyNodeId: number) => `/story-nodes/${storyNodeId}`,
   },
   RESULT: {
     // 결과 조회
