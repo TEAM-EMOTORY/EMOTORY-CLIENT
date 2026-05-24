@@ -11,15 +11,17 @@ const emotions = [
 
 const EmotionSelectPage = () => {
   const navigate = useNavigate()
-  const childName = localStorage.getItem('childName') ?? '하이'
+
+  const childName = localStorage.getItem('childName') ?? ''
+
   const { mutate: createPlaySession, isPending } = useCreatePlaySession()
 
-  const handleEmotionSelect = (storyId: number) => {
+  const handleEmotionSelect = (storyId: number, label: string) => {
     createPlaySession(
       { memberId: 1, storyId },
       {
         onSuccess: ({ playSessionId, currentNodeId }) => {
-          navigate(`/story/${encodeNodeId(currentNodeId)}`, { state: { playSessionId } })
+          navigate(`/story/${encodeNodeId(currentNodeId)}`, { state: { playSessionId, emotionLabel: label } })
         },
       },
     )
@@ -42,7 +44,7 @@ const EmotionSelectPage = () => {
             key={storyId}
             type='button'
             className={className}
-            onClick={() => handleEmotionSelect(storyId)}
+            onClick={() => handleEmotionSelect(storyId, label)}
             disabled={isPending}
           >
             <span className={styles.labelText}>{label}</span>

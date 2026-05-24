@@ -2,6 +2,7 @@ export const END_POINT = {
   CHILD_INFO: {
     PRESIGNED_UPLOAD: '/s3/presigned-upload',
     CREATE_MEMBER: '/members',
+
   },
   EMOTION_SELECT: {
     STORIES: '/stories',

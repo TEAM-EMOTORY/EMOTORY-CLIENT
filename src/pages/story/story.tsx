@@ -1,5 +1,4 @@
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
-
 import { useEffect } from 'react'
 import StoryHeader from './components/story-header/story-header'
 import StoryScene from './components/story-scene/story-scene'
@@ -8,20 +7,18 @@ import ChoiceSection from './components/choice-section/choice-section'
 import StoryNav from './components/story-nav/story-nav'
 import * as styles from './story.css'
 import { decodeNodeId, encodeNodeId } from '@shared/utils/encode-node-id'
+import { replaceNameInContent } from '@shared/utils/korean-particle'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 import { useEndSession } from './hooks/use-end-session'
-
-const PLACEHOLDER_INFO = {
-  emotionLabel: '기쁨 이야기',
-  totalPages: 5,
-}
-
 
 const StoryPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
   const { storyNodeId } = useParams()
+
+  const childName = localStorage.getItem('childName') ?? ''
+
   const currentNodeId = storyNodeId ? decodeNodeId(storyNodeId) : undefined
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
   const { mutate: selectChoice } = useSelectChoice()
@@ -49,31 +46,26 @@ const StoryPage = () => {
       endSession(state.playSessionId)
       navigate('/result', { state: { playSessionId: state.playSessionId } })
     }
-  }, [isFetching, nodeData])
+  }, [isFetching, nodeData, endSession, navigate, state?.playSessionId])
 
   const handlePrev = () => navigate(-1)
 
   return (
     <div className={styles.page}>
-      <StoryHeader emotionLabel={PLACEHOLDER_INFO.emotionLabel} />
+      <StoryHeader emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : ''} />
       <div key={storyNodeId}>
         <div className={styles.main}>
           <StoryScene imageUrl='' />
-          <StoryContent
-            title=''
-            content={nodeData?.content ?? ''}
-          />
+          <StoryContent title={`${childName}의 모험`} content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''} />
         </div>
-        {!isFetching && nodeData && (
-          nodeData.choices.length > 0 && (
-            <ChoiceSection
-              choices={nodeData.choices.map(({ choiceId, content }) => ({
-                id: String(choiceId),
-                text: content,
-              }))}
-              onChoiceSelect={handleChoiceSelect}
-            />
-          )
+        {!isFetching && nodeData && nodeData.choices.length > 0 && (
+          <ChoiceSection
+            choices={nodeData.choices.map(({ choiceId, content }) => ({
+              id: String(choiceId),
+              text: content,
+            }))}
+            onChoiceSelect={handleChoiceSelect}
+          />
         )}
       </div>
       <StoryNav
