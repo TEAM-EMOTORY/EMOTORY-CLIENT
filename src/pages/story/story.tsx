@@ -12,11 +12,6 @@ import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 import { useEndSession } from './hooks/use-end-session'
 
-const PLACEHOLDER_INFO = {
-  emotionLabel: '기쁨 이야기',
-  totalPages: 5,
-}
-
 const StoryPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -57,7 +52,7 @@ const StoryPage = () => {
 
   return (
     <div className={styles.page}>
-      <StoryHeader emotionLabel={PLACEHOLDER_INFO.emotionLabel} />
+      <StoryHeader emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : ''} />
       <div key={storyNodeId}>
         <div className={styles.main}>
           <StoryScene imageUrl='' />
