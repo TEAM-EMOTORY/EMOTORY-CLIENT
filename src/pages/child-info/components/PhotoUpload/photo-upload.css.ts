@@ -2,6 +2,7 @@ import { themeVars } from '@shared/styles/theme.css'
 import { style } from '@vanilla-extract/css'
 
 export const uploadBox = style({
+  position: 'relative',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -9,6 +10,7 @@ export const uploadBox = style({
   height: '29rem',
   backgroundColor: themeVars.color.primary100,
   borderRadius: '20px',
+  overflow: 'hidden',
 })
 
 export const previewImage = style({
