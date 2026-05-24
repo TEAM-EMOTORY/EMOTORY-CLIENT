@@ -13,6 +13,7 @@ export const content = style({
   padding: '2rem 6rem',
   transform: 'rotate(3deg)',
   border: `0.15rem solid ${themeVars.color.primary300}`,
+  backgroundColor: themeVars.color.white,
   boxShadow:
     'inset 0 6px 20px rgba(255, 255, 255, 0.65), 0 0 10px 2px rgba(252, 201, 68, 0.15), 0 0 18px 4px rgba(248, 229, 205, 0.25)',
   borderRadius: '30px',
