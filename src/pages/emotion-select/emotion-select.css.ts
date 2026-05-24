@@ -6,7 +6,7 @@ import joyImg from '@shared/assets/emotion-img/joy.webp'
 import sadImg from '@shared/assets/emotion-img/sad.webp'
 
 export const wrapper = style({
-  marginTop: '10rem',
+  paddingTop: '10rem',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -18,11 +18,15 @@ export const titleGroup = style({
   flexDirection: 'column',
   gap: '1rem',
   textAlign: 'center',
+  filter:
+    'drop-shadow(0 0 6px #fff) drop-shadow(0 0 24px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 48px rgba(255, 255, 255, 0.4))',
 })
 
 export const mainTitle = style({
   ...themeVars.fontStyles.body_40eb,
   color: themeVars.color.navy100,
+  WebkitTextStroke: '0.5rem white',
+  paintOrder: 'stroke fill',
 })
 
 export const pointWord = style({
@@ -41,7 +45,7 @@ export const cardSection = style({
 })
 
 const emotionCardBase = style({
-  width: '18.0rem',
+  width: '19rem',
   aspectRatio: '14 / 20',
   borderRadius: '2.0rem',
   cursor: 'pointer',

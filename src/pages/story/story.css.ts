@@ -7,8 +7,18 @@ export const page = style({
   padding: '3rem 2rem',
 })
 
+export const wrapper = style({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: 0,
+})
+
 export const main = style({
   flex: 1,
   display: 'flex',
   gap: '2.4rem',
+  alignItems: 'stretch',
+  justifyContent: 'center',
+  minHeight: 0,
 })

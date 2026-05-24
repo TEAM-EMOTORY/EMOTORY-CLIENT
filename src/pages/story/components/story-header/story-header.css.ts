@@ -9,7 +9,9 @@ export const header = style({
 })
 
 export const logo = style({
-  ...themeVars.fontStyles.body_24eb,
+  height: '5rem',
+  width: 'auto',
+  objectFit: 'contain',
 })
 
 export const emotionChip = style({
