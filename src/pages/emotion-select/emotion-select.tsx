@@ -1,13 +1,28 @@
+import { useNavigate } from 'react-router-dom'
 import * as styles from './emotion-select.css'
+import { useCreatePlaySession } from './hooks/use-create-play-session'
 
 const emotions = [
-  { id: 'sad', label: '슬픔', className: styles.emotionCardSad },
-  { id: 'happy', label: '기쁨', className: styles.emotionCardJoy },
-  { id: 'angry', label: '분노', className: styles.emotionCardAngry },
+  { label: '슬픔', className: styles.emotionCardSad, storyId: 1 },
+  { label: '기쁨', className: styles.emotionCardJoy, storyId: 2 },
+  { label: '분노', className: styles.emotionCardAngry, storyId: 3 },
 ]
 
 const EmotionSelectPage = () => {
+  const navigate = useNavigate()
   const childName = localStorage.getItem('childName') ?? '하이'
+  const { mutate: createPlaySession } = useCreatePlaySession()
+
+  const handleEmotionSelect = (storyId: number) => {
+    createPlaySession(
+      { memberId: 1, storyId },
+      {
+        onSuccess: ({ playSessionId, currentNodeId }) => {
+          navigate('/story', { state: { playSessionId, currentNodeId } })
+        },
+      },
+    )
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -21,9 +36,14 @@ const EmotionSelectPage = () => {
       </div>
 
       <section className={styles.cardSection}>
-        {emotions.map((emotion) => (
-          <button key={emotion.id} type='button' className={emotion.className}>
-            <span className={styles.labelText}>{emotion.label}</span>
+        {emotions.map(({ className, storyId, label }) => (
+          <button
+            key={storyId}
+            type='button'
+            className={className}
+            onClick={() => handleEmotionSelect(storyId)}
+          >
+            <span className={styles.labelText}>{label}</span>
           </button>
         ))}
       </section>

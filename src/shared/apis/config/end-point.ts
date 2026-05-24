@@ -5,6 +5,7 @@ export const END_POINT = {
   },
   EMOTION_SELECT: {
     STORIES: '/stories',
+    PLAY_SESSIONS: '/play-sessions',
   },
   STORY: {
     // 동화 생성/조회
