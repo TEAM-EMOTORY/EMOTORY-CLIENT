@@ -53,20 +53,21 @@ const StoryPage = () => {
   return (
     <div className={styles.page}>
       <StoryHeader emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : ''} />
-      <div key={storyNodeId} className={styles.wrapper}>
+      <div className={styles.wrapper}>
         <div className={styles.main}>
           <StoryScene imageUrl='' />
-          <StoryContent title={`${childName}의 모험`} content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''} />
-        </div>
-        {!isFetching && nodeData && nodeData.choices.length > 0 && (
-          <ChoiceSection
-            choices={nodeData.choices.map(({ choiceId, content }) => ({
-              id: String(choiceId),
-              text: content,
-            }))}
-            onChoiceSelect={handleChoiceSelect}
+          <StoryContent
+            title={`${childName}의 모험`}
+            content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''}
           />
-        )}
+        </div>
+        <ChoiceSection
+          choices={nodeData?.choices.map(({ choiceId, content }) => ({
+            id: String(choiceId),
+            text: content,
+          })) ?? []}
+          onChoiceSelect={handleChoiceSelect}
+        />
       </div>
       <StoryNav
         nodeOrder={nodeData?.nodeOrder ?? 1}

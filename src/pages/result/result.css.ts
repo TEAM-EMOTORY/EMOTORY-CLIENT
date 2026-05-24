@@ -27,6 +27,8 @@ export const titleSection = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  filter:
+    'drop-shadow(0 0 6px #fff) drop-shadow(0 0 24px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 48px rgba(255, 255, 255, 0.4))',
 })
 
 export const title = style({
@@ -80,8 +82,8 @@ export const ctaButton = style({
   backgroundColor: themeVars.color.primary500,
   border: `0.1rem solid ${themeVars.color.primary300}`,
   borderRadius: '5rem',
-  ...themeVars.fontStyles.body_24eb,
-  color: themeVars.color.brown200,
+  ...themeVars.fontStyles.body_20eb,
+  color: themeVars.color.white,
   cursor: 'pointer',
   whiteSpace: 'nowrap',
   boxShadow: 'inset 0px 3px 6px rgba(255, 255, 255, 0.41), inset 0px -3px 5px rgba(0, 0, 0, 0.08)',
