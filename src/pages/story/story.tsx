@@ -11,6 +11,7 @@ import { decodeNodeId, encodeNodeId } from '@shared/utils/encode-node-id'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 import { useEndSession } from './hooks/use-end-session'
+import { useGenerateImage } from './hooks/use-generate-image'
 
 const PLACEHOLDER_INFO = {
   emotionLabel: '기쁨 이야기',
@@ -24,6 +25,9 @@ const StoryPage = () => {
   const { storyNodeId } = useParams()
   const currentNodeId = storyNodeId ? decodeNodeId(storyNodeId) : undefined
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
+  const faceImageKey = localStorage.getItem('faceImageKey') ?? ''
+  const { data: imageData } = useGenerateImage(faceImageKey, currentNodeId, state?.playSessionId)
+
   const { mutate: selectChoice } = useSelectChoice()
   const { mutate: endSession } = useEndSession()
 
@@ -58,7 +62,7 @@ const StoryPage = () => {
       <StoryHeader emotionLabel={PLACEHOLDER_INFO.emotionLabel} />
       <div key={storyNodeId}>
         <div className={styles.main}>
-          <StoryScene imageUrl='' />
+          <StoryScene imageUrl={imageData?.imageUrl ?? ''} />
           <StoryContent
             title=''
             content={nodeData?.content ?? ''}

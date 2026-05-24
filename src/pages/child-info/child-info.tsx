@@ -26,7 +26,13 @@ const ChildInfoPage = () => {
     if (!uploadResult) return
     createMember(
       { name, faceImageUrl: uploadResult.faceImageUrl, isPrivacyAgreed: true },
-      { onSuccess: () => navigate('/emotion-select') },
+      {
+        onSuccess: () => {
+          localStorage.setItem('childName', name)
+          localStorage.setItem('faceImageKey', uploadResult!.fileKey)
+          navigate('/emotion-select')
+        },
+      },
     )
   }
 
