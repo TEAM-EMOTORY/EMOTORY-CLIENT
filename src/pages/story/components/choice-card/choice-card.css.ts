@@ -27,7 +27,7 @@ export const inner = recipe({
     flex: 1,
     display: 'flex',
     alignItems: 'center',
-    padding: '1.6rem',
+    padding: '3rem',
     borderRadius: '14px',
   },
   variants: {

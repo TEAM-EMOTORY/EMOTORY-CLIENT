@@ -1,3 +1,4 @@
+import logoImg from '@shared/assets/logo.webp'
 import * as styles from './story-header.css'
 
 interface StoryHeaderProps {
@@ -7,7 +8,7 @@ interface StoryHeaderProps {
 const StoryHeader = ({ emotionLabel }: StoryHeaderProps) => {
   return (
     <header className={styles.header}>
-      <span className={styles.logo}>로고들어갈곳</span>
+      <img src={logoImg} alt="emotory logo" className={styles.logo} />
       <div className={styles.emotionChip}>
         <span>🐥</span>
         <span>{emotionLabel}</span>

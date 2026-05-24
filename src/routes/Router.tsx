@@ -5,7 +5,7 @@ import ChildInfoPage from '@pages/child-info/child-info'
 import EmotionSelectPage from '@pages/emotion-select/emotion-select'
 import StoryPage from '@pages/story/story'
 import ResultPage from '@pages/result/result'
-import Layout from '@shared/components/layout/layout'
+import { Layout, StoryLayout } from '@shared/components/layout/layout'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +18,11 @@ const router = createBrowserRouter([
       { path: '/agreement', element: <AgreementPage /> },
       { path: '/child-info', element: <ChildInfoPage /> },
       { path: '/emotion-select', element: <EmotionSelectPage /> },
+    ],
+  },
+  {
+    element: <StoryLayout />,
+    children: [
       { path: '/story/:storyNodeId', element: <StoryPage /> },
       { path: '/result', element: <ResultPage /> },
     ],

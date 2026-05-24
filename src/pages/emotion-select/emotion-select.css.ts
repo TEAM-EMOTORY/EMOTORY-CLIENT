@@ -45,7 +45,7 @@ export const cardSection = style({
 })
 
 const emotionCardBase = style({
-  width: '18.0rem',
+  width: '19rem',
   aspectRatio: '14 / 20',
   borderRadius: '2.0rem',
   cursor: 'pointer',
