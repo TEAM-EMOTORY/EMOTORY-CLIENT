@@ -1,0 +1,15 @@
+export const color = {
+  white: '#FFFFFF',
+  orange: '#F5622E',
+  primary50: '#fffefa',
+  primary100: '#FFF9F0',
+  primary150: '#fffbf0',
+  primary200: '#FEF1D3',
+  primary300: '#F8E5CD',
+  primary400: '#f3ae00',
+  primary500: '#FCC944',
+  navy100: '#1C599D',
+  navy200: '#0F154D',
+  brown100: '#CCBBA6',
+  brown200: '#68462B',
+} as const
