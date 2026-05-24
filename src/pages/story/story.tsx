@@ -7,10 +7,10 @@ import ChoiceSection from './components/choice-section/choice-section'
 import StoryNav from './components/story-nav/story-nav'
 import * as styles from './story.css'
 import { decodeNodeId, encodeNodeId } from '@shared/utils/encode-node-id'
+import { replaceNameInContent } from '@shared/utils/korean-particle'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 import { useEndSession } from './hooks/use-end-session'
-import { useMember } from '@shared/hooks/use-member'
 
 const PLACEHOLDER_INFO = {
   emotionLabel: '기쁨 이야기',
@@ -22,9 +22,7 @@ const StoryPage = () => {
   const { state } = useLocation()
   const { storyNodeId } = useParams()
 
-  const memberId = localStorage.getItem('memberId')
-  const { data } = useMember(memberId)
-  const childName = data?.name ?? '하이'
+  const childName = localStorage.getItem('childName') ?? ''
 
   const currentNodeId = storyNodeId ? decodeNodeId(storyNodeId) : undefined
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
@@ -53,7 +51,7 @@ const StoryPage = () => {
       endSession(state.playSessionId)
       navigate('/result', { state: { playSessionId: state.playSessionId } })
     }
-  }, [isFetching, nodeData])
+  }, [isFetching, nodeData, endSession, navigate, state?.playSessionId])
 
   const handlePrev = () => navigate(-1)
 
@@ -63,7 +61,7 @@ const StoryPage = () => {
       <div key={storyNodeId}>
         <div className={styles.main}>
           <StoryScene imageUrl='' />
-          <StoryContent title={`${childName}의 모험`} content={nodeData?.content ?? ''} />
+          <StoryContent title={`${childName}의 모험`} content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''} />
         </div>
         {!isFetching && nodeData && nodeData.choices.length > 0 && (
           <ChoiceSection

@@ -3,8 +3,6 @@ import * as styles from './emotion-select.css'
 import { useCreatePlaySession } from './hooks/use-create-play-session'
 import { encodeNodeId } from '@shared/utils/encode-node-id'
 
-import { useMember } from '@shared/hooks/use-member'
-
 const emotions = [
   { label: '슬픔', className: styles.emotionCardSad, storyId: 1 },
   { label: '기쁨', className: styles.emotionCardJoy, storyId: 2 },
@@ -14,18 +12,13 @@ const emotions = [
 const EmotionSelectPage = () => {
   const navigate = useNavigate()
 
-  const memberId = localStorage.getItem('memberId')
-
-  const { data } = useMember(memberId)
-  const childName = data?.name ?? '하이'
+  const childName = localStorage.getItem('childName') ?? ''
 
   const { mutate: createPlaySession, isPending } = useCreatePlaySession()
 
   const handleEmotionSelect = (storyId: number) => {
-    const currentMemberId = memberId ? Number(memberId) : 1
-
     createPlaySession(
-      { memberId: currentMemberId, storyId },
+      { memberId: 1, storyId },
       {
         onSuccess: ({ playSessionId, currentNodeId }) => {
           navigate(`/story/${encodeNodeId(currentNodeId)}`, { state: { playSessionId } })

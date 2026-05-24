@@ -4,17 +4,13 @@ import * as styles from './result.css'
 import StoryCard from './components/story-card/story-card'
 import EmotionCard from './components/emotion-card/emotion-card'
 import TipCard from './components/tip-card/tip-card'
-import { useMember } from '@shared/hooks/use-member'
-
 const TEST_IMAGE =
   'https://media.istockphoto.com/id/2148757239/ko/%EC%82%AC%EC%A7%84/%EC%95%84%EC%8B%9C%EC%95%84-%EC%9E%91%EC%9D%80-%EB%B0%9C%ED%86%B1-%EC%88%98%EB%8B%AC.jpg?s=612x612&w=0&k=20&c=xkH9d6pwEDkkzflv6tMelrv8DtXkUX5fX6ruUPt82Ak='
 
 const ResultPage = () => {
   const navigate = useNavigate()
 
-  const memberId = localStorage.getItem('memberId')
-  const { data } = useMember(memberId)
-  const childName = data?.name ?? '하이'
+  const childName = localStorage.getItem('childName') ?? ''
 
   return (
     <main className={styles.page}>
