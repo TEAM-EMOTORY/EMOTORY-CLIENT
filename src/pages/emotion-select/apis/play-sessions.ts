@@ -9,7 +9,7 @@ interface CreatePlaySessionRequest {
 interface CreatePlaySessionResponse {
   playSessionId: number
   currentNodeId: number
-  status: string
+  status: 'PLAYING' | 'ENDED'
 }
 
 export const createPlaySession = (data: CreatePlaySessionRequest) =>
