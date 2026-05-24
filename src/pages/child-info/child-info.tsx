@@ -5,23 +5,29 @@ import Input from '@shared/components/input/input'
 import * as styles from './child-info.css'
 import PhotoUpload from './components/PhotoUpload/photo-upload'
 import { useUploadPhoto } from './hooks/use-upload-photo'
+import { useCreateMember } from './hooks/use-create-member'
 
 const ChildInfoPage = () => {
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [photoUrl, setPhotoUrl] = useState<string>()
-  const [fileKey, setFileKey] = useState<string | null>(null)
+  const [uploadResult, setUploadResult] = useState<{ fileKey: string; faceImageUrl: string } | null>(null)
 
   const { mutate: uploadPhoto, isPending: isUploading } = useUploadPhoto()
+  const { mutate: createMember, isPending: isCreating } = useCreateMember()
 
   const handlePhotoSelect = (file: File) => {
     setPhotoUrl(URL.createObjectURL(file))
-    setFileKey(null)
-    uploadPhoto(file, { onSuccess: (key) => setFileKey(key) })
+    setUploadResult(null)
+    uploadPhoto(file, { onSuccess: (result) => setUploadResult(result) })
   }
 
   const handleNext = () => {
-    navigate('/emotion-select')
+    if (!uploadResult) return
+    createMember(
+      { name, faceImageUrl: uploadResult.faceImageUrl, isPrivacyAgreed: true },
+      { onSuccess: () => navigate('/emotion-select') },
+    )
   }
 
   return (
@@ -50,7 +56,7 @@ const ChildInfoPage = () => {
             children='다음으로 >'
             color='yellow'
             onClick={handleNext}
-            disabled={isUploading || !name.trim() || !fileKey}
+            disabled={isUploading || isCreating || !name.trim() || !uploadResult}
           />
         </div>
       </div>
