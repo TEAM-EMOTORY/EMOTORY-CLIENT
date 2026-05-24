@@ -53,7 +53,7 @@ const StoryPage = () => {
   return (
     <div className={styles.page}>
       <StoryHeader emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : ''} />
-      <div key={storyNodeId}>
+      <div key={storyNodeId} className={styles.wrapper}>
         <div className={styles.main}>
           <StoryScene imageUrl='' />
           <StoryContent title={`${childName}의 모험`} content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''} />

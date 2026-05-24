@@ -3,13 +3,14 @@ import { style } from '@vanilla-extract/css'
 
 export const content = style({
   display: 'flex',
-  width: '40rem',
-  height: '40rem',
+  flex: 1,
+  minWidth: 0,
+  height: '100%',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   gap: '2rem',
-  padding: '2rem 4rem',
+  padding: '2rem 6rem',
   transform: 'rotate(3deg)',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   boxShadow:
@@ -32,4 +33,5 @@ export const line = style({
   ...themeVars.fontStyles.body_18eb,
   color: themeVars.color.brown200,
   textAlign: 'center',
+  lineHeight: 2,
 })
