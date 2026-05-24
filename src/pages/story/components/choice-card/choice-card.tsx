@@ -10,14 +10,12 @@ interface ChoiceCardProps {
 
 const ChoiceCard = ({ text, color = 'yellow', onClick }: ChoiceCardProps) => {
   return (
-    <div className={styles.card({ color })}>
+    <button type='button' className={styles.card({ color })} onClick={onClick}>
       <div className={styles.inner({ color })}>
         <p className={styles.text}>{text}</p>
-        <button type='button' className={styles.arrowBtn({ color })} onClick={onClick}>
-          ›
-        </button>
+        <span className={styles.arrowBtn({ color })}>›</span>
       </div>
-    </div>
+    </button>
   )
 }
 

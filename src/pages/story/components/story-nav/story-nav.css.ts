@@ -23,22 +23,18 @@ export const navBtn = style({
   boxShadow: '0 2px 8px rgba(248, 225, 189, 0.4)',
 })
 
-export const dots = style({
-  display: 'flex',
-  gap: '0.8rem',
-  alignItems: 'center',
+export const progressTrack = style({
+  flex: 1,
+  height: '0.8rem',
+  backgroundColor: themeVars.color.primary200,
+  borderRadius: '10rem',
+  margin: '0 1.6rem',
+  overflow: 'hidden',
 })
 
-export const dot = style({
-  width: '1rem',
-  height: '1rem',
-  borderRadius: '50%',
-  backgroundColor: themeVars.color.primary300,
-})
-
-export const dotActive = style({
-  width: '1rem',
-  height: '1rem',
-  borderRadius: '50%',
+export const progressFill = style({
+  height: '100%',
   backgroundColor: themeVars.color.primary500,
+  borderRadius: '10rem',
+  transition: 'width 0.4s ease',
 })

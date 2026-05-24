@@ -1,22 +1,21 @@
 import * as styles from './story-nav.css'
 
 interface StoryNavProps {
-  currentPage: number
-  totalPages: number
+  nodeOrder: number
   onHome: () => void
   onPrev: () => void
 }
 
-const StoryNav = ({ currentPage, totalPages, onHome, onPrev }: StoryNavProps) => {
+const StoryNav = ({ nodeOrder, onHome, onPrev }: StoryNavProps) => {
+  const progress = Math.min(nodeOrder * 8, 90)
+
   return (
     <nav className={styles.nav}>
       <button type='button' className={styles.navBtn} onClick={onHome}>
         🏠 처음으로
       </button>
-      <div className={styles.dots}>
-        {Array.from({ length: totalPages }).map((_, i) => (
-          <span key={i} className={i === currentPage ? styles.dotActive : styles.dot} />
-        ))}
+      <div className={styles.progressTrack}>
+        <div className={styles.progressFill} style={{ width: `${progress}%` }} />
       </div>
       <button type='button' className={styles.navBtn} onClick={onPrev}>
         ← 이전으로

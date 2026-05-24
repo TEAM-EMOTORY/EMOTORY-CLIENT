@@ -8,7 +8,9 @@ export const END_POINT = {
     PLAY_SESSIONS: '/play-sessions',
   },
   STORY: {
-    // 동화 생성/조회
+    STORY_NODE: (storyNodeId: number) => `/story-nodes/${storyNodeId}`,
+    SELECT_CHOICE: (playSessionId: number) => `/play-sessions/${playSessionId}/choices`,
+    END_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}/end`,
   },
   RESULT: {
     // 결과 조회

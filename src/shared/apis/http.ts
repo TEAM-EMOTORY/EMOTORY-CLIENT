@@ -16,4 +16,9 @@ export const http = {
     const response = await axiosInstance.post<TResponse>(url, data, config)
     return response.data
   },
+
+  patch: async <TResponse = void>(url: string, config?: AxiosRequestConfig): Promise<TResponse> => {
+    const response = await axiosInstance.patch<TResponse>(url, undefined, config)
+    return response.data
+  },
 }

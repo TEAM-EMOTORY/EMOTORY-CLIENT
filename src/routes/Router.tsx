@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element: <EmotionSelectPage />,
   },
   {
-    path: '/story',
+    path: '/story/:storyNodeId',
     element: <StoryPage />,
   },
   {
