@@ -4,8 +4,6 @@ import * as styles from './result.css'
 import StoryCard from './components/story-card/story-card'
 import EmotionCard from './components/emotion-card/emotion-card'
 import TipCard from './components/tip-card/tip-card'
-import { useMember } from '@shared/hooks/use-member'
-// 1. 결과 조회 훅 임포트
 import { useStoryResult } from '@shared/hooks/use-story-result'
 
 const TEST_IMAGE =
@@ -15,10 +13,7 @@ const ResultPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
 
-  const memberId = localStorage.getItem('memberId')
-  const { data: memberData } = useMember(memberId)
-  const childName = memberData?.name ?? '하이'
-
+  const childName = localStorage.getItem('childName') ?? ''
   const playSessionId = state?.playSessionId
   const { data: resultData } = useStoryResult(playSessionId)
 
@@ -37,14 +32,12 @@ const ResultPage = () => {
         <div className={styles.mainCards}>
           <StoryCard
             imageUrl={TEST_IMAGE}
-            // 3. 가짜 텍스트 대신 서버에서 받아온 요약본 반영
             summary={resultData?.summary ?? '이야기 요약을 불러오는 중이에요...'}
             className={styles.storyCard}
           />
           <EmotionCard
             name={childName}
             imageUrl={TEST_IMAGE}
-            // 4. 가짜 감정 데이터 대신 서버에서 실시간 분석한 감정명과 태그 반영
             title={resultData?.emotionTitle ?? '감정을 분석 중이에요...'}
             summary={`${childName}가 이야기 속에서 느낀 핵심 감정 리포트입니다.`}
             tags={resultData?.tags ?? []}
