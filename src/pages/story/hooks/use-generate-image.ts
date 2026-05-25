@@ -10,4 +10,6 @@ export const useGenerateImage = (
     queryKey: ['generate-image', nodeId],
     queryFn: () => generateImage({ faceImageKey, nodeId: nodeId!, playSessionId: playSessionId! }),
     enabled: !!faceImageKey && !!nodeId && !!playSessionId,
+    retry: false,
+    staleTime: Infinity,
   })

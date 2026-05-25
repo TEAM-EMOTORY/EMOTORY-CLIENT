@@ -23,7 +23,7 @@ const StoryPage = () => {
   const currentNodeId = storyNodeId ? Number(storyNodeId) : undefined
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
   const faceImageKey = localStorage.getItem('faceImageKey') ?? ''
-  const { data: imageData } = useGenerateImage(faceImageKey, currentNodeId, state?.playSessionId)
+  const { data: imageData, isLoading: isImageLoading } = useGenerateImage(faceImageKey, currentNodeId, state?.playSessionId)
 
   const { mutate: selectChoice } = useSelectChoice()
   const { mutate: endSession } = useEndSession()
@@ -75,7 +75,7 @@ const StoryPage = () => {
       <StoryHeader emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : ''} />
       <div className={styles.wrapper}>
         <div className={styles.main}>
-          <StoryScene imageUrl={imageData?.imageUrl ?? ''} />
+          <StoryScene imageUrl={imageData?.imageUrl ?? ''} isLoading={isImageLoading} />
           <StoryContent
             content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''}
           />
