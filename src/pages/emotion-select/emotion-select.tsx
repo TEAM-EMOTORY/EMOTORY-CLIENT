@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import * as styles from './emotion-select.css'
 import { useCreatePlaySession } from './hooks/use-create-play-session'
 import { encodeNodeId } from '@shared/utils/encode-node-id'
+import { hasConsonantEnding } from '@shared/utils/korean-particle'
 
 const emotions = [
   { label: '슬픔', className: styles.emotionCardSad, storyId: 1 },
@@ -31,7 +32,7 @@ const EmotionSelectPage = () => {
     <div className={styles.wrapper}>
       <div className={styles.titleGroup}>
         <h1 className={styles.mainTitle}>
-          {childName}야,
+          {childName}{hasConsonantEnding(childName) ? '아' : '야'},
           <br />
           오늘은 어떤 <span className={styles.pointWord}>감정</span>을 탐험해볼까?
         </h1>

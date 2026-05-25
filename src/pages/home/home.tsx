@@ -1,16 +1,18 @@
+import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import homeBg from '@shared/assets/background-img/home.webp'
 import * as styles from './home.css'
+import { useImageButtonPos } from './hooks/use-image-button-pos'
 
 const HomePage = () => {
   const navigate = useNavigate()
-
-  const handleStartStoryClick = () => {
-    navigate('/agreement')
-  }
+  const containerRef = useRef<HTMLDivElement>(null)
+  useImageButtonPos(containerRef)
 
   return (
-    <div className={styles.bgContainer}>
-      <button className={styles.button} onClick={handleStartStoryClick} />
+    <div ref={containerRef} className={styles.bgContainer}>
+      <img src={homeBg} alt='' className={styles.bgImage} />
+      <button className={styles.button} onClick={() => navigate('/agreement')} />
     </div>
   )
 }

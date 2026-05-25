@@ -74,7 +74,7 @@ const ResultPage = () => {
           <Button color='white' onClick={() => navigate('/')}>
             🏠 처음으로
           </Button>
-          <button type='button' className={styles.ctaButton}>
+          <button type='button' className={styles.ctaButton} onClick={() => navigate('/emotion-select')}>
             ✦ 다른 감정을 탐험해볼래요? &gt;
           </button>
           <Button color='white' onClick={() => {}}>

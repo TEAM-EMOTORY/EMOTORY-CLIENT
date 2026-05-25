@@ -63,7 +63,7 @@ const StoryPage = () => {
   return (
     <div className={styles.page}>
       <StoryHeader emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : ''} />
-      <div key={storyNodeId}>
+      <div className={styles.wrapper}>
         <div className={styles.main}>
           <StoryScene imageUrl='' />
           <StoryContent
