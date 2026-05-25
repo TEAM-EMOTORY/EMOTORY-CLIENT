@@ -9,9 +9,10 @@ interface StoryChoice {
 interface ChoiceSectionProps {
   choices: StoryChoice[]
   onChoiceSelect: (id: string) => void
+  disabled?: boolean
 }
 
-const ChoiceSection = ({ choices, onChoiceSelect }: ChoiceSectionProps) => {
+const ChoiceSection = ({ choices, onChoiceSelect, disabled }: ChoiceSectionProps) => {
   return (
     <div className={styles.section}>
       <div className={styles.label}>
@@ -26,10 +27,11 @@ const ChoiceSection = ({ choices, onChoiceSelect }: ChoiceSectionProps) => {
                 text={choice.text}
                 color={(['yellow', 'blue', 'purple'] as const)[i % 3]}
                 onClick={() => onChoiceSelect(choice.id)}
+                disabled={disabled}
               />
             ))
           : ([0, 1, 2] as const).map((i) => (
-              <ChoiceCard key={i} text='' color={(['yellow', 'blue', 'purple'] as const)[i]} onClick={() => {}} />
+              <ChoiceCard key={i} text='' color={(['yellow', 'blue', 'purple'] as const)[i]} onClick={() => {}} disabled />
             ))}
       </div>
     </div>

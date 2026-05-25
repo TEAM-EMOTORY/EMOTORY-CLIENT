@@ -12,6 +12,7 @@ export const END_POINT = {
     STORY_NODE: (storyNodeId: number) => `/story-nodes/${storyNodeId}`,
     SELECT_CHOICE: (playSessionId: number) => `/play-sessions/${playSessionId}/choices`,
     END_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}/end`,
+    GENERATE_IMAGE: '/images/generate',
   },
   RESULT: {
     CREATE: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,

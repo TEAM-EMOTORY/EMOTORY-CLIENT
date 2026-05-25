@@ -10,6 +10,7 @@ import { replaceNameInContent } from '@shared/utils/korean-particle'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 import { useEndSession } from './hooks/use-end-session'
+import { useGenerateImage } from '@shared/hooks/use-generate-image'
 import { useCreateStoryResult } from '@shared/hooks/use-story-result'
 
 const StoryPage = () => {
@@ -21,6 +22,9 @@ const StoryPage = () => {
 
   const currentNodeId = storyNodeId ? Number(storyNodeId) : undefined
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
+  const faceImageKey = localStorage.getItem('faceImageKey') ?? ''
+  const { data: imageData, isLoading: isImageLoading } = useGenerateImage(faceImageKey, currentNodeId, state?.playSessionId)
+
   const { mutate: selectChoice } = useSelectChoice()
   const { mutate: endSession } = useEndSession()
   const { mutate: createStoryResult } = useCreateStoryResult()
@@ -60,7 +64,7 @@ const StoryPage = () => {
         summary,
         advice: summary,
       })
-      navigate('/result', { state: { playSessionId: state.playSessionId } })
+      navigate('/result', { state: { playSessionId: state.playSessionId, lastNodeId: currentNodeId } })
     }
   }, [isFetching, nodeData, endSession, navigate, state?.playSessionId, createStoryResult])
 
@@ -71,7 +75,7 @@ const StoryPage = () => {
       <StoryHeader emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : ''} />
       <div className={styles.wrapper}>
         <div className={styles.main}>
-          <StoryScene imageUrl='' />
+          <StoryScene imageUrl={imageData?.imageUrl ?? ''} isLoading={isImageLoading} />
           <StoryContent
             content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''}
           />
@@ -84,6 +88,7 @@ const StoryPage = () => {
             })) ?? []
           }
           onChoiceSelect={handleChoiceSelect}
+          disabled={isImageLoading}
         />
       </div>
       <StoryNav

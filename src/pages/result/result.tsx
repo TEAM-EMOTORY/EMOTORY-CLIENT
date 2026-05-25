@@ -5,18 +5,19 @@ import StoryCard from './components/story-card/story-card'
 import EmotionCard from './components/emotion-card/emotion-card'
 import TipCard from './components/tip-card/tip-card'
 import { useStoryResult } from '@shared/hooks/use-story-result'
+import { useGenerateImage } from '@shared/hooks/use-generate-image'
 import { replaceNameInContent, hasConsonantEnding } from '@shared/utils/korean-particle'
-
-const TEST_IMAGE =
-  'https://media.istockphoto.com/id/2148757239/ko/%EC%82%AC%EC%A7%84/%EC%95%84%EC%8B%9C%EC%95%84-%EC%9E%91%EC%9D%80-%EB%B0%9C%ED%86%B1-%EC%88%98%EB%8B%AC.jpg?s=612x612&w=0&k=20&c=xkH9d6pwEDkkzflv6tMelrv8DtXkUX5fX6ruUPt82Ak='
 
 const ResultPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
 
   const childName = localStorage.getItem('childName') ?? ''
+  const faceImageKey = localStorage.getItem('faceImageKey') ?? ''
   const playSessionId = state?.playSessionId
+  const lastNodeId = state?.lastNodeId
   const { data: resultData } = useStoryResult(playSessionId)
+  const { data: imageData, isLoading: isImageLoading } = useGenerateImage(faceImageKey, lastNodeId, playSessionId)
 
   return (
     <main className={styles.page}>
@@ -33,7 +34,8 @@ const ResultPage = () => {
 
         <div className={styles.mainCards}>
           <StoryCard
-            imageUrl={TEST_IMAGE}
+            imageUrl={imageData?.imageUrl ?? resultData?.generatedImageUrl ?? ''}
+            isLoading={isImageLoading}
             summary={
               resultData?.summary
                 ? replaceNameInContent(resultData.summary, childName)
@@ -43,7 +45,6 @@ const ResultPage = () => {
           />
           <EmotionCard
             name={childName}
-            imageUrl={TEST_IMAGE}
             title={resultData?.emotion ?? '감정을 분석 중이에요...'}
             tags={[]}
             className={styles.emotionCard}
