@@ -12,7 +12,8 @@ const HomePage = () => {
   return (
     <div ref={containerRef} className={styles.bgContainer}>
       <img src={homeBg} alt='' className={styles.bgImage} />
-      <button className={styles.button} onClick={() => navigate('/agreement')} />
+      <button className={styles.diaryButton} onClick={() => navigate('/diary')} />
+      <button className={styles.agreementButton} onClick={() => navigate('/agreement')} />
     </div>
   )
 }
