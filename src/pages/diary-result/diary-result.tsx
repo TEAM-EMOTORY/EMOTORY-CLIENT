@@ -22,7 +22,9 @@ const DiaryResultPage = () => {
   const childName = localStorage.getItem('childrenName') ?? localStorage.getItem('childName') ?? ''
   const maxCount = Math.max(counts.joy, counts.sad, counts.angry, 1)
   const hasConsonant = hasConsonantEnding(childName)
-  const maxEmotion = EMOTION_RESULTS.reduce((max, cur) => counts[cur.id] > counts[max.id] ? cur : max)
+  const maxEmotion = EMOTION_RESULTS.reduce((max, cur) =>
+    counts[cur.id] > counts[max.id] ? cur : max,
+  )
 
   return (
     <main className={styles.page}>
@@ -30,18 +32,26 @@ const DiaryResultPage = () => {
         <span className={styles.starLeft}>★</span>
         <div className={styles.titleSection}>
           <h1 className={styles.title}>오늘의 감정 일기 결과예요!</h1>
-          <p className={styles.description}>{childName}{hasConsonant ? '아' : '야'}, 오늘 하루도 수고했어!</p>
+          <p className={styles.description}>
+            {childName}
+            {hasConsonant ? '아' : '야'}, 오늘 하루도 수고했어!
+          </p>
         </div>
         <span className={styles.starRight}>★</span>
       </section>
 
       <section className={styles.board}>
         <ProfileCard childName={childName} />
-        <GraphCard counts={counts} maxCount={maxCount} childName={childName} hasConsonant={hasConsonant} />
+        <GraphCard
+          counts={counts}
+          maxCount={maxCount}
+          childName={childName}
+          hasConsonant={hasConsonant}
+        />
         <NoteCard
           title={maxEmotion.emotionDescription.title}
           description={maxEmotion.emotionDescription.description}
-          characterImg={maxEmotion.characterImg}
+          emotion={maxEmotion.id}
         />
       </section>
 
@@ -53,8 +63,6 @@ const DiaryResultPage = () => {
           📔 오늘의 일기 다시쓰기
         </button>
       </nav>
-
-      <img src={maxEmotion.characterImg} alt='' className={styles.cornerCharacter} />
     </main>
   )
 }
