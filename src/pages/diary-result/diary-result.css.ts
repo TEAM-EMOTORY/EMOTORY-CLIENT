@@ -1,11 +1,19 @@
 import bgImage from '@shared/assets/background-img/bg.webp'
 import { themeVars } from '@shared/styles/theme.css'
-import { style } from '@vanilla-extract/css'
+import { style, keyframes } from '@vanilla-extract/css'
+
+const slideInUp = keyframes({
+  '0%': { transform: 'rotate(-4deg) translateY(120%)' },
+  '70%': { transform: 'rotate(-4deg) translateY(-8%)' },
+  '100%': { transform: 'rotate(-4deg) translateY(0)' },
+})
 
 export const page = style({
   position: 'relative',
-  minHeight: '100vh',
-  padding: '6.4rem 7.2rem 4rem',
+  height: '100dvh',
+  display: 'flex',
+  flexDirection: 'column',
+  padding: 'clamp(2rem, 3.5vh, 6.4rem) clamp(2rem, 5vw, 7.2rem) clamp(1.5rem, 2vh, 4rem)',
   overflow: 'hidden',
   color: themeVars.color.brown200,
   backgroundImage: `linear-gradient(rgba(255, 249, 240, 0.42), rgba(255, 249, 240, 0.5)), url(${bgImage})`,
@@ -16,17 +24,18 @@ export const page = style({
 export const hero = style({
   position: 'relative',
   zIndex: 1,
+  flexShrink: 0,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '3.2rem',
-  marginBottom: '3.2rem',
+  gap: 'clamp(1.2rem, 2.5vw, 3.2rem)',
+  marginBottom: 'clamp(1rem, 2vh, 3.2rem)',
   filter: 'drop-shadow(0 0 8px #fff) drop-shadow(0 0 28px rgba(255, 255, 255, 0.86))',
 })
 
 export const star = style({
   color: themeVars.color.primary500,
-  fontSize: '3.6rem',
+  fontSize: 'clamp(2rem, 3vw, 3.6rem)',
   lineHeight: 1,
 })
 
@@ -34,30 +43,31 @@ export const titleSection = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '1.2rem',
+  gap: 'clamp(0.6rem, 1vh, 1.2rem)',
 })
 
 export const title = style({
-  ...themeVars.fontStyles.body_40eb,
+  ...themeVars.fontStyles.body_32eb,
   color: themeVars.color.brown200,
 })
 
 export const description = style({
-  ...themeVars.fontStyles.body_20eb,
+  ...themeVars.fontStyles.body_16eb,
   color: 'rgba(104, 70, 43, 0.72)',
 })
 
 export const board = style({
   position: 'relative',
   zIndex: 1,
+  flex: 1,
+  minHeight: 0,
   display: 'grid',
-  gridTemplateColumns: '28rem minmax(42rem, 1fr) 32rem',
-  gap: '2rem',
+  gridTemplateColumns: 'clamp(18rem, 22%, 28rem) minmax(0, 1fr) clamp(20rem, 25%, 32rem)',
+  gap: 'clamp(1rem, 1.5vw, 2rem)',
   width: '100%',
   maxWidth: '132rem',
-  minHeight: '56rem',
   margin: '0 auto',
-  padding: '3.2rem',
+  padding: 'clamp(1.6rem, 2.5vw, 3.2rem)',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '3.6rem',
   backgroundColor: 'rgba(255, 255, 255, 0.76)',
@@ -70,8 +80,8 @@ export const profileCard = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  minHeight: '100%',
-  padding: '3.6rem 2.4rem 2rem',
+  minHeight: 0,
+  padding: 'clamp(1.6rem, 2.5vh, 3.6rem) clamp(1.2rem, 1.8vw, 2.4rem) 2rem',
   overflow: 'hidden',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '3rem',
@@ -80,9 +90,9 @@ export const profileCard = style({
 })
 
 export const profileImage = style({
-  width: '16rem',
-  height: '16rem',
-  marginBottom: '2rem',
+  width: 'clamp(8rem, 12vh, 16rem)',
+  height: 'clamp(8rem, 12vh, 16rem)',
+  marginBottom: 'clamp(1rem, 1.5vh, 2rem)',
   borderRadius: '50%',
   objectFit: 'cover',
   backgroundColor: themeVars.color.primary100,
@@ -90,8 +100,8 @@ export const profileImage = style({
 })
 
 export const childName = style({
-  ...themeVars.fontStyles.body_40eb,
-  marginBottom: '2.8rem',
+  ...themeVars.fontStyles.body_32eb,
+  marginBottom: 'clamp(1.2rem, 2vh, 2.8rem)',
   color: themeVars.color.brown200,
 })
 
@@ -100,7 +110,7 @@ export const profileMessage = style({
   alignItems: 'center',
   gap: '1.2rem',
   width: '100%',
-  padding: '1.8rem',
+  padding: 'clamp(1rem, 1.5vh, 1.8rem)',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '2rem',
   backgroundColor: 'rgba(255, 249, 240, 0.9)',
@@ -123,7 +133,8 @@ export const graphCard = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '6rem 3.2rem 2.4rem',
+  minHeight: 0,
+  padding: 'clamp(3rem, 5vh, 6rem) clamp(1.6rem, 2.5vw, 3.2rem) clamp(1.2rem, 2vh, 2.4rem)',
   border: `0.15rem solid ${themeVars.color.primary200}`,
   borderRadius: '2.8rem',
   backgroundColor: 'rgba(255, 255, 255, 0.68)',
@@ -131,26 +142,26 @@ export const graphCard = style({
 
 export const graphBadge = style({
   position: 'absolute',
-  top: '-2.6rem',
+  top: '-2.2rem',
   left: '50%',
   display: 'flex',
   alignItems: 'center',
   gap: '1.2rem',
-  minWidth: '28rem',
+  minWidth: '24rem',
   justifyContent: 'center',
-  padding: '1.4rem 3.2rem',
+  padding: '1.2rem 3.2rem',
   transform: 'translateX(-50%)',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '5rem',
   backgroundColor: 'rgba(255, 253, 248, 0.96)',
-  ...themeVars.fontStyles.body_20eb,
+  ...themeVars.fontStyles.body_18eb,
   color: themeVars.color.primary400,
   boxShadow: '0 0.8rem 2rem rgba(104, 70, 43, 0.08)',
 })
 
 export const graphQuestion = style({
   ...themeVars.fontStyles.sub_16r,
-  marginBottom: '2rem',
+  marginBottom: 'clamp(0.8rem, 1.5vh, 2rem)',
   color: themeVars.color.brown200,
 })
 
@@ -158,8 +169,8 @@ export const chart = style({
   position: 'relative',
   flex: 1,
   width: '100%',
-  minHeight: '42rem',
-  padding: '7rem 2rem 0 4rem',
+  minHeight: 0,
+  padding: 'clamp(4rem, 7vh, 7rem) 2rem 0 4rem',
 })
 
 export const yAxis = style({
@@ -177,7 +188,7 @@ export const bars = style({
   left: '6rem',
   right: '2rem',
   bottom: 0,
-  top: '7rem',
+  top: 'clamp(4rem, 7vh, 7rem)',
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
   gap: 'clamp(1.6rem, 5vw, 5.2rem)',
@@ -308,8 +319,8 @@ export const emotionLabel = style({
 export const noteCard = style({
   display: 'flex',
   flexDirection: 'column',
-  minHeight: '100%',
-  padding: '2rem',
+  minHeight: 0,
+  padding: 'clamp(1.2rem, 2vh, 2rem)',
   border: `0.15rem solid rgba(125, 171, 91, 0.28)`,
   borderRadius: '3rem',
   backgroundColor: 'rgba(255, 253, 240, 0.82)',
@@ -320,9 +331,9 @@ export const noteTitle = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '1rem',
-  ...themeVars.fontStyles.body_20eb,
+  ...themeVars.fontStyles.body_18eb,
   color: '#5B8A46',
-  marginBottom: '2rem',
+  marginBottom: 'clamp(1rem, 1.5vh, 2rem)',
 })
 
 export const noteBody = style({
@@ -331,47 +342,49 @@ export const noteBody = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '2rem',
-  padding: '3.2rem 2.4rem 0',
+  gap: 'clamp(1rem, 1.5vh, 2rem)',
+  padding: 'clamp(1.6rem, 2.5vh, 3.2rem) clamp(1.2rem, 2vw, 2.4rem) 0',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '2.4rem',
   backgroundColor: 'rgba(255, 255, 255, 0.76)',
   textAlign: 'center',
   ...themeVars.fontStyles.sub_16r,
   lineHeight: 1.9,
+  overflow: 'hidden',
 })
 
 export const noteHeadline = style({
-  ...themeVars.fontStyles.body_24eb,
+  ...themeVars.fontStyles.body_20eb,
   color: '#5B8A46',
 })
 
 export const noteCharacter = style({
-  width: '14rem',
+  width: 'clamp(8rem, 12vh, 14rem)',
   marginTop: 'auto',
 })
 
 export const bottomNav = style({
   position: 'relative',
   zIndex: 1,
+  flexShrink: 0,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '2.4rem',
-  marginTop: '3.2rem',
+  gap: 'clamp(1.2rem, 2vw, 2.4rem)',
+  marginTop: 'clamp(1rem, 2vh, 3.2rem)',
 })
 
 export const subButton = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minWidth: '18rem',
-  height: '7rem',
+  minWidth: 'clamp(14rem, 16vw, 18rem)',
+  height: 'clamp(5rem, 7vh, 7rem)',
   padding: '0 2.8rem',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '5rem',
   backgroundColor: 'rgba(255, 255, 255, 0.88)',
-  ...themeVars.fontStyles.body_18eb,
+  ...themeVars.fontStyles.body_16eb,
   color: themeVars.color.brown200,
   cursor: 'pointer',
   boxShadow: '0 0.8rem 2rem rgba(104, 70, 43, 0.1)',
@@ -382,13 +395,13 @@ export const primaryButton = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '2rem',
-  minWidth: '38rem',
-  height: '8rem',
+  minWidth: 'clamp(28rem, 32vw, 38rem)',
+  height: 'clamp(5.5rem, 7.5vh, 8rem)',
   padding: '0 4rem',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '5rem',
   backgroundColor: themeVars.color.primary500,
-  ...themeVars.fontStyles.body_24eb,
+  ...themeVars.fontStyles.body_20eb,
   color: themeVars.color.white,
   cursor: 'pointer',
   boxShadow:
@@ -399,6 +412,11 @@ export const cornerCharacter = style({
   position: 'absolute',
   right: '4rem',
   bottom: '1.6rem',
-  width: '16rem',
-  transform: 'rotate(-4deg)',
+  width: 'clamp(10rem, 12vw, 16rem)',
+  zIndex: 10,
+  animationName: slideInUp,
+  animationDuration: '0.7s',
+  animationTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  animationFillMode: 'both',
+  animationDelay: '0.2s',
 })
