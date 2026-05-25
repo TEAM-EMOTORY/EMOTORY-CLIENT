@@ -1,13 +1,14 @@
-import * as styles from './story-nav.css'
+import * as styles from './nav.css'
 
-interface StoryNavProps {
-  nodeOrder: number
+interface NavProps {
+  currentStep: number
+  totalSteps?: number
   onHome: () => void
   onPrev: () => void
 }
 
-const StoryNav = ({ nodeOrder, onHome, onPrev }: StoryNavProps) => {
-  const progress = Math.min(nodeOrder * 8, 90)
+const Nav = ({ currentStep, totalSteps = 3, onHome, onPrev }: NavProps) => {
+  const progress = Math.min((currentStep / totalSteps) * 100, 100)
 
   return (
     <nav className={styles.nav}>
@@ -24,4 +25,4 @@ const StoryNav = ({ nodeOrder, onHome, onPrev }: StoryNavProps) => {
   )
 }
 
-export default StoryNav
+export default Nav
