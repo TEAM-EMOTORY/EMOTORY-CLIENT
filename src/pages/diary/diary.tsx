@@ -6,8 +6,8 @@ import {
   StepFlowFrame,
   StepFlowHeader,
   StepFlowNav,
-  StepFlowScene,
 } from '@shared/components/step-flow'
+import DiarySunScene from './components/diary-sun-scene/diary-sun-scene'
 
 type DiaryEmotion = 'joy' | 'sad' | 'angry'
 
@@ -71,7 +71,12 @@ const DiaryPage = () => {
   return (
     <StepFlowFrame
       header={<StepFlowHeader />}
-      scene={<StepFlowScene imageUrl='' />}
+      scene={
+        <DiarySunScene
+          currentStep={currentQuestionIndex + 1}
+          totalSteps={DIARY_QUESTION_SUFFIXES.length}
+        />
+      }
       content={<StepFlowContent content={currentQuestion} showStar={false} />}
       choices={
         <ChoiceSection
