@@ -15,6 +15,13 @@ globalFontFace('TmoneyRoundWind', {
 globalStyle('html, body', {
   fontSize: '62.5%',
   fontFamily: "'TmoneyRoundWind', sans-serif",
+  overflow: 'hidden',
+  width: '100%',
+  height: '100%',
 })
 
-// 나중에 배경
+globalStyle('#root', {
+  width: '100%',
+  height: '100%',
+  overflow: 'hidden',
+})
