@@ -22,6 +22,7 @@ export const infoBlock = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',
+  justifyContent: 'center',
 })
 
 export const emotionTitle = style({

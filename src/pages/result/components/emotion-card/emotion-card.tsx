@@ -5,12 +5,11 @@ interface EmotionCardProps {
   name: string
   imageUrl: string
   title: string
-  summary: string
   tags: string[]
   className?: string
 }
 
-const EmotionCard = ({ name, imageUrl, title, summary, tags, className }: EmotionCardProps) => {
+const EmotionCard = ({ name, imageUrl, title, tags, className }: EmotionCardProps) => {
   return (
     <Card
       icon={<span className={styles.headerStar}>★</span>}
@@ -22,7 +21,6 @@ const EmotionCard = ({ name, imageUrl, title, summary, tags, className }: Emotio
         <img src={imageUrl} className={styles.characterImage} />
         <div className={styles.infoBlock}>
           <p className={styles.emotionTitle}>{title}</p>
-          <p className={styles.summary}>{summary}</p>
           <div className={styles.tags}>
             {tags.map((tag) => (
               <span key={tag} className={styles.tag}>

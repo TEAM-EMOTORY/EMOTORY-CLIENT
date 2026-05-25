@@ -1,11 +1,17 @@
 import { http } from './http'
 import { END_POINT } from './config/end-point'
 
+export interface Advice {
+  adviceId: number
+  title: string
+  description: string
+}
+
 export interface StoryResultResponse {
   summary: string
   emotion: string
-  advice: string
-  generatedImageUrl: string
+  advices: Advice[]
+  generatedImageUrl: string | null
 }
 
 export const createStoryResult = (playSessionId: number, emotion: string, summary: string, advice: string) =>
