@@ -14,6 +14,7 @@ export const END_POINT = {
     END_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}/end`,
   },
   RESULT: {
-    // 결과 조회
+    CREATE: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
+    GET: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
   },
 }

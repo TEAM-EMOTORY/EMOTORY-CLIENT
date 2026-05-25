@@ -9,7 +9,6 @@ export const container = style({
   alignItems: 'center',
   width: '100vw',
   height: '100dvh',
-  backgroundColor: themeVars.color.white,
 })
 
 export const whiteBox = style({
