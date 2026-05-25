@@ -9,34 +9,56 @@ import * as styles from './diary-result.css'
 import { hasConsonantEnding } from '@shared/utils/korean-particle'
 
 type DiaryEmotion = 'joy' | 'sad' | 'angry'
+type EmotionDescription = { title: string; description: string }
+
+const TODAY_MESSAGE = [
+  '오늘의 마음을 잘 들려줬어요!',
+  '내 마음을 잘 말했어요!',
+  '오늘의 기분을 잘 골랐어요!',
+  '오늘도 마음을 잘 살펴봤어요!',
+  '기분을 말해줘서 정말 고마워요!',
+]
 
 const EMOTION_RESULTS: {
   id: DiaryEmotion
   label: string
-  characterImg: string
   iconImg: string
+  characterImg: string
   barClassName: string
+  emotionDescription?: EmotionDescription
 }[] = [
   {
     id: 'joy',
     label: '기쁨',
-    characterImg: happyCharacterImg,
     iconImg: happyIconImg,
+    characterImg: happyCharacterImg,
     barClassName: styles.joyBar,
+    emotionDescription: {
+      title: '오늘은 기쁜 하루였어요!',
+      description: '즐거웠던 일을 하나 떠올려볼까요?',
+    },
   },
   {
     id: 'sad',
     label: '슬픔',
-    characterImg: sadCharacterImg,
     iconImg: sadIconImg,
+    characterImg: sadCharacterImg,
     barClassName: styles.sadBar,
+    emotionDescription: {
+      title: '오늘은 속상한 하루였어요.',
+      description: '속상했던 일을 천천히 떠올려볼까요?',
+    },
   },
   {
     id: 'angry',
     label: '화남',
-    characterImg: angryCharacterImg,
     iconImg: angryIconImg,
+    characterImg: angryCharacterImg,
     barClassName: styles.angryBar,
+    emotionDescription: {
+      title: '오늘은 마음이 불편한 하루였어요.',
+      description: '불편했던 일을 천천히 떠올려볼까요?',
+    },
   },
 ]
 
@@ -58,12 +80,21 @@ const countAnswers = (answers: unknown) => {
   return counts
 }
 
+const getMaxEmotion = (counts: Record<DiaryEmotion, number>) => {
+  return EMOTION_RESULTS.reduce((max, current) => {
+    return counts[current.id] > counts[max.id] ? current : max
+  })
+}
+
+const randomTodayMessage = TODAY_MESSAGE[Math.floor(Math.random() * TODAY_MESSAGE.length)]
+
 const DiaryResultPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
   const counts = countAnswers(state?.answers)
   const childName = localStorage.getItem('childrenName') ?? localStorage.getItem('childName') ?? ''
   const maxCount = Math.max(...EMOTION_RESULTS.map(({ id }) => counts[id]), 1)
+  const maxEmotion = getMaxEmotion(counts)
 
   return (
     <main className={styles.page}>
@@ -71,7 +102,10 @@ const DiaryResultPage = () => {
         <span className={styles.star}>★</span>
         <div className={styles.titleSection}>
           <h1 className={styles.title}>오늘의 감정 일기 결과예요!</h1>
-          <p className={styles.description}>{childName}{hasConsonantEnding(childName) ? '아' : '야'}, 오늘 하루도 수고했어!</p>
+          <p className={styles.description}>
+            {childName}
+            {hasConsonantEnding(childName) ? '아' : '야'}, 오늘 하루도 수고했어!
+          </p>
         </div>
         <span className={styles.star}>★</span>
       </section>
@@ -82,7 +116,7 @@ const DiaryResultPage = () => {
           <strong className={styles.childName}>{childName}</strong>
           <div className={styles.profileMessage}>
             <span>♥</span>
-            <p>오늘도 다양한 감정을 잘 표현했어요!</p>
+            <p>{randomTodayMessage}</p>
           </div>
           <div className={styles.flowerBed} />
         </aside>
@@ -92,7 +126,10 @@ const DiaryResultPage = () => {
             <span>▮</span>
             <span>오늘의 감정 그래프</span>
           </div>
-          <p className={styles.graphQuestion}>{childName}{hasConsonantEnding(childName) ? '이가' : '가'} 느낀 감정들을 확인해볼까요?</p>
+          <p className={styles.graphQuestion}>
+            {childName}
+            {hasConsonantEnding(childName) ? '이가' : '가'} 느낀 감정들을 확인해볼까요?
+          </p>
 
           <div className={styles.chart}>
             <div className={styles.yAxis} />
@@ -135,9 +172,8 @@ const DiaryResultPage = () => {
             <span>오늘의 한마디</span>
           </div>
           <div className={styles.noteBody}>
-            <strong className={styles.noteHeadline}>모든 감정은 소중해요!</strong>
-            <p>기쁠 때도, 슬플 때도, 화가 날 때도 모두 소중한 {childName}{hasConsonantEnding(childName) ? '이의' : '의'} 마음이에요.</p>
-            <p>내일도 다양한 감정을 탐험해보자!</p>
+            <strong className={styles.noteHeadline}>{maxEmotion.emotionDescription?.title}</strong>
+            <p>{maxEmotion.emotionDescription?.description}</p>
             <img src={happyCharacterImg} alt='' className={styles.noteCharacter} />
           </div>
         </aside>
@@ -147,12 +183,8 @@ const DiaryResultPage = () => {
         <button type='button' className={styles.subButton} onClick={() => navigate('/')}>
           🏠 처음으로
         </button>
-        <button type='button' className={styles.primaryButton} onClick={() => navigate('/diary')}>
-          ★ 내일도 감정 일기 쓰기
-          <span>›</span>
-        </button>
         <button type='button' className={styles.subButton} onClick={() => navigate('/diary')}>
-          📔 오늘의 일기 다시보기
+          📔 오늘의 일기 다시쓰기
         </button>
       </nav>
 
