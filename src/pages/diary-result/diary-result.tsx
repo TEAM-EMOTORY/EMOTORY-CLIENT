@@ -6,6 +6,7 @@ import happyIconImg from '@shared/assets/emotion-img/happy_icon.webp'
 import sadCharacterImg from '@shared/assets/emotion-img/sad_character.webp'
 import sadIconImg from '@shared/assets/emotion-img/sad_icon.webp'
 import * as styles from './diary-result.css'
+import { hasConsonantEnding } from '@shared/utils/korean-particle'
 
 type DiaryEmotion = 'joy' | 'sad' | 'angry'
 
@@ -70,7 +71,7 @@ const DiaryResultPage = () => {
         <span className={styles.star}>★</span>
         <div className={styles.titleSection}>
           <h1 className={styles.title}>오늘의 감정 일기 결과예요!</h1>
-          <p className={styles.description}>{childName}아, 오늘 하루도 수고했어!</p>
+          <p className={styles.description}>{childName}{hasConsonantEnding(childName) ? '아' : '야'}, 오늘 하루도 수고했어!</p>
         </div>
         <span className={styles.star}>★</span>
       </section>
@@ -91,7 +92,7 @@ const DiaryResultPage = () => {
             <span>▮</span>
             <span>오늘의 감정 그래프</span>
           </div>
-          <p className={styles.graphQuestion}>{childName}이가 느낀 감정들을 확인해볼까요?</p>
+          <p className={styles.graphQuestion}>{childName}{hasConsonantEnding(childName) ? '이가' : '가'} 느낀 감정들을 확인해볼까요?</p>
 
           <div className={styles.chart}>
             <div className={styles.yAxis} />
@@ -135,7 +136,7 @@ const DiaryResultPage = () => {
           </div>
           <div className={styles.noteBody}>
             <strong className={styles.noteHeadline}>모든 감정은 소중해요!</strong>
-            <p>기쁠 때도, 슬플 때도, 화가 날 때도 모두 소중한 {childName}의 마음이에요.</p>
+            <p>기쁠 때도, 슬플 때도, 화가 날 때도 모두 소중한 {childName}{hasConsonantEnding(childName) ? '이의' : '의'} 마음이에요.</p>
             <p>내일도 다양한 감정을 탐험해보자!</p>
             <img src={happyCharacterImg} alt='' className={styles.noteCharacter} />
           </div>

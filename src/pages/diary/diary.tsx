@@ -8,6 +8,7 @@ import {
   StepFlowNav,
 } from '@shared/components/step-flow'
 import DiarySunScene from './components/diary-sun-scene/diary-sun-scene'
+import { hasConsonantEnding } from '@shared/utils/korean-particle'
 
 type DiaryEmotion = 'joy' | 'sad' | 'angry'
 
@@ -44,7 +45,8 @@ const DiaryPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [answers, setAnswers] = useState<DiaryEmotion[]>([])
 
-  const currentQuestion = `${childName}이는 ${DIARY_QUESTION_SUFFIXES[currentQuestionIndex]}`
+  const nameParticle = hasConsonantEnding(childName) ? `${childName}이는` : `${childName}는`
+  const currentQuestion = `${nameParticle} ${DIARY_QUESTION_SUFFIXES[currentQuestionIndex]}`
 
   const handleChoiceSelect = (emotion: string) => {
     const nextAnswers = [...answers]
