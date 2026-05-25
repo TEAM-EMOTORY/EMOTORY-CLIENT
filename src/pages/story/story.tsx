@@ -74,7 +74,17 @@ const StoryPage = () => {
         state: { playSessionId: state.playSessionId, lastNodeId: currentNodeId },
       })
     }
-  }, [isFetching, nodeData, endSession, navigate, state?.playSessionId, state?.selectedChoices, state?.emotionLabel, currentNodeId, createStoryResult])
+  }, [
+    isFetching,
+    nodeData,
+    endSession,
+    navigate,
+    state?.playSessionId,
+    state?.selectedChoices,
+    state?.emotionLabel,
+    currentNodeId,
+    createStoryResult,
+  ])
 
   const handlePrev = () => navigate(-1)
 
@@ -100,6 +110,7 @@ const StoryPage = () => {
               text: content,
             })) ?? []
           }
+          label='기분이 어땠어?'
           onChoiceSelect={handleChoiceSelect}
           disabled={isImageLoading}
         />
