@@ -1,3 +1,4 @@
+import DrawingCanvas from '../drawing-canvas/drawing-canvas'
 import * as styles from './story-scene.css'
 
 interface StorySceneProps {
@@ -9,9 +10,7 @@ const StoryScene = ({ imageUrl, isLoading }: StorySceneProps) => {
   return (
     <div className={styles.scene}>
       {isLoading || !imageUrl ? (
-        <div className={styles.skeleton}>
-          <span className={styles.skeletonText}>🎨 그림을 그리는 중이에요...</span>
-        </div>
+        <DrawingCanvas />
       ) : (
         <img src={imageUrl} className={styles.image} />
       )}
