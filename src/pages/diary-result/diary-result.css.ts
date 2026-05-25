@@ -2,6 +2,17 @@ import bgImage from '@shared/assets/background-img/bg.webp'
 import { themeVars } from '@shared/styles/theme.css'
 import { style, keyframes } from '@vanilla-extract/css'
 
+const barGrow = keyframes({
+  '0%': { transform: 'scaleY(0)' },
+  '70%': { transform: 'scaleY(1.06)' },
+  '100%': { transform: 'scaleY(1)' },
+})
+
+const fadeSlideUp = keyframes({
+  '0%': { opacity: '0', transform: 'translateX(-50%) translateY(12px)' },
+  '100%': { opacity: '1', transform: 'translateX(-50%) translateY(0)' },
+})
+
 const slideInUp = keyframes({
   '0%': { transform: 'rotate(-4deg) translateY(120%)' },
   '70%': { transform: 'rotate(-4deg) translateY(-8%)' },
@@ -268,6 +279,10 @@ export const countBubble = style({
   textAlign: 'center',
   color: themeVars.color.brown200,
   boxShadow: '0 0.6rem 1.6rem rgba(104, 70, 43, 0.08)',
+  animationName: fadeSlideUp,
+  animationDuration: '0.4s',
+  animationTimingFunction: 'ease-out',
+  animationFillMode: 'both',
   selectors: {
     '&::after': {
       content: '',
@@ -305,6 +320,10 @@ export const barCharacterBox = style({
   alignItems: 'flex-end',
   justifyContent: 'center',
   filter: 'drop-shadow(0 0.7rem 0.8rem rgba(104, 70, 43, 0.14))',
+  animationName: fadeSlideUp,
+  animationDuration: '0.4s',
+  animationTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  animationFillMode: 'both',
 })
 
 export const barCharacter = style({
@@ -320,8 +339,12 @@ export const bar = style({
   width: 'clamp(5.6rem, 58%, 9.8rem)',
   minHeight: 'clamp(2.4rem, 7%, 3.2rem)',
   borderRadius: '1.4rem 1.4rem 0 0',
-  transition: 'height 0.4s ease',
   boxShadow: 'inset 0 0.4rem 1.2rem rgba(255, 255, 255, 0.34)',
+  transformOrigin: 'bottom',
+  animationName: barGrow,
+  animationDuration: '0.6s',
+  animationTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  animationFillMode: 'both',
 })
 
 export const joyBar = style({
