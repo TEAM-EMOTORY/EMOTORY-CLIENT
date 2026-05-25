@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Button from '@shared/components/button/button'
 import Input from '@shared/components/input/input'
 import * as styles from './child-info.css'
@@ -7,11 +7,30 @@ import PhotoUpload from './components/PhotoUpload/photo-upload'
 import { useUploadPhoto } from './hooks/use-upload-photo'
 import { useCreateMember } from './hooks/use-create-member'
 
+const CHILD_PROFILE_IMAGE_KEY = 'childProfileImage'
+
+const readFileAsDataUrl = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (typeof reader.result === 'string') resolve(reader.result)
+      else reject(new Error('Failed to read image file.'))
+    }
+    reader.onerror = () => reject(reader.error)
+    reader.readAsDataURL(file)
+  })
+
 const ChildInfoPage = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [name, setName] = useState('')
   const [photoUrl, setPhotoUrl] = useState<string>()
-  const [uploadResult, setUploadResult] = useState<{ fileKey: string; faceImageUrl: string } | null>(null)
+  const [uploadResult, setUploadResult] = useState<{
+    fileKey: string
+    faceImageUrl: string
+  } | null>(null)
+  const redirectPath = searchParams.get('redirect')
+  const nextPath = redirectPath === '/diary' ? '/diary' : '/emotion-select'
 
   const { mutate: uploadPhoto, isPending: isUploading } = useUploadPhoto()
   const { mutate: createMember, isPending: isCreating } = useCreateMember()
@@ -19,7 +38,17 @@ const ChildInfoPage = () => {
   const handlePhotoSelect = (file: File) => {
     setPhotoUrl(URL.createObjectURL(file))
     setUploadResult(null)
-    uploadPhoto(file, { onSuccess: (result) => setUploadResult(result) })
+    const profileImagePromise = readFileAsDataUrl(file).catch(() => undefined)
+
+    uploadPhoto(file, {
+      onSuccess: async (result) => {
+        const dataUrl = await profileImagePromise
+        if (dataUrl) {
+          localStorage.setItem(CHILD_PROFILE_IMAGE_KEY, dataUrl)
+        }
+        setUploadResult(result)
+      },
+    })
   }
 
   const handleNext = () => {
@@ -31,7 +60,7 @@ const ChildInfoPage = () => {
         onSuccess: () => {
           localStorage.setItem('childName', name)
           localStorage.setItem('faceImageKey', fileKey)
-          navigate('/emotion-select')
+          navigate(nextPath)
         },
       },
     )

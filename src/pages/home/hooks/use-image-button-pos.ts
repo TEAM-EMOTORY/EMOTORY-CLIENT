@@ -1,13 +1,15 @@
 import { useEffect, useCallback } from 'react'
-import { BUTTON_LEFT_VAR, BUTTON_TOP_VAR } from '../home.css'
+import { BUTTON_LEFT_VAR, BUTTON_TOP_VAR, AGREEMENT_LEFT_VAR, AGREEMENT_TOP_VAR } from '../home.css'
 
 // home.webp 자연 크기
 const IMAGE_W = 1011
 const IMAGE_H = 758
 
 // 이미지 좌표 (0~1) — 버튼 중심점 기준
-const TARGET_X = 0.15
-const TARGET_Y = 0.88
+const DIARY_X = 0.15
+const DIARY_Y = 0.88
+const AGREEMENT_X = 0.85
+const AGREEMENT_Y = 0.88
 
 export const useImageButtonPos = (containerRef: React.RefObject<HTMLDivElement | null>) => {
   const calculate = useCallback(() => {
@@ -21,11 +23,10 @@ export const useImageButtonPos = (containerRef: React.RefObject<HTMLDivElement |
     const offsetX = (containerW - IMAGE_W * scale) / 2
     const offsetY = (containerH - IMAGE_H * scale) / 2
 
-    const left = offsetX + TARGET_X * IMAGE_W * scale
-    const top = offsetY + TARGET_Y * IMAGE_H * scale
-
-    el.style.setProperty(BUTTON_LEFT_VAR, `${left}px`)
-    el.style.setProperty(BUTTON_TOP_VAR, `${top}px`)
+    el.style.setProperty(BUTTON_LEFT_VAR, `${offsetX + DIARY_X * IMAGE_W * scale}px`)
+    el.style.setProperty(BUTTON_TOP_VAR, `${offsetY + DIARY_Y * IMAGE_H * scale}px`)
+    el.style.setProperty(AGREEMENT_LEFT_VAR, `${offsetX + AGREEMENT_X * IMAGE_W * scale}px`)
+    el.style.setProperty(AGREEMENT_TOP_VAR, `${offsetY + AGREEMENT_Y * IMAGE_H * scale}px`)
   }, [containerRef])
 
   useEffect(() => {

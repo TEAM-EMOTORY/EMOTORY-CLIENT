@@ -8,7 +8,7 @@ export const wrapper = style({
 })
 
 export const input = style({
-  fontSize: themeVars.fontSize[18],
+  fontSize: themeVars.fontSize[21],
   fontWeight: themeVars.fontWeight.regular,
   lineHeight: themeVars.lineHeight[150],
   fontFamily: 'inherit',
@@ -16,7 +16,7 @@ export const input = style({
   backgroundColor: themeVars.color.white,
   border: `0.2rem solid ${themeVars.color.brown100}`,
   borderRadius: '1.2rem',
-  padding: '1.4rem 1.8rem',
+  padding: '1.6rem 2rem',
   width: '100%',
   outline: 'none',
   selectors: {

@@ -4,6 +4,7 @@ import * as styles from './choice-section.css'
 interface ChoiceOption {
   id: string
   text: string
+  imageSrc?: string
 }
 
 interface ChoiceSectionProps {
@@ -26,6 +27,7 @@ const ChoiceSection = ({ choices, label, onChoiceSelect, disabled }: ChoiceSecti
               <ChoiceCard
                 key={choice.id}
                 text={choice.text}
+                imageSrc={choice.imageSrc}
                 color={(['yellow', 'blue', 'purple'] as const)[i % 3]}
                 onClick={() => onChoiceSelect(choice.id)}
                 disabled={disabled}

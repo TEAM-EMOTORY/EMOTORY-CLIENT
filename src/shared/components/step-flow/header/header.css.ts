@@ -9,7 +9,7 @@ export const header = style({
 })
 
 export const logo = style({
-  height: '5rem',
+  height: '5.6rem',
   width: 'auto',
   objectFit: 'contain',
 })
@@ -21,11 +21,11 @@ export const emotionChip = style({
   backgroundColor: themeVars.color.white,
   border: `0.1rem solid ${themeVars.color.primary200}`,
   borderRadius: '5rem',
-  padding: '0.6rem 1.4rem',
-  ...themeVars.fontStyles.body_16eb,
+  padding: '0.7rem 1.6rem',
+  ...themeVars.fontStyles.body_18eb,
   color: themeVars.color.brown200,
 })
 
 export const chevron = style({
-  fontSize: '3rem',
+  fontSize: '3.4rem',
 })

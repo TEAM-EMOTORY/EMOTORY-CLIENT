@@ -15,6 +15,8 @@ import { useEndSession } from './hooks/use-end-session'
 import { useGenerateImage } from '@shared/hooks/use-generate-image'
 import { useCreateStoryResult } from '@shared/hooks/use-story-result'
 
+const STORY_TOTAL_STEPS = 4
+
 const StoryPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -35,6 +37,7 @@ const StoryPage = () => {
   const { mutate: endSession } = useEndSession()
   const { mutate: createStoryResult } = useCreateStoryResult()
   const endCalledRef = useRef(false)
+  const currentStep = Math.min(nodeData?.nodeOrder ?? 1, STORY_TOTAL_STEPS)
 
   const handleChoiceSelect = (choiceId: string) => {
     if (!state?.playSessionId) return
@@ -74,17 +77,8 @@ const StoryPage = () => {
         state: { playSessionId: state.playSessionId, lastNodeId: currentNodeId },
       })
     }
-  }, [
-    isFetching,
-    nodeData,
-    endSession,
-    navigate,
-    state?.playSessionId,
-    state?.selectedChoices,
-    state?.emotionLabel,
-    currentNodeId,
-    createStoryResult,
-  ])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetching, nodeData, state?.playSessionId, state?.selectedChoices, state?.emotionLabel, currentNodeId])
 
   const handlePrev = () => navigate(-1)
 
@@ -117,7 +111,8 @@ const StoryPage = () => {
       }
       nav={
         <StepFlowNav
-          currentStep={nodeData?.nodeOrder ?? 1}
+          currentStep={currentStep}
+          totalSteps={STORY_TOTAL_STEPS}
           onHome={() => navigate('/')}
           onPrev={handlePrev}
         />

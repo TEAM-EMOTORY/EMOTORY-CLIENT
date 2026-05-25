@@ -10,17 +10,17 @@ export const page = style({
 })
 
 export const statusMessage = style({
-  ...themeVars.fontStyles.body_20eb,
+  ...themeVars.fontStyles.body_23eb,
   color: themeVars.color.navy200,
 })
 
 export const wrapper = style({
   position: 'relative',
   width: '100%',
-  maxWidth: '96rem',
+  maxWidth: '104rem',
   display: 'flex',
   flexDirection: 'column',
-  gap: '3.5rem',
+  gap: '3rem',
 })
 
 export const titleSection = style({
@@ -32,7 +32,7 @@ export const titleSection = style({
 })
 
 export const title = style({
-  ...themeVars.fontStyles.body_40eb,
+  ...themeVars.fontStyles.body_44eb,
   display: 'flex',
   gap: '1.2rem',
 })
@@ -42,7 +42,7 @@ export const star = style({
 })
 
 export const description = style({
-  ...themeVars.fontStyles.sub_16r,
+  ...themeVars.fontStyles.sub_18r,
 })
 
 export const mainCards = style({
@@ -82,7 +82,7 @@ export const ctaButton = style({
   backgroundColor: themeVars.color.primary500,
   border: `0.1rem solid ${themeVars.color.primary300}`,
   borderRadius: '5rem',
-  ...themeVars.fontStyles.body_20eb,
+  ...themeVars.fontStyles.body_23eb,
   color: themeVars.color.white,
   cursor: 'pointer',
   whiteSpace: 'nowrap',

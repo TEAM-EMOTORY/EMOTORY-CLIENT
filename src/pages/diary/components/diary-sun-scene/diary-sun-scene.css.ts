@@ -1,4 +1,30 @@
-import { style } from '@vanilla-extract/css'
+import { keyframes, style } from '@vanilla-extract/css'
+
+const sunGlow = keyframes({
+  '0%, 100%': {
+    boxShadow:
+      '0 0 0 1.4rem rgba(252, 201, 68, 0.18), 0 0 4.8rem rgba(245, 169, 58, 0.72)',
+  },
+  '50%': {
+    boxShadow:
+      '0 0 0 2rem rgba(252, 201, 68, 0.24), 0 0 7.2rem rgba(245, 169, 58, 0.92)',
+  },
+})
+
+const cloudDrift = keyframes({
+  '0%': { transform: 'translateX(115vw)' },
+  '100%': { transform: 'translateX(-35vw)' },
+})
+
+const cloudDriftSmall = keyframes({
+  '0%': { transform: 'translateX(112vw) scale(0.78)' },
+  '100%': { transform: 'translateX(-35vw) scale(0.78)' },
+})
+
+const sparkleTwinkle = keyframes({
+  '0%, 100%': { opacity: 0.25, transform: 'scale(0.82) rotate(0deg)' },
+  '50%': { opacity: 1, transform: 'scale(1.16) rotate(18deg)' },
+})
 
 export const scene = style({
   position: 'relative',
@@ -64,11 +90,40 @@ export const sun = style({
   backgroundColor: '#FCC944',
   transform: 'translate(-50%, 50%)',
   boxShadow: '0 0 0 1.4rem rgba(252, 201, 68, 0.18), 0 0 4.8rem rgba(245, 169, 58, 0.72)',
-  transition: 'left 0.45s ease, bottom 0.45s ease',
+  transition: 'left 0.45s ease, bottom 0.45s ease, opacity 0.45s ease',
+  animationName: sunGlow,
+  animationDuration: '2.4s',
+  animationTimingFunction: 'ease-in-out',
+  animationIterationCount: 'infinite',
+})
+
+export const moon = style({
+  position: 'absolute',
+  width: '8.4rem',
+  height: '8.4rem',
+  borderRadius: '50%',
+  backgroundColor: '#F7F1D5',
+  transform: 'translate(-50%, 50%)',
+  boxShadow: '0 0 3.2rem rgba(247, 241, 213, 0.72)',
+  transition: 'left 0.45s ease, bottom 0.45s ease, opacity 0.45s ease',
+  selectors: {
+    '&::after': {
+      content: '',
+      position: 'absolute',
+      top: '-0.4rem',
+      right: '-0.8rem',
+      width: '8.4rem',
+      height: '8.4rem',
+      borderRadius: '50%',
+      backgroundColor: '#151B4F',
+      transform: 'translateX(0)',
+    },
+  },
 })
 
 export const cloud = style({
   position: 'absolute',
+  left: 0,
   width: '11rem',
   height: '3.6rem',
   borderRadius: '5rem',
@@ -79,17 +134,23 @@ export const cloud = style({
 export const cloudLeft = style([
   cloud,
   {
-    left: '12%',
     top: '22%',
+    animationName: cloudDrift,
+    animationDuration: '16s',
+    animationTimingFunction: 'linear',
+    animationIterationCount: 'infinite',
   },
 ])
 
 export const cloudRight = style([
   cloud,
   {
-    right: '16%',
     top: '32%',
-    transform: 'scale(0.78)',
+    animationName: cloudDriftSmall,
+    animationDuration: '21s',
+    animationTimingFunction: 'linear',
+    animationIterationCount: 'infinite',
+    animationDelay: '-9s',
   },
 ])
 
@@ -102,3 +163,45 @@ export const ground = style({
   backgroundColor: 'rgba(104, 70, 43, 0.22)',
   borderTop: '0.2rem solid rgba(255, 255, 255, 0.28)',
 })
+
+export const sparkle = style({
+  position: 'absolute',
+  width: '1.8rem',
+  height: '1.8rem',
+  backgroundColor: 'rgba(255, 255, 255, 0.86)',
+  clipPath:
+    'polygon(50% 0%, 61% 35%, 100% 50%, 61% 65%, 50% 100%, 39% 65%, 0% 50%, 39% 35%)',
+  filter: 'drop-shadow(0 0 0.8rem rgba(255, 255, 255, 0.9))',
+  animationName: sparkleTwinkle,
+  animationDuration: '2.2s',
+  animationTimingFunction: 'ease-in-out',
+  animationIterationCount: 'infinite',
+})
+
+export const sparkleOne = style([
+  sparkle,
+  {
+    left: '20%',
+    top: '16%',
+  },
+])
+
+export const sparkleTwo = style([
+  sparkle,
+  {
+    right: '20%',
+    top: '18%',
+    animationDelay: '0.7s',
+  },
+])
+
+export const sparkleThree = style([
+  sparkle,
+  {
+    left: '54%',
+    top: '30%',
+    width: '1.4rem',
+    height: '1.4rem',
+    animationDelay: '1.2s',
+  },
+])

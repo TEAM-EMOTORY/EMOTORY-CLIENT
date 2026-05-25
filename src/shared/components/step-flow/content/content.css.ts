@@ -9,8 +9,8 @@ export const content = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '2rem',
-  padding: '2rem 6rem',
+  gap: '2.4rem',
+  padding: '3.2rem 5.6rem',
   transform: 'rotate(3deg)',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   backgroundColor: themeVars.color.white,
@@ -21,18 +21,19 @@ export const content = style({
 
 export const star = style({
   color: themeVars.color.primary500,
-  fontSize: '2.4rem',
+  fontSize: themeVars.fontSize[28],
 })
 
 export const title = style({
-  ...themeVars.fontStyles.body_24eb,
+  ...themeVars.fontStyles.body_36eb,
   color: themeVars.color.navy200,
   textAlign: 'center',
 })
 
 export const line = style({
-  ...themeVars.fontStyles.body_18eb,
+  ...themeVars.fontStyles.body_28eb,
   color: themeVars.color.brown200,
   textAlign: 'center',
-  lineHeight: 2,
+  lineHeight: 1.6,
+  wordBreak: 'keep-all',
 })

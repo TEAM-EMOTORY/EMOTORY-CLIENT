@@ -2,6 +2,8 @@ import { style } from '@vanilla-extract/css'
 
 export const BUTTON_LEFT_VAR = '--home-btn-left'
 export const BUTTON_TOP_VAR = '--home-btn-top'
+export const AGREEMENT_LEFT_VAR = '--home-agreement-left'
+export const AGREEMENT_TOP_VAR = '--home-agreement-top'
 
 export const bgContainer = style({
   position: 'relative',
@@ -19,11 +21,20 @@ export const bgImage = style({
   objectPosition: 'center',
 })
 
-export const button = style({
+export const diaryButton = style({
   position: 'absolute',
-  width: '28rem',
-  height: '12rem',
+  width: '40rem',
+  height: '18rem',
   left: `var(${BUTTON_LEFT_VAR})`,
   top: `var(${BUTTON_TOP_VAR})`,
+  transform: 'translate(-50%, -50%)',
+})
+
+export const agreementButton = style({
+  position: 'absolute',
+  width: '30rem',
+  height: '14rem',
+  left: `var(${AGREEMENT_LEFT_VAR})`,
+  top: `var(${AGREEMENT_TOP_VAR})`,
   transform: 'translate(-50%, -50%)',
 })

@@ -9,13 +9,16 @@ import {
 } from '@shared/components/step-flow'
 import DiarySunScene from './components/diary-sun-scene/diary-sun-scene'
 import { hasConsonantEnding } from '@shared/utils/korean-particle'
+import happyCharacterImg from '@shared/assets/emotion-img/happy_character.webp'
+import sadCharacterImg from '@shared/assets/emotion-img/sad_character.webp'
+import angryCharacterImg from '@shared/assets/emotion-img/angry_character.webp'
 
 type DiaryEmotion = 'joy' | 'sad' | 'angry'
 
 const DIARY_CHOICES = [
-  { id: 'joy', text: '기쁨' },
-  { id: 'sad', text: '슬픔' },
-  { id: 'angry', text: '화남' },
+  { id: 'joy', text: '기쁨', imageSrc: happyCharacterImg },
+  { id: 'sad', text: '슬픔', imageSrc: sadCharacterImg },
+  { id: 'angry', text: '화남', imageSrc: angryCharacterImg },
 ]
 
 const DIARY_QUESTION_SUFFIXES = [

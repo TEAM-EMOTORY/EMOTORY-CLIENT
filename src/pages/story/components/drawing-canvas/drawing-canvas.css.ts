@@ -21,7 +21,7 @@ export const wrapper = style({
 })
 
 export const label = style({
-  ...themeVars.fontStyles.body_16eb,
+  ...themeVars.fontStyles.body_18eb,
   color: themeVars.color.brown200,
 })
 
@@ -59,7 +59,7 @@ export const colorButtonActive = style({
 })
 
 export const eraserButton = style({
-  ...themeVars.fontStyles.body_16eb,
+  ...themeVars.fontStyles.body_18eb,
   padding: '0.4rem 1.2rem',
   borderRadius: '2rem',
   border: `0.15rem solid ${themeVars.color.primary300}`,
