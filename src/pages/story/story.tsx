@@ -1,5 +1,5 @@
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   ChoiceSection,
   StepFlowContent,
@@ -8,11 +8,12 @@ import {
   StepFlowNav,
   StepFlowScene,
 } from '@shared/components/step-flow'
-import { decodeNodeId, encodeNodeId } from '@shared/utils/encode-node-id'
 import { replaceNameInContent } from '@shared/utils/korean-particle'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 import { useEndSession } from './hooks/use-end-session'
+import { useGenerateImage } from '@shared/hooks/use-generate-image'
+import { useCreateStoryResult } from '@shared/hooks/use-story-result'
 
 const StoryPage = () => {
   const navigate = useNavigate()
@@ -21,34 +22,59 @@ const StoryPage = () => {
 
   const childName = localStorage.getItem('childName') ?? ''
 
-  const currentNodeId = storyNodeId ? decodeNodeId(storyNodeId) : undefined
+  const currentNodeId = storyNodeId ? Number(storyNodeId) : undefined
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
+  const faceImageKey = localStorage.getItem('faceImageKey') ?? ''
+  const { data: imageData, isLoading: isImageLoading } = useGenerateImage(
+    faceImageKey,
+    currentNodeId,
+    state?.playSessionId,
+  )
+
   const { mutate: selectChoice } = useSelectChoice()
   const { mutate: endSession } = useEndSession()
+  const { mutate: createStoryResult } = useCreateStoryResult()
+  const endCalledRef = useRef(false)
 
   const handleChoiceSelect = (choiceId: string) => {
     if (!state?.playSessionId) return
+    const choiceText = nodeData?.choices.find((c) => String(c.choiceId) === choiceId)?.content ?? ''
     selectChoice(
       { playSessionId: state.playSessionId, choiceId: Number(choiceId) },
       {
-        onSuccess: ({ currentNodeId: nextNodeId, status }) => {
-          if (status === 'ENDED') {
-            endSession(state.playSessionId)
-            navigate('/result', { state: { playSessionId: state.playSessionId } })
-          } else {
-            navigate(`/story/${encodeNodeId(nextNodeId)}`, { state })
-          }
+        onSuccess: ({ currentNodeId: nextNodeId }) => {
+          navigate(`/story/${nextNodeId}`, {
+            state: {
+              ...state,
+              selectedChoices: [...(state.selectedChoices ?? []), choiceText],
+            },
+          })
         },
       },
     )
   }
 
   useEffect(() => {
-    if (!isFetching && nodeData?.choices.length === 0 && state?.playSessionId) {
+    if (
+      !isFetching &&
+      nodeData?.choices.length === 0 &&
+      state?.playSessionId &&
+      !endCalledRef.current
+    ) {
+      endCalledRef.current = true
+      const summary = (state.selectedChoices ?? []).join(', ')
       endSession(state.playSessionId)
-      navigate('/result', { state: { playSessionId: state.playSessionId } })
+      createStoryResult({
+        playSessionId: state.playSessionId,
+        emotion: state.emotionLabel ?? '',
+        summary,
+        advice: summary,
+      })
+      navigate('/result', {
+        state: { playSessionId: state.playSessionId, lastNodeId: currentNodeId },
+      })
     }
-  }, [isFetching, nodeData, endSession, navigate, state?.playSessionId])
+  }, [isFetching, nodeData, endSession, navigate, state?.playSessionId, createStoryResult])
 
   const handlePrev = () => navigate(-1)
 
@@ -59,7 +85,7 @@ const StoryPage = () => {
           emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : undefined}
         />
       }
-      scene={<StepFlowScene imageUrl='' />}
+      scene={<StepFlowScene imageUrl={imageData?.imageUrl ?? ''} isLoading={isImageLoading} />}
       content={
         <StepFlowContent
           title={`${childName}의 모험`}
@@ -75,6 +101,7 @@ const StoryPage = () => {
             })) ?? []
           }
           onChoiceSelect={handleChoiceSelect}
+          disabled={isImageLoading}
         />
       }
       nav={

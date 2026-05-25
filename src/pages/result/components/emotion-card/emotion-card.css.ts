@@ -5,38 +5,32 @@ export const headerStar = style({
   color: themeVars.color.primary500,
 })
 
-export const body = style({
+export const cardFlex = style({
   display: 'flex',
-  gap: '2rem',
-})
-
-export const characterImage = style({
-  width: '16rem',
-  height: '16rem',
-  objectFit: 'cover',
-  borderRadius: '16px',
+  flexDirection: 'column',
 })
 
 export const infoBlock = style({
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
   gap: '1rem',
+  padding: '1rem 0',
 })
 
 export const emotionTitle = style({
-  ...themeVars.fontStyles.body_24eb,
+  ...themeVars.fontStyles.body_32eb,
   color: themeVars.color.primary400,
-})
-
-export const summary = style({
-  ...themeVars.fontStyles.sub_16r,
+  textAlign: 'center',
 })
 
 export const tags = style({
   display: 'flex',
   gap: '0.8rem',
   flexWrap: 'wrap',
+  justifyContent: 'center',
 })
 
 export const tag = style({

@@ -10,13 +10,10 @@ interface ChoiceSectionProps {
   choices: ChoiceOption[]
   label?: string
   onChoiceSelect: (id: string) => void
+  disabled?: boolean
 }
 
-const ChoiceSection = ({
-  choices,
-  label = '어떻게 할까요?',
-  onChoiceSelect,
-}: ChoiceSectionProps) => {
+const ChoiceSection = ({ choices, label, onChoiceSelect, disabled }: ChoiceSectionProps) => {
   return (
     <div className={styles.section}>
       <div className={styles.label}>
@@ -24,14 +21,25 @@ const ChoiceSection = ({
         <span className={styles.star}>★</span>
       </div>
       <div className={styles.cards}>
-        {choices.map((choice, i) => (
-          <ChoiceCard
-            key={choice.id}
-            text={choice.text}
-            color={(['yellow', 'blue', 'purple'] as const)[i % 3]}
-            onClick={() => onChoiceSelect(choice.id)}
-          />
-        ))}
+        {choices.length > 0
+          ? choices.map((choice, i) => (
+              <ChoiceCard
+                key={choice.id}
+                text={choice.text}
+                color={(['yellow', 'blue', 'purple'] as const)[i % 3]}
+                onClick={() => onChoiceSelect(choice.id)}
+                disabled={disabled}
+              />
+            ))
+          : ([0, 1, 2] as const).map((i) => (
+              <ChoiceCard
+                key={i}
+                text=''
+                color={(['yellow', 'blue', 'purple'] as const)[i]}
+                onClick={() => {}}
+                disabled
+              />
+            ))}
       </div>
     </div>
   )

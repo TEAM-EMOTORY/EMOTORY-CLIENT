@@ -6,11 +6,12 @@ interface ChoiceCardProps {
   text: string
   color?: CardColor
   onClick: () => void
+  disabled?: boolean
 }
 
-const ChoiceCard = ({ text, color = 'yellow', onClick }: ChoiceCardProps) => {
+const ChoiceCard = ({ text, color = 'yellow', onClick, disabled }: ChoiceCardProps) => {
   return (
-    <button type='button' className={styles.card({ color })} onClick={onClick}>
+    <button type='button' className={styles.card({ color })} onClick={onClick} disabled={disabled}>
       <div className={styles.inner({ color })}>
         <p className={styles.text}>{text}</p>
         <span className={styles.arrowBtn({ color })}>›</span>

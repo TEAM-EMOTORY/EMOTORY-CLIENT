@@ -31,6 +31,7 @@ export const content = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.4rem',
+  padding: '1rem',
 })
 
 export const tipTitle = style({
