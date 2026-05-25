@@ -1,21 +1,26 @@
 import ChoiceCard from '../choice-card/choice-card'
 import * as styles from './choice-section.css'
 
-interface StoryChoice {
+interface ChoiceOption {
   id: string
   text: string
 }
 
 interface ChoiceSectionProps {
-  choices: StoryChoice[]
+  choices: ChoiceOption[]
+  label?: string
   onChoiceSelect: (id: string) => void
 }
 
-const ChoiceSection = ({ choices, onChoiceSelect }: ChoiceSectionProps) => {
+const ChoiceSection = ({
+  choices,
+  label = '어떻게 할까요?',
+  onChoiceSelect,
+}: ChoiceSectionProps) => {
   return (
     <div className={styles.section}>
       <div className={styles.label}>
-        <p>어떻게 할까요?</p>
+        <p>{label}</p>
         <span className={styles.star}>★</span>
       </div>
       <div className={styles.cards}>

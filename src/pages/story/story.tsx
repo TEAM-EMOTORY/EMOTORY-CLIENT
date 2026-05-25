@@ -1,11 +1,13 @@
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
-import StoryHeader from './components/story-header/story-header'
-import StoryScene from './components/story-scene/story-scene'
-import StoryContent from './components/story-content/story-content'
-import ChoiceSection from './components/choice-section/choice-section'
-import StoryNav from './components/story-nav/story-nav'
-import * as styles from './story.css'
+import {
+  ChoiceSection,
+  StepFlowContent,
+  StepFlowFrame,
+  StepFlowHeader,
+  StepFlowNav,
+  StepFlowScene,
+} from '@shared/components/step-flow'
 import { decodeNodeId, encodeNodeId } from '@shared/utils/encode-node-id'
 import { replaceNameInContent } from '@shared/utils/korean-particle'
 import { useStoryNode } from './hooks/use-story-node'
@@ -51,30 +53,38 @@ const StoryPage = () => {
   const handlePrev = () => navigate(-1)
 
   return (
-    <div className={styles.page}>
-      <StoryHeader emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : ''} />
-      <div className={styles.wrapper}>
-        <div className={styles.main}>
-          <StoryScene imageUrl='' />
-          <StoryContent
-            title={`${childName}의 모험`}
-            content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''}
-          />
-        </div>
+    <StepFlowFrame
+      header={
+        <StepFlowHeader
+          emotionLabel={state?.emotionLabel ? `${state.emotionLabel} 이야기` : undefined}
+        />
+      }
+      scene={<StepFlowScene imageUrl='' />}
+      content={
+        <StepFlowContent
+          title={`${childName}의 모험`}
+          content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''}
+        />
+      }
+      choices={
         <ChoiceSection
-          choices={nodeData?.choices.map(({ choiceId, content }) => ({
-            id: String(choiceId),
-            text: content,
-          })) ?? []}
+          choices={
+            nodeData?.choices.map(({ choiceId, content }) => ({
+              id: String(choiceId),
+              text: content,
+            })) ?? []
+          }
           onChoiceSelect={handleChoiceSelect}
         />
-      </div>
-      <StoryNav
-        nodeOrder={nodeData?.nodeOrder ?? 1}
-        onHome={() => navigate('/')}
-        onPrev={handlePrev}
-      />
-    </div>
+      }
+      nav={
+        <StepFlowNav
+          currentStep={nodeData?.nodeOrder ?? 1}
+          onHome={() => navigate('/')}
+          onPrev={handlePrev}
+        />
+      }
+    />
   )
 }
 
