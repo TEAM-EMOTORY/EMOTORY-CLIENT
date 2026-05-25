@@ -10,7 +10,7 @@ import { replaceNameInContent } from '@shared/utils/korean-particle'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
 import { useEndSession } from './hooks/use-end-session'
-import { useGenerateImage } from './hooks/use-generate-image'
+import { useGenerateImage } from '@shared/hooks/use-generate-image'
 import { useCreateStoryResult } from '@shared/hooks/use-story-result'
 
 const StoryPage = () => {
@@ -64,7 +64,7 @@ const StoryPage = () => {
         summary,
         advice: summary,
       })
-      navigate('/result', { state: { playSessionId: state.playSessionId } })
+      navigate('/result', { state: { playSessionId: state.playSessionId, lastNodeId: currentNodeId } })
     }
   }, [isFetching, nodeData, endSession, navigate, state?.playSessionId, createStoryResult])
 

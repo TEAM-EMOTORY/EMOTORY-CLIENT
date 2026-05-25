@@ -1,13 +1,15 @@
 import { http } from './http'
+import { END_POINT } from './config/end-point'
 
-export interface AIImageRequest {
-  prompt: string
+export interface GenerateImageRequest {
+  faceImageKey: string
+  nodeId: number
+  playSessionId: number
 }
 
-export interface AIImageResponse {
+export interface GenerateImageResponse {
   imageUrl: string
 }
 
-export const generateAIImage = async (body: AIImageRequest): Promise<AIImageResponse> => {
-  return await http.post<AIImageResponse>('/images/generate', body)
-}
+export const generateImage = (data: GenerateImageRequest) =>
+  http.post<GenerateImageResponse>(END_POINT.STORY.GENERATE_IMAGE, data, { timeout: 60000 })

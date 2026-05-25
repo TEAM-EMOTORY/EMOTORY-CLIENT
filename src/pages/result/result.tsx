@@ -5,6 +5,7 @@ import StoryCard from './components/story-card/story-card'
 import EmotionCard from './components/emotion-card/emotion-card'
 import TipCard from './components/tip-card/tip-card'
 import { useStoryResult } from '@shared/hooks/use-story-result'
+import { useGenerateImage } from '@shared/hooks/use-generate-image'
 import { replaceNameInContent, hasConsonantEnding } from '@shared/utils/korean-particle'
 
 const TEST_IMAGE =
@@ -15,8 +16,11 @@ const ResultPage = () => {
   const { state } = useLocation()
 
   const childName = localStorage.getItem('childName') ?? ''
+  const faceImageKey = localStorage.getItem('faceImageKey') ?? ''
   const playSessionId = state?.playSessionId
+  const lastNodeId = state?.lastNodeId
   const { data: resultData } = useStoryResult(playSessionId)
+  const { data: imageData } = useGenerateImage(faceImageKey, lastNodeId, playSessionId)
 
   return (
     <main className={styles.page}>
@@ -33,7 +37,7 @@ const ResultPage = () => {
 
         <div className={styles.mainCards}>
           <StoryCard
-            imageUrl={TEST_IMAGE}
+            imageUrl={imageData?.imageUrl ?? resultData?.generatedImageUrl ?? TEST_IMAGE}
             summary={
               resultData?.summary
                 ? replaceNameInContent(resultData.summary, childName)
@@ -43,7 +47,6 @@ const ResultPage = () => {
           />
           <EmotionCard
             name={childName}
-            imageUrl={TEST_IMAGE}
             title={resultData?.emotion ?? '감정을 분석 중이에요...'}
             tags={[]}
             className={styles.emotionCard}

@@ -19,13 +19,13 @@ const DrawingCanvas = () => {
     ctx.fillRect(0, 0, canvas.width, canvas.height)
   }, [])
 
-  const getPos = (e: MouseEvent | Touch, canvas: HTMLCanvasElement) => {
+  const getPos = (e: { clientX: number; clientY: number }, canvas: HTMLCanvasElement) => {
     const rect = canvas.getBoundingClientRect()
     const scaleX = canvas.width / rect.width
     const scaleY = canvas.height / rect.height
     return {
-      x: (('clientX' in e ? e.clientX : e.clientX) - rect.left) * scaleX,
-      y: (('clientY' in e ? e.clientY : e.clientY) - rect.top) * scaleY,
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY,
     }
   }
 

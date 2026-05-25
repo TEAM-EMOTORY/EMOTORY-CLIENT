@@ -1,8 +1,15 @@
-import { useMutation } from '@tanstack/react-query'
-import { generateAIImage, type AIImageRequest } from '@shared/apis/image'
+import { useQuery } from '@tanstack/react-query'
+import { generateImage } from '@shared/apis/image'
 
-export const useGenerateImage = () => {
-  return useMutation({
-    mutationFn: (body: AIImageRequest) => generateAIImage(body),
+export const useGenerateImage = (
+  faceImageKey: string,
+  nodeId: number | undefined,
+  playSessionId: number | undefined,
+) =>
+  useQuery({
+    queryKey: ['generate-image', nodeId],
+    queryFn: () => generateImage({ faceImageKey, nodeId: nodeId!, playSessionId: playSessionId! }),
+    enabled: !!faceImageKey && !!nodeId && !!playSessionId,
+    retry: false,
+    staleTime: Infinity,
   })
-}
