@@ -74,17 +74,8 @@ const StoryPage = () => {
         state: { playSessionId: state.playSessionId, lastNodeId: currentNodeId },
       })
     }
-  }, [
-    isFetching,
-    nodeData,
-    endSession,
-    navigate,
-    state?.playSessionId,
-    state?.selectedChoices,
-    state?.emotionLabel,
-    currentNodeId,
-    createStoryResult,
-  ])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetching, nodeData, state?.playSessionId, state?.selectedChoices, state?.emotionLabel, currentNodeId])
 
   const handlePrev = () => navigate(-1)
 
