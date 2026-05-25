@@ -4,6 +4,8 @@ import { themeVars } from '@shared/styles/theme.css'
 import angryImg from '@shared/assets/emotion-img/angry.webp'
 import joyImg from '@shared/assets/emotion-img/joy.webp'
 import sadImg from '@shared/assets/emotion-img/sad.webp'
+import fearImg from '@shared/assets/emotion-img/fear.webp'
+import surpriseImg from '@shared/assets/emotion-img/surprise.webp'
 
 export const wrapper = style({
   paddingTop: '10rem',
@@ -23,7 +25,7 @@ export const titleGroup = style({
 })
 
 export const mainTitle = style({
-  ...themeVars.fontStyles.body_40eb,
+  ...themeVars.fontStyles.body_44eb,
   color: themeVars.color.navy100,
   WebkitTextStroke: '0.5rem white',
   paintOrder: 'stroke fill',
@@ -34,22 +36,23 @@ export const pointWord = style({
 })
 
 export const subTitle = style({
-  ...themeVars.fontStyles.body_20eb,
+  ...themeVars.fontStyles.body_23eb,
   color: themeVars.color.brown200,
 })
 
 export const cardSection = style({
   display: 'flex',
-  gap: '1rem',
-  marginTop: '5rem',
+  alignItems: 'center',
+  gap: '0.8rem',
+  marginTop: '3.6rem',
 })
 
 const emotionCardBase = style({
-  width: '19rem',
+  width: '22rem',
   aspectRatio: '14 / 20',
   borderRadius: '2.0rem',
   cursor: 'pointer',
-  backgroundSize: 'contain',
+  backgroundSize: 'auto 100%',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
   display: 'flex',
@@ -60,14 +63,18 @@ const emotionCardBase = style({
 })
 
 export const labelText = style({
-  ...themeVars.fontStyles.body_24eb,
-  color: 'inherit',
+  position: 'absolute',
+  width: 1,
+  height: 1,
+  overflow: 'hidden',
+  clip: 'rect(0 0 0 0)',
+  whiteSpace: 'nowrap',
 })
 
 export const emotionCardSad = style([
   emotionCardBase,
   {
-    transform: 'rotate(-3deg)',
+    transform: 'rotate(-5deg) translateY(1.2rem)',
     backgroundImage: `url(${sadImg})`,
     color: themeVars.color.navy100,
   },
@@ -76,7 +83,7 @@ export const emotionCardSad = style([
 export const emotionCardJoy = style([
   emotionCardBase,
   {
-    transform: 'translateY(-0.5rem)',
+    transform: 'rotate(-2deg) translateY(-0.4rem)',
     backgroundImage: `url(${joyImg})`,
     color: themeVars.color.primary500,
   },
@@ -85,8 +92,26 @@ export const emotionCardJoy = style([
 export const emotionCardAngry = style([
   emotionCardBase,
   {
-    transform: 'rotate(3deg)',
+    transform: 'rotate(0deg) translateY(-1rem)',
     backgroundImage: `url(${angryImg})`,
     color: themeVars.color.orange,
+  },
+])
+
+export const emotionCardFear = style([
+  emotionCardBase,
+  {
+    transform: 'rotate(2deg) translateY(-0.4rem)',
+    backgroundImage: `url(${fearImg})`,
+    color: '#5B8DEF',
+  },
+])
+
+export const emotionCardSurprise = style([
+  emotionCardBase,
+  {
+    transform: 'rotate(5deg) translateY(1.2rem)',
+    backgroundImage: `url(${surpriseImg})`,
+    color: '#9B72EF',
   },
 ])

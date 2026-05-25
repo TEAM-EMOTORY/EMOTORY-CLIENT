@@ -14,20 +14,23 @@ const bgPulse = keyframes({
 
 export const body = style({
   display: 'flex',
-  gap: '2rem',
+  alignItems: 'center',
+  gap: '2.8rem',
+  height: '100%',
+  minHeight: '18rem',
 })
 
 export const image = style({
-  width: '16rem',
-  height: '16rem',
+  width: '18rem',
+  height: '18rem',
   objectFit: 'cover',
   borderRadius: '16px',
   flexShrink: 0,
 })
 
 export const imagePlaceholder = style({
-  width: '16rem',
-  height: '16rem',
+  width: '18rem',
+  height: '18rem',
   flexShrink: 0,
   borderRadius: '16px',
   display: 'flex',
@@ -63,10 +66,14 @@ export const dot3 = style({ ...dotBase, backgroundColor: '#4CAF50', animationDel
 export const dot4 = style({ ...dotBase, backgroundColor: '#5B8DEF', animationDelay: '0.45s' })
 
 export const loadingText = style({
-  ...themeVars.fontStyles.body_12eb,
+  ...themeVars.fontStyles.body_14eb,
   color: themeVars.color.brown200,
 })
 
 export const line = style({
-  ...themeVars.fontStyles.sub_16r,
+  ...themeVars.fontStyles.body_21eb,
+  flex: 1,
+  lineHeight: 1.55,
+  wordBreak: 'keep-all',
+  color: themeVars.color.brown200,
 })

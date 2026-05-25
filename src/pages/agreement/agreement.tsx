@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import type { ChangeEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import * as styles from './agreement.css'
 import Button from '../../shared/components/button/button'
 
 const AgreementPage = () => {
   const [isConsented, setIsConsented] = useState<boolean>(false)
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const next = searchParams.get('next')
+  const childInfoPath = next === 'diary' ? '/child-info?redirect=/diary' : '/child-info'
 
   const handleConsentChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsConsented(e.target.checked)
@@ -20,7 +23,7 @@ const AgreementPage = () => {
   // 동의하고 가기 버튼을 클릭했을 때 (막기)
   const handleSubmitClick = () => {
     if (!isConsented) return
-    navigate('/child-info')
+    navigate(childInfoPath)
   }
 
   return (

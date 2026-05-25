@@ -15,16 +15,20 @@ interface ProfileCardProps {
   childName: string
 }
 
-const ProfileCard = ({ childName }: ProfileCardProps) => (
-  <aside className={styles.profileCard}>
-    <img src={happyCharacterImg} alt='' className={styles.profileImage} />
-    <strong className={styles.childName}>{childName}</strong>
-    <div className={styles.profileMessage}>
-      <span>♥</span>
-      <p>{randomMessage}</p>
-    </div>
-    <div className={styles.flowerBed} />
-  </aside>
-)
+const ProfileCard = ({ childName }: ProfileCardProps) => {
+  const childProfileImage = localStorage.getItem('childProfileImage') ?? happyCharacterImg
+
+  return (
+    <aside className={styles.profileCard}>
+      <img src={childProfileImage} alt='' className={styles.profileImage} />
+      <strong className={styles.childName}>{childName}</strong>
+      <div className={styles.profileMessage}>
+        <span>♥</span>
+        <p>{randomMessage}</p>
+      </div>
+      <div className={styles.flowerBed} />
+    </aside>
+  )
+}
 
 export default ProfileCard

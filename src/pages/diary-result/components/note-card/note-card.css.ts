@@ -16,7 +16,7 @@ export const noteTitle = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '1rem',
-  ...themeVars.fontStyles.body_18eb,
+  ...themeVars.fontStyles.body_21eb,
   color: '#5B8A46',
   marginBottom: 'clamp(1rem, 1.5vh, 2rem)',
 })
@@ -33,13 +33,13 @@ export const noteBody = style({
   borderRadius: '2.4rem',
   backgroundColor: 'rgba(255, 255, 255, 0.76)',
   textAlign: 'center',
-  ...themeVars.fontStyles.sub_16r,
+  ...themeVars.fontStyles.sub_18r,
   lineHeight: 1.9,
   overflow: 'hidden',
 })
 
 export const noteHeadline = style({
-  ...themeVars.fontStyles.body_20eb,
+  ...themeVars.fontStyles.body_23eb,
   color: '#5B8A46',
 })
 

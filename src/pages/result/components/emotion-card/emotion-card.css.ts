@@ -21,7 +21,7 @@ export const infoBlock = style({
 })
 
 export const emotionTitle = style({
-  ...themeVars.fontStyles.body_32eb,
+  ...themeVars.fontStyles.body_36eb,
   color: themeVars.color.primary400,
   textAlign: 'center',
 })
@@ -34,7 +34,7 @@ export const tags = style({
 })
 
 export const tag = style({
-  ...themeVars.fontStyles.sub_12r,
+  ...themeVars.fontStyles.sub_14r,
   color: themeVars.color.orange,
   backgroundColor: themeVars.color.primary200,
   border: `0.15rem solid ${themeVars.color.primary300}`,

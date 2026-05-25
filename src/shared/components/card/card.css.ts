@@ -5,7 +5,7 @@ export const card = recipe({
   base: {
     position: 'relative',
     borderRadius: '30px',
-    padding: '5rem 2.4rem 3rem 2.4rem',
+    padding: '5.6rem 2.8rem 3.2rem 2.8rem',
   },
   variants: {
     color: {
@@ -35,8 +35,8 @@ export const header = recipe({
     gap: '0.8rem',
     whiteSpace: 'nowrap',
     borderRadius: '5rem',
-    padding: '0.8rem 2.4rem',
-    ...themeVars.fontStyles.body_16eb,
+    padding: '0.9rem 2.6rem',
+    ...themeVars.fontStyles.body_18eb,
   },
   variants: {
     color: {
