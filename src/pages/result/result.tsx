@@ -8,9 +8,6 @@ import { useStoryResult } from '@shared/hooks/use-story-result'
 import { useGenerateImage } from '@shared/hooks/use-generate-image'
 import { replaceNameInContent, hasConsonantEnding } from '@shared/utils/korean-particle'
 
-const TEST_IMAGE =
-  'https://media.istockphoto.com/id/2148757239/ko/%EC%82%AC%EC%A7%84/%EC%95%84%EC%8B%9C%EC%95%84-%EC%9E%91%EC%9D%80-%EB%B0%9C%ED%86%B1-%EC%88%98%EB%8B%AC.jpg?s=612x612&w=0&k=20&c=xkH9d6pwEDkkzflv6tMelrv8DtXkUX5fX6ruUPt82Ak='
-
 const ResultPage = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -20,7 +17,7 @@ const ResultPage = () => {
   const playSessionId = state?.playSessionId
   const lastNodeId = state?.lastNodeId
   const { data: resultData } = useStoryResult(playSessionId)
-  const { data: imageData } = useGenerateImage(faceImageKey, lastNodeId, playSessionId)
+  const { data: imageData, isLoading: isImageLoading } = useGenerateImage(faceImageKey, lastNodeId, playSessionId)
 
   return (
     <main className={styles.page}>
@@ -37,7 +34,8 @@ const ResultPage = () => {
 
         <div className={styles.mainCards}>
           <StoryCard
-            imageUrl={imageData?.imageUrl ?? resultData?.generatedImageUrl ?? TEST_IMAGE}
+            imageUrl={imageData?.imageUrl ?? resultData?.generatedImageUrl ?? ''}
+            isLoading={isImageLoading}
             summary={
               resultData?.summary
                 ? replaceNameInContent(resultData.summary, childName)

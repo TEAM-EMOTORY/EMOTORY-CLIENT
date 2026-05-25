@@ -11,6 +11,13 @@ export const card = recipe({
     minHeight: '14rem',
     borderRadius: '20px',
     padding: '0.5rem',
+    selectors: {
+      '&:disabled': {
+        opacity: 0.4,
+        cursor: 'not-allowed',
+        pointerEvents: 'none',
+      },
+    },
   },
   variants: {
     color: {

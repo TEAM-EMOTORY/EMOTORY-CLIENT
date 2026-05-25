@@ -88,6 +88,7 @@ const StoryPage = () => {
             })) ?? []
           }
           onChoiceSelect={handleChoiceSelect}
+          disabled={isImageLoading}
         />
       </div>
       <StoryNav
