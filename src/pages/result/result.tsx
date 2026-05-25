@@ -64,7 +64,7 @@ const ResultPage = () => {
           >
             ✦ 다른 감정을 탐험해볼래요? &gt;
           </button>
-          <Button color='white' onClick={() => {}}>
+          <Button color='white' onClick={() => navigate('/diary')}>
             📔 오늘의 감정 일기 쓰기
           </Button>
         </div>

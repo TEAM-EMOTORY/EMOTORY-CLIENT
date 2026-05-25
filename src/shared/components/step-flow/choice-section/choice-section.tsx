@@ -1,22 +1,23 @@
 import ChoiceCard from '../choice-card/choice-card'
 import * as styles from './choice-section.css'
 
-interface StoryChoice {
+interface ChoiceOption {
   id: string
   text: string
 }
 
 interface ChoiceSectionProps {
-  choices: StoryChoice[]
+  choices: ChoiceOption[]
+  label?: string
   onChoiceSelect: (id: string) => void
   disabled?: boolean
 }
 
-const ChoiceSection = ({ choices, onChoiceSelect, disabled }: ChoiceSectionProps) => {
+const ChoiceSection = ({ choices, label, onChoiceSelect, disabled }: ChoiceSectionProps) => {
   return (
     <div className={styles.section}>
       <div className={styles.label}>
-        <p>어떻게 할까요?</p>
+        <p>{label}</p>
         <span className={styles.star}>★</span>
       </div>
       <div className={styles.cards}>
@@ -31,7 +32,13 @@ const ChoiceSection = ({ choices, onChoiceSelect, disabled }: ChoiceSectionProps
               />
             ))
           : ([0, 1, 2] as const).map((i) => (
-              <ChoiceCard key={i} text='' color={(['yellow', 'blue', 'purple'] as const)[i]} onClick={() => {}} disabled />
+              <ChoiceCard
+                key={i}
+                text=''
+                color={(['yellow', 'blue', 'purple'] as const)[i]}
+                onClick={() => {}}
+                disabled
+              />
             ))}
       </div>
     </div>
