@@ -45,7 +45,6 @@ export const title = style({
 export const description = style({
   ...themeVars.fontStyles.body_20eb,
   color: 'rgba(104, 70, 43, 0.72)',
-  whiteSpace: 'nowrap',
 })
 
 export const board = style({
