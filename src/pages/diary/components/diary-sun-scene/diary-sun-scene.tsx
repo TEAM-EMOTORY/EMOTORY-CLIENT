@@ -18,9 +18,16 @@ const getLayerOpacity = (progress: number) => ({
 const DiarySunScene = ({ currentStep, totalSteps }: DiarySunSceneProps) => {
   const progress = totalSteps <= 1 ? 1 : (currentStep - 1) / (totalSteps - 1)
   const sunHeightRatio = Math.sin(progress * Math.PI)
+  const moonProgress = clamp((progress - 0.7) / 0.3)
   const sunStyle: CSSProperties = {
     left: `${8 + progress * 84}%`,
     bottom: `${12 + sunHeightRatio * 58}%`,
+    opacity: 1 - moonProgress,
+  }
+  const moonStyle: CSSProperties = {
+    left: sunStyle.left,
+    bottom: sunStyle.bottom,
+    opacity: moonProgress,
   }
   const skyOpacity = getLayerOpacity(progress)
 
@@ -31,9 +38,13 @@ const DiarySunScene = ({ currentStep, totalSteps }: DiarySunSceneProps) => {
       <div className={styles.duskSky} style={{ opacity: skyOpacity.dusk }} />
       <div className={styles.nightSky} style={{ opacity: skyOpacity.night }} />
       <div className={styles.sunPath} />
+      <div className={styles.sparkleOne} />
+      <div className={styles.sparkleTwo} />
+      <div className={styles.sparkleThree} />
       <div className={styles.cloudLeft} />
       <div className={styles.cloudRight} />
       <div className={styles.sun} style={sunStyle} />
+      <div className={styles.moon} style={moonStyle} />
       <div className={styles.ground} />
     </div>
   )
