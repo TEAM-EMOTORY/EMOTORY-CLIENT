@@ -26,7 +26,7 @@ export const whiteBox = style({
 export const title = style({
   color: themeVars.color.brown200,
   textAlign: 'center',
-  ...fontStyles.body_32eb,
+  ...fontStyles.body_36eb,
 })
 
 export const infoSection = style({
@@ -43,7 +43,7 @@ export const infoSection = style({
 
 export const infoText = style({
   color: themeVars.color.brown200,
-  fontSize: '1.5rem',
+  fontSize: themeVars.fontSize[18],
   fontWeight: 400,
   lineHeight: '3.5rem',
   textAlign: 'left',
@@ -67,7 +67,7 @@ export const checkboxInput = style({
 
 export const checkboxLabel = style({
   color: themeVars.color.brown200,
-  fontSize: '1.5rem',
+  fontSize: themeVars.fontSize[18],
   fontWeight: 400,
   lineHeight: '3.5rem',
 })

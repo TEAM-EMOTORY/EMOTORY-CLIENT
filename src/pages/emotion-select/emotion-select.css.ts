@@ -23,7 +23,7 @@ export const titleGroup = style({
 })
 
 export const mainTitle = style({
-  ...themeVars.fontStyles.body_40eb,
+  ...themeVars.fontStyles.body_44eb,
   color: themeVars.color.navy100,
   WebkitTextStroke: '0.5rem white',
   paintOrder: 'stroke fill',
@@ -34,7 +34,7 @@ export const pointWord = style({
 })
 
 export const subTitle = style({
-  ...themeVars.fontStyles.body_20eb,
+  ...themeVars.fontStyles.body_23eb,
   color: themeVars.color.brown200,
 })
 
@@ -60,7 +60,7 @@ const emotionCardBase = style({
 })
 
 export const labelText = style({
-  ...themeVars.fontStyles.body_24eb,
+  ...themeVars.fontStyles.body_28eb,
   color: 'inherit',
 })
 

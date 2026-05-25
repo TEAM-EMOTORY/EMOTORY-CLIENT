@@ -9,7 +9,7 @@ export const buttonVariants = recipe({
     justifyContent: 'center',
     borderRadius: '5rem',
     color: themeVars.color.brown200,
-    ...themeVars.fontStyles.body_24eb,
+    ...themeVars.fontStyles.body_28eb,
     border: `1px solid ${themeVars.color.primary300}`,
     boxShadow:
       'inset 0px 3px 6px rgba(255, 255, 255, 0.41), inset 0px -3px 5px rgba(0, 0, 0, 0.08)',
@@ -18,21 +18,23 @@ export const buttonVariants = recipe({
   variants: {
     color: {
       yellow: {
-        height: '6rem',
-        width: '23rem',
+        minHeight: '7.2rem',
+        width: '26rem',
+        padding: '0 2.8rem',
         backgroundColor: themeVars.color.primary500,
       },
       cream: {
-        height: '6rem',
-        width: '23rem',
+        minHeight: '7.2rem',
+        width: '26rem',
+        padding: '0 2.8rem',
         backgroundColor: themeVars.color.primary300,
       },
       white: {
-        ...themeVars.fontStyles.body_16eb,
+        ...themeVars.fontStyles.body_18eb,
         boxShadow: 'none',
         border: 'none',
         backgroundColor: themeVars.color.primary50,
-        padding: '1.7rem 3rem',
+        padding: '1.8rem 3.2rem',
       },
     },
   },

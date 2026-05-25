@@ -38,13 +38,13 @@ export const graphBadge = style({
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '5rem',
   backgroundColor: 'rgba(255, 253, 248, 0.96)',
-  ...themeVars.fontStyles.body_18eb,
+  ...themeVars.fontStyles.body_21eb,
   color: themeVars.color.primary400,
   boxShadow: '0 0.8rem 2rem rgba(104, 70, 43, 0.08)',
 })
 
 export const graphQuestion = style({
-  ...themeVars.fontStyles.sub_16r,
+  ...themeVars.fontStyles.sub_18r,
   marginBottom: 'clamp(0.8rem, 1.5vh, 2rem)',
   color: themeVars.color.brown200,
 })
@@ -114,7 +114,7 @@ export const countBubble = style({
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '1.6rem',
   backgroundColor: 'rgba(255, 249, 240, 0.96)',
-  ...themeVars.fontStyles.body_24eb,
+  ...themeVars.fontStyles.body_28eb,
   fontSize: 'clamp(2rem, 2.2vw, 2.4rem)',
   textAlign: 'center',
   color: themeVars.color.brown200,
@@ -142,7 +142,7 @@ export const countBubble = style({
 export const countBubbleValue = style({ lineHeight: 1 })
 
 export const countBubbleUnit = style({
-  ...themeVars.fontStyles.body_18eb,
+  ...themeVars.fontStyles.body_21eb,
   fontSize: 'clamp(1.5rem, 1.6vw, 1.8rem)',
   lineHeight: 1,
 })
@@ -197,7 +197,7 @@ export const emotionIcon = style({
 })
 
 export const emotionLabel = style({
-  ...themeVars.fontStyles.body_16eb,
+  ...themeVars.fontStyles.body_18eb,
   marginTop: '0.4rem',
   color: themeVars.color.brown200,
 })

@@ -33,10 +33,10 @@ export const inner = style({
 })
 
 export const uploadTitle = style({
-  ...themeVars.fontStyles.body_18eb,
+  ...themeVars.fontStyles.body_21eb,
 })
 
 export const uploadDesc = style({
-  ...themeVars.fontStyles.sub_12r,
+  ...themeVars.fontStyles.sub_14r,
   textAlign: 'center',
 })

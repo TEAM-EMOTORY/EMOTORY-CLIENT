@@ -73,12 +73,12 @@ export const titleSection = style({
 })
 
 export const title = style({
-  ...themeVars.fontStyles.body_32eb,
+  ...themeVars.fontStyles.body_36eb,
   color: themeVars.color.brown200,
 })
 
 export const description = style({
-  ...themeVars.fontStyles.body_16eb,
+  ...themeVars.fontStyles.body_18eb,
   color: 'rgba(104, 70, 43, 0.72)',
 })
 
@@ -122,7 +122,7 @@ export const subButton = style({
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '5rem',
   backgroundColor: 'rgba(255, 255, 255, 0.88)',
-  ...themeVars.fontStyles.body_16eb,
+  ...themeVars.fontStyles.body_18eb,
   color: themeVars.color.brown200,
   cursor: 'pointer',
   boxShadow: '0 0.8rem 2rem rgba(104, 70, 43, 0.1)',
