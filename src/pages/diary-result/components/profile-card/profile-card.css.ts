@@ -21,12 +21,13 @@ export const profileImage = style({
   marginBottom: 'clamp(1rem, 1.5vh, 2rem)',
   borderRadius: '50%',
   objectFit: 'cover',
+  objectPosition: 'center',
   backgroundColor: themeVars.color.primary100,
   border: `0.15rem solid ${themeVars.color.primary300}`,
 })
 
 export const childName = style({
-  ...themeVars.fontStyles.body_32eb,
+  ...themeVars.fontStyles.body_36eb,
   marginBottom: 'clamp(1.2rem, 2vh, 2.8rem)',
   color: themeVars.color.brown200,
 })
@@ -40,7 +41,7 @@ export const profileMessage = style({
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '2rem',
   backgroundColor: 'rgba(255, 249, 240, 0.9)',
-  ...themeVars.fontStyles.sub_16r,
+  ...themeVars.fontStyles.sub_18r,
   lineHeight: 1.7,
 })
 
