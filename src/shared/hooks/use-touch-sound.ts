@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 export const useTouchSound = () => {
   useEffect(() => {
-    const audio = new Audio('/touch1.aac')
+    const audio = new Audio('/mugic/touch1.aac')
     audio.preload = 'auto'
 
     const play = () => {

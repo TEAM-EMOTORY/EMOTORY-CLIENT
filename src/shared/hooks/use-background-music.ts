@@ -4,7 +4,7 @@ export const useBackgroundMusic = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
-    const audio = new Audio('/bgm1.aac')
+    const audio = new Audio('/mugic/bgm1.aac')
     audio.loop = true
     audio.volume = 1
     audioRef.current = audio
