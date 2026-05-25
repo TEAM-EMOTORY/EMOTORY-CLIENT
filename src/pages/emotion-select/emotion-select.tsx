@@ -7,6 +7,8 @@ const emotions = [
   { label: '슬픔', className: styles.emotionCardSad, storyId: 1 },
   { label: '기쁨', className: styles.emotionCardJoy, storyId: 2 },
   { label: '분노', className: styles.emotionCardAngry, storyId: 3 },
+  { label: '두려움', className: styles.emotionCardFear, storyId: 4 },
+  { label: '놀라움', className: styles.emotionCardSurprise, storyId: 5 },
 ]
 
 const EmotionSelectPage = () => {
