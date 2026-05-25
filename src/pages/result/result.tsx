@@ -5,6 +5,7 @@ import StoryCard from './components/story-card/story-card'
 import EmotionCard from './components/emotion-card/emotion-card'
 import TipCard from './components/tip-card/tip-card'
 import { useStoryResult } from '@shared/hooks/use-story-result'
+import { replaceNameInContent } from '@shared/utils/korean-particle'
 
 const TEST_IMAGE =
   'https://media.istockphoto.com/id/2148757239/ko/%EC%82%AC%EC%A7%84/%EC%95%84%EC%8B%9C%EC%95%84-%EC%9E%91%EC%9D%80-%EB%B0%9C%ED%86%B1-%EC%88%98%EB%8B%AC.jpg?s=612x612&w=0&k=20&c=xkH9d6pwEDkkzflv6tMelrv8DtXkUX5fX6ruUPt82Ak='
@@ -32,15 +33,15 @@ const ResultPage = () => {
         <div className={styles.mainCards}>
           <StoryCard
             imageUrl={TEST_IMAGE}
-            summary={resultData?.summary ?? '이야기 요약을 불러오는 중이에요...'}
+            summary={resultData?.summary ? replaceNameInContent(resultData.summary, childName) : '이야기 요약을 불러오는 중이에요...'}
             className={styles.storyCard}
           />
           <EmotionCard
             name={childName}
             imageUrl={TEST_IMAGE}
-            title={resultData?.emotionTitle ?? '감정을 분석 중이에요...'}
-            summary={`${childName}가 이야기 속에서 느낀 핵심 감정 리포트입니다.`}
-            tags={resultData?.tags ?? []}
+            title={resultData?.emotion ?? '감정을 분석 중이에요...'}
+            summary={resultData?.advice ?? ''}
+            tags={[]}
             className={styles.emotionCard}
           />
         </div>

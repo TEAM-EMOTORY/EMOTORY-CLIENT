@@ -1,15 +1,15 @@
 import { http } from './http'
+import { END_POINT } from './config/end-point'
 
 export interface StoryResultResponse {
   summary: string
-  emotionTitle: string
-  tags: string[]
+  emotion: string
+  advice: string
+  generatedImageUrl: string
 }
 
-export const createStoryResult = async (playSessionId: number): Promise<StoryResultResponse> => {
-  return await http.post<StoryResultResponse>(`/play-sessions/${playSessionId}/results`)
-}
+export const createStoryResult = (playSessionId: number, emotion: string, summary: string, advice: string) =>
+  http.post<StoryResultResponse>(END_POINT.RESULT.CREATE(playSessionId), { emotion, summary, advice })
 
-export const fetchStoryResult = async (playSessionId: number): Promise<StoryResultResponse> => {
-  return await http.get<StoryResultResponse>(`/play-sessions/${playSessionId}/results`)
-}
+export const fetchStoryResult = (playSessionId: number) =>
+  http.get<StoryResultResponse>(END_POINT.RESULT.GET(playSessionId))

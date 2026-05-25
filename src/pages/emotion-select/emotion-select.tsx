@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import * as styles from './emotion-select.css'
 import { useCreatePlaySession } from './hooks/use-create-play-session'
-import { encodeNodeId } from '@shared/utils/encode-node-id'
 import { hasConsonantEnding } from '@shared/utils/korean-particle'
 
 const emotions = [
@@ -22,7 +21,7 @@ const EmotionSelectPage = () => {
       { memberId: 1, storyId },
       {
         onSuccess: ({ playSessionId, currentNodeId }) => {
-          navigate(`/story/${encodeNodeId(currentNodeId)}`, { state: { playSessionId, emotionLabel: label } })
+          navigate(`/story/${currentNodeId}`, { state: { playSessionId, emotionLabel: label } })
         },
       },
     )

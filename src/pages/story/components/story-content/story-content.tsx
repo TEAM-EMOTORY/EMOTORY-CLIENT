@@ -1,7 +1,7 @@
 import * as styles from './story-content.css'
 
 interface StoryContentProps {
-  title: string
+  title?: string
   content: string
 }
 

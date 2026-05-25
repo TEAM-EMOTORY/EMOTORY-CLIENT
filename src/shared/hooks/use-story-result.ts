@@ -14,8 +14,9 @@ export const useCreateStoryResult = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (playSessionId: number) => createStoryResult(playSessionId),
-    onSuccess: (_, playSessionId) => {
+    mutationFn: ({ playSessionId, emotion, summary, advice }: { playSessionId: number; emotion: string; summary: string; advice: string }) =>
+      createStoryResult(playSessionId, emotion, summary, advice),
+    onSuccess: (_, { playSessionId }) => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.storyResult(playSessionId),
       })
