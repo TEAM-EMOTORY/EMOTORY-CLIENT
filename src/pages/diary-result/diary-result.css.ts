@@ -8,6 +8,23 @@ const slideInUp = keyframes({
   '100%': { transform: 'rotate(-4deg) translateY(0)' },
 })
 
+const starBounceIn = keyframes({
+  '0%': { transform: 'translateY(0) rotate(0deg)', opacity: '0' },
+  '30%': { opacity: '1' },
+  '50%': { transform: 'translateY(-20px) rotate(-15deg)' },
+  '70%': { transform: 'translateY(-8px) rotate(10deg)' },
+  '85%': { transform: 'translateY(-14px) rotate(-8deg)' },
+  '100%': { transform: 'translateY(-10px) rotate(0deg)' },
+})
+
+const starWobble = keyframes({
+  '0%':   { transform: 'translateY(-10px) rotate(-12deg)' },
+  '25%':  { transform: 'translateY(-16px) rotate(12deg)' },
+  '50%':  { transform: 'translateY(-10px) rotate(-12deg)' },
+  '75%':  { transform: 'translateY(-16px) rotate(12deg)' },
+  '100%': { transform: 'translateY(-10px) rotate(-12deg)' },
+})
+
 export const page = style({
   position: 'relative',
   height: '100dvh',
@@ -33,10 +50,26 @@ export const hero = style({
   filter: 'drop-shadow(0 0 8px #fff) drop-shadow(0 0 28px rgba(255, 255, 255, 0.86))',
 })
 
-export const star = style({
+const starBase = {
   color: themeVars.color.primary500,
   fontSize: 'clamp(2rem, 3vw, 3.6rem)',
   lineHeight: 1,
+  display: 'inline-block',
+  animationName: `${starBounceIn}, ${starWobble}`,
+  animationDuration: '0.7s, 1.8s',
+  animationTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1), ease-in-out',
+  animationFillMode: 'forwards, none',
+  animationIterationCount: '1, infinite',
+} as const
+
+export const starLeft = style({
+  ...starBase,
+  animationDelay: '0s, 0.7s',
+})
+
+export const starRight = style({
+  ...starBase,
+  animationDelay: '0.15s, 0.85s',
 })
 
 export const titleSection = style({

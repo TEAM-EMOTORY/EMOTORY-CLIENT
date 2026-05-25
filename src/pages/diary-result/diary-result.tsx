@@ -68,12 +68,12 @@ const DiaryResultPage = () => {
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
-        <span className={styles.star}>★</span>
+        <span className={styles.starLeft}>★</span>
         <div className={styles.titleSection}>
           <h1 className={styles.title}>오늘의 감정 일기 결과예요!</h1>
           <p className={styles.description}>{childName}{hasConsonantEnding(childName) ? '아' : '야'}, 오늘 하루도 수고했어!</p>
         </div>
-        <span className={styles.star}>★</span>
+        <span className={styles.starRight}>★</span>
       </section>
 
       <section className={styles.board}>
