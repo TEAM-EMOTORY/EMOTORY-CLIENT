@@ -5,7 +5,9 @@ export const page = style({
   display: 'flex',
   gap: '8rem',
   flexDirection: 'column',
-  padding: '10rem 20rem 0rem 20rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
   color: themeVars.color.brown200,
 })
 
@@ -14,6 +16,8 @@ export const title = style({
   flexDirection: 'column',
   ...themeVars.fontStyles.body_40eb,
   alignItems: 'center',
+  filter:
+    'drop-shadow(0 0 6px #fff) drop-shadow(0 0 24px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 48px rgba(255, 255, 255, 0.4))',
 })
 
 export const titleRow = style({
@@ -37,7 +41,7 @@ export const subtitle = style({
 
 export const container = style({
   display: 'flex',
-  gap: '3.2rem',
+  gap: '5rem',
 })
 
 export const formSection = style({
@@ -51,7 +55,7 @@ export const formSection = style({
 export const nameLabel = style({ ...themeVars.fontStyles.body_18eb })
 
 export const notice = style({
-  ...themeVars.fontStyles.sub_12r,
+  ...themeVars.fontStyles.sub_16r,
   display: 'flex',
   alignItems: 'center',
 })

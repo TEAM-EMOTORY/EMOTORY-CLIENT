@@ -2,6 +2,7 @@ export const END_POINT = {
   CHILD_INFO: {
     PRESIGNED_UPLOAD: '/s3/presigned-upload',
     CREATE_MEMBER: '/members',
+
   },
   EMOTION_SELECT: {
     STORIES: '/stories',
@@ -14,6 +15,7 @@ export const END_POINT = {
     GENERATE_IMAGE: '/images/generate',
   },
   RESULT: {
-    // 결과 조회
+    CREATE: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
+    GET: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
   },
 }

@@ -14,9 +14,9 @@ export const card = recipe({
   },
   variants: {
     color: {
-      yellow: { backgroundColor: 'rgba(255, 249, 240, 0.33)', transform: 'rotate(-2deg)' },
-      blue: { backgroundColor: 'rgba(238, 244, 255, 0.33)', transform: 'translateY(-0.5rem)' },
-      purple: { backgroundColor: 'rgba(243, 238, 255, 0.15)', transform: 'rotate(2deg)' },
+      yellow: { backgroundColor: 'rgba(255, 249, 240)', transform: 'rotate(-2deg)' },
+      blue: { backgroundColor: 'rgba(238, 244, 255)', transform: 'translateY(-0.5rem)' },
+      purple: { backgroundColor: 'rgba(243, 238, 255)', transform: 'rotate(2deg)' },
     },
   },
 })
@@ -27,7 +27,7 @@ export const inner = recipe({
     flex: 1,
     display: 'flex',
     alignItems: 'center',
-    padding: '1.6rem',
+    padding: '3rem',
     borderRadius: '14px',
   },
   variants: {

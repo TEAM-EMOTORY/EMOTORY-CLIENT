@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import * as styles from './emotion-select.css'
 import { useCreatePlaySession } from './hooks/use-create-play-session'
-import { encodeNodeId } from '@shared/utils/encode-node-id'
+import { hasConsonantEnding } from '@shared/utils/korean-particle'
 
 const emotions = [
   { label: '슬픔', className: styles.emotionCardSad, storyId: 1 },
@@ -11,15 +11,17 @@ const emotions = [
 
 const EmotionSelectPage = () => {
   const navigate = useNavigate()
-  const childName = localStorage.getItem('childName') ?? '하이'
+
+  const childName = localStorage.getItem('childName') ?? ''
+
   const { mutate: createPlaySession, isPending } = useCreatePlaySession()
 
-  const handleEmotionSelect = (storyId: number) => {
+  const handleEmotionSelect = (storyId: number, label: string) => {
     createPlaySession(
       { memberId: 1, storyId },
       {
         onSuccess: ({ playSessionId, currentNodeId }) => {
-          navigate(`/story/${encodeNodeId(currentNodeId)}`, { state: { playSessionId } })
+          navigate(`/story/${currentNodeId}`, { state: { playSessionId, emotionLabel: label } })
         },
       },
     )
@@ -29,7 +31,7 @@ const EmotionSelectPage = () => {
     <div className={styles.wrapper}>
       <div className={styles.titleGroup}>
         <h1 className={styles.mainTitle}>
-          {childName}야,
+          {childName}{hasConsonantEnding(childName) ? '아' : '야'},
           <br />
           오늘은 어떤 <span className={styles.pointWord}>감정</span>을 탐험해볼까?
         </h1>
@@ -42,7 +44,7 @@ const EmotionSelectPage = () => {
             key={storyId}
             type='button'
             className={className}
-            onClick={() => handleEmotionSelect(storyId)}
+            onClick={() => handleEmotionSelect(storyId, label)}
             disabled={isPending}
           >
             <span className={styles.labelText}>{label}</span>
