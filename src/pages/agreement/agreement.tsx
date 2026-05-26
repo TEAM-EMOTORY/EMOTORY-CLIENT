@@ -15,12 +15,10 @@ const AgreementPage = () => {
     setIsConsented(e.target.checked)
   }
 
-  // 거부 버튼을 클릭했을 때
   const handleRejectClick = () => {
-    console.log('거부 버튼 클릭 - 이전 페이지 이동')
+    navigate('/')
   }
 
-  // 동의하고 가기 버튼을 클릭했을 때 (막기)
   const handleSubmitClick = () => {
     if (!isConsented) return
     navigate(childInfoPath)
@@ -55,11 +53,11 @@ const AgreementPage = () => {
 
           <div className={styles.buttonGroup}>
             <Button color='cream' onClick={handleRejectClick}>
-              거부
+              다음에 할래요
             </Button>
 
             <Button color='yellow' onClick={handleSubmitClick} disabled={!isConsented}>
-              동의하고 가기
+              동의하고 시작
             </Button>
           </div>
         </section>
