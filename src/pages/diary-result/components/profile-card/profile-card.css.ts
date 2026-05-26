@@ -28,7 +28,7 @@ export const profileImage = style({
 
 export const childName = style({
   ...themeVars.fontStyles.body_36eb,
-  marginBottom: 'clamp(1.2rem, 2vh, 2.8rem)',
+  marginBottom: 'clamp(1.2rem, 2dvh, 2.8rem)',
   color: themeVars.color.brown200,
 })
 
@@ -37,7 +37,7 @@ export const profileMessage = style({
   alignItems: 'center',
   gap: '1.2rem',
   width: '100%',
-  padding: 'clamp(1rem, 1.5vh, 1.8rem)',
+  padding: 'clamp(1rem, 1.5dvh, 1.8rem)',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '2rem',
   backgroundColor: 'rgba(255, 249, 240, 0.9)',
