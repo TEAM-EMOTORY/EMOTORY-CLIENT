@@ -12,7 +12,7 @@ export const navBtn = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.8rem',
-  minHeight: '6.2rem',
+  minHeight: 'clamp(5rem, 6dvh, 6.2rem)',
   padding: '0 3rem',
   backgroundColor: themeVars.color.white,
   border: `0.15rem solid ${themeVars.color.primary200}`,

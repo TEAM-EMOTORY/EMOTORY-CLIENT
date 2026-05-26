@@ -4,7 +4,7 @@ export const page = style({
   display: 'flex',
   flexDirection: 'column',
   height: '100dvh',
-  padding: '3rem 2rem',
+  padding: 'clamp(1.5rem, 2.5dvh, 3rem) 2rem',
 })
 
 export const wrapper = style({
@@ -17,7 +17,7 @@ export const wrapper = style({
 export const main = style({
   flex: 1,
   display: 'flex',
-  gap: '2.4rem',
+  gap: 'clamp(1.4rem, 2dvh, 2.4rem)',
   alignItems: 'stretch',
   justifyContent: 'center',
   minHeight: 0,

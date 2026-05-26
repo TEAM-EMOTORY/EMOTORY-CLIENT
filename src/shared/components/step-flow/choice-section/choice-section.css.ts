@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css'
 
 export const section = style({
   position: 'relative',
-  padding: '3.2rem 2.8rem 2.8rem',
+  padding: 'clamp(2.4rem, 3dvh, 3.2rem) 2.8rem 2.8rem',
 })
 
 export const label = style({

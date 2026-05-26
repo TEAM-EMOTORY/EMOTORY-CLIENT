@@ -5,7 +5,7 @@ export const header = style({
   display: 'flex',
   alignItems: 'center',
   gap: '2rem',
-  paddingBottom: '2.4rem',
+  paddingBottom: 'clamp(1.2rem, 2dvh, 2.4rem)',
 })
 
 export const logo = style({

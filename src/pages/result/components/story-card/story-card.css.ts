@@ -17,20 +17,20 @@ export const body = style({
   alignItems: 'center',
   gap: '2.8rem',
   height: '100%',
-  minHeight: '18rem',
+  minHeight: 'clamp(13rem, 17dvh, 18rem)',
 })
 
 export const image = style({
-  width: '18rem',
-  height: '18rem',
+  width: 'clamp(13rem, 17dvh, 18rem)',
+  height: 'clamp(13rem, 17dvh, 18rem)',
   objectFit: 'cover',
   borderRadius: '16px',
   flexShrink: 0,
 })
 
 export const imagePlaceholder = style({
-  width: '18rem',
-  height: '18rem',
+  width: 'clamp(13rem, 17dvh, 18rem)',
+  height: 'clamp(13rem, 17dvh, 18rem)',
   flexShrink: 0,
   borderRadius: '16px',
   display: 'flex',

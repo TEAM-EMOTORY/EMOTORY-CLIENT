@@ -10,6 +10,7 @@ export const wrapper = style({
   width: '100%',
   height: '100%',
   display: 'flex',
+  padding: '3rem',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
@@ -25,7 +26,16 @@ export const label = style({
   color: themeVars.color.brown200,
 })
 
+export const canvasContainer = style({
+  flex: 1,
+  minHeight: 0,
+  width: '100%',
+})
+
 export const canvas = style({
+  display: 'block',
+  width: '100%',
+  height: '100%',
   borderRadius: '20px',
   border: `0.2rem dashed ${themeVars.color.primary300}`,
   backgroundColor: themeVars.color.white,

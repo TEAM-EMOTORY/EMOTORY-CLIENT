@@ -21,7 +21,7 @@ export const card = recipe({
     flex: 1,
     display: 'flex',
     alignItems: 'stretch',
-    minHeight: '16.5rem',
+    minHeight: 'clamp(11rem, 16dvh, 16.5rem)',
     borderRadius: '20px',
     padding: '0.5rem',
     selectors: {
@@ -72,7 +72,7 @@ export const inner = recipe({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '3.2rem 6rem',
+    padding: 'clamp(1.6rem, 2.5dvh, 3.2rem) clamp(3.2rem, 5vw, 6rem)',
     borderRadius: '14px',
   },
   variants: {
@@ -103,6 +103,7 @@ export const selectedCharacter = style({
 
 export const text = style({
   ...themeVars.fontStyles.body_28eb,
+  fontSize: 'clamp(2.2rem, 2.7dvh, 2.8rem)',
   width: '100%',
   textAlign: 'center',
   wordBreak: 'keep-all',
