@@ -2,6 +2,7 @@ import { themeVars } from '@shared/styles/theme.css'
 import { style } from '@vanilla-extract/css'
 
 export const content = style({
+  position: 'relative',
   display: 'flex',
   flex: 1,
   minWidth: 0,
@@ -36,4 +37,31 @@ export const line = style({
   textAlign: 'center',
   lineHeight: 1.6,
   wordBreak: 'keep-all',
+})
+
+export const voiceControls = style({
+  position: 'absolute',
+  right: '2rem',
+  bottom: '2rem',
+  display: 'flex',
+  justifyContent: 'center',
+})
+
+export const voiceButton = style({
+  display: 'flex',
+  width: '4.8rem',
+  height: '4.8rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 0,
+  border: `0.15rem solid ${themeVars.color.primary300}`,
+  borderRadius: '50%',
+  backgroundColor: themeVars.color.primary100,
+  cursor: 'pointer',
+})
+
+export const voiceIcon = style({
+  width: '2.8rem',
+  height: '2.8rem',
+  objectFit: 'contain',
 })
