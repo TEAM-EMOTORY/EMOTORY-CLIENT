@@ -94,6 +94,7 @@ const StoryPage = () => {
         <StepFlowContent
           title={`${childName}의 모험`}
           content={nodeData?.content ? replaceNameInContent(nodeData.content, childName) : ''}
+          autoSpeak
         />
       }
       choices={
