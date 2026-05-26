@@ -82,7 +82,7 @@ const DiaryPage = () => {
           totalSteps={DIARY_QUESTION_SUFFIXES.length}
         />
       }
-      content={<StepFlowContent content={currentQuestion} showStar={false} />}
+      content={<StepFlowContent content={currentQuestion} showStar={false} autoSpeak />}
       choices={
         <ChoiceSection
           choices={DIARY_CHOICES}
