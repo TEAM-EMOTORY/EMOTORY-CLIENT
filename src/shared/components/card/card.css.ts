@@ -5,7 +5,7 @@ export const card = recipe({
   base: {
     position: 'relative',
     borderRadius: '30px',
-    padding: '5.6rem 2.8rem 3.2rem 2.8rem',
+    padding: 'clamp(4rem, 4.8dvh, 5.6rem) 2.8rem clamp(2rem, 3dvh, 3.2rem) 2.8rem',
   },
   variants: {
     color: {

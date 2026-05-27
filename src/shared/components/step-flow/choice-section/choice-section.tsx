@@ -24,14 +24,15 @@ const ChoiceSection = ({ choices, label, onChoiceSelect, disabled }: ChoiceSecti
       <div className={styles.cards}>
         {choices.length > 0
           ? choices.map((choice, i) => (
-              <ChoiceCard
-                key={choice.id}
-                text={choice.text}
-                imageSrc={choice.imageSrc}
-                color={(['yellow', 'blue', 'purple'] as const)[i % 3]}
-                onClick={() => onChoiceSelect(choice.id)}
-                disabled={disabled}
-              />
+              <div key={choice.id} className={styles.cardWrapper} style={{ animationDelay: `${i * 1.5}s` }}>
+                <ChoiceCard
+                  text={choice.text}
+                  imageSrc={choice.imageSrc}
+                  color={(['yellow', 'blue', 'purple'] as const)[i % 3]}
+                  onClick={() => onChoiceSelect(choice.id)}
+                  disabled={disabled}
+                />
+              </div>
             ))
           : ([0, 1, 2] as const).map((i) => (
               <ChoiceCard

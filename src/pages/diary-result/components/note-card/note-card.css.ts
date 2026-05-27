@@ -18,7 +18,7 @@ export const noteTitle = style({
   gap: '1rem',
   ...themeVars.fontStyles.body_21eb,
   color: '#5B8A46',
-  marginBottom: 'clamp(1rem, 1.5vh, 2rem)',
+  marginBottom: 'clamp(1rem, 1.5dvh, 2rem)',
 })
 
 export const noteBody = style({
@@ -27,8 +27,8 @@ export const noteBody = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: 'clamp(1rem, 1.5vh, 2rem)',
-  padding: 'clamp(1.6rem, 2.5vh, 3.2rem) clamp(1.2rem, 2vw, 2.4rem) 0',
+  gap: 'clamp(1rem, 1.5dvh, 2rem)',
+  padding: 'clamp(1.6rem, 2.5dvh, 3.2rem) clamp(1.2rem, 2vw, 2.4rem) 0',
   border: `0.15rem solid ${themeVars.color.primary300}`,
   borderRadius: '2.4rem',
   backgroundColor: 'rgba(255, 255, 255, 0.76)',

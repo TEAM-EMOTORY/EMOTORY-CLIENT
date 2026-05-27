@@ -22,7 +22,8 @@ export const infoBlock = style({
 
 export const emotionTitle = style({
   ...themeVars.fontStyles.body_36eb,
-  color: themeVars.color.primary400,
+  fontSize: 'clamp(2.8rem, 3.5dvh, 3.6rem)',
+  color: themeVars.color.primary500,
   textAlign: 'center',
 })
 

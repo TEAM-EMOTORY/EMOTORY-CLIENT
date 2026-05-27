@@ -11,7 +11,6 @@ export const item = style({
   backgroundColor: themeVars.color.white,
   border: `0.15rem solid ${themeVars.color.primary200}`,
   borderRadius: '16px',
-  minHeight: '13.6rem',
   padding: '1.6rem',
   display: 'flex',
   flexDirection: 'row',

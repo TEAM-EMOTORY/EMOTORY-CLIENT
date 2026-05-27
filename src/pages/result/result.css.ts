@@ -5,7 +5,8 @@ export const page = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minHeight: '100vh',
+  height: '100%',
+  overflowY: 'auto',
   color: themeVars.color.brown200,
 })
 
@@ -20,7 +21,8 @@ export const wrapper = style({
   maxWidth: '104rem',
   display: 'flex',
   flexDirection: 'column',
-  gap: '3rem',
+  gap: 'clamp(3rem, 3.5dvh, 4rem)',
+  padding: '2rem',
 })
 
 export const titleSection = style({
@@ -33,6 +35,7 @@ export const titleSection = style({
 
 export const title = style({
   ...themeVars.fontStyles.body_44eb,
+  fontSize: 'clamp(3rem, 4dvh, 4.4rem)',
   display: 'flex',
   gap: '1.2rem',
 })

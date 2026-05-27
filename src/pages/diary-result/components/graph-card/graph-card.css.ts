@@ -18,7 +18,7 @@ export const graphCard = style({
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: 0,
-  padding: 'clamp(3rem, 5vh, 6rem) clamp(1.6rem, 2.5vw, 3.2rem) clamp(1.2rem, 2vh, 2.4rem)',
+  padding: 'clamp(4rem, 6dvh, 7rem) clamp(1.6rem, 2.5vw, 3.2rem) clamp(1.2rem, 2dvh, 2.4rem)',
   border: `0.15rem solid ${themeVars.color.primary200}`,
   borderRadius: '2.8rem',
   backgroundColor: 'rgba(255, 255, 255, 0.68)',
@@ -31,7 +31,7 @@ export const graphBadge = style({
   display: 'flex',
   alignItems: 'center',
   gap: '1.2rem',
-  minWidth: '24rem',
+  whiteSpace: 'nowrap',
   justifyContent: 'center',
   padding: '1.2rem 3.2rem',
   transform: 'translateX(-50%)',
@@ -45,7 +45,7 @@ export const graphBadge = style({
 
 export const graphQuestion = style({
   ...themeVars.fontStyles.sub_18r,
-  marginBottom: 'clamp(0.8rem, 1.5vh, 2rem)',
+  marginBottom: 'clamp(0.8rem, 1.5dvh, 2rem)',
   color: themeVars.color.brown200,
 })
 
@@ -60,8 +60,8 @@ export const chart = style({
 export const yAxis = style({
   position: 'absolute',
   left: '3.2rem',
-  top: '8rem',
-  bottom: '8.8rem',
+  top: 'clamp(4rem, 7dvh, 7rem)',
+  bottom: 'clamp(8rem, 12dvh, 10rem)',
   width: '0.2rem',
   background:
     'linear-gradient(180deg, rgba(248, 229, 205, 0.2), rgba(248, 229, 205, 1), rgba(248, 229, 205, 0.2))',
@@ -192,7 +192,7 @@ export const angryBar = style({ background: 'linear-gradient(180deg, #FF8987 0%,
 export const emotionIcon = style({
   width: 'clamp(3.4rem, 34%, 4.8rem)',
   aspectRatio: '1',
-  marginTop: '1.6rem',
+  marginTop: 'clamp(0.8rem, 1.5dvh, 1.6rem)',
   objectFit: 'contain',
 })
 

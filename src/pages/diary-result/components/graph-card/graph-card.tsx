@@ -11,7 +11,7 @@ const getBarStyles = (id: DiaryEmotion, count: number, barHeight: number, index:
       ...(id === 'joy' && { left: '54%' }),
     },
     count: {
-      bottom: `calc(${barHeight}% + ${count === 0 ? 7.6 : 9}rem)`,
+      bottom: `calc(${barHeight}% + ${count === 0 ? '7.6rem' : 'min(9rem, 9dvh)'})`,
       animationDelay: `${0.8 + index * 0.2}s`,
     },
   }

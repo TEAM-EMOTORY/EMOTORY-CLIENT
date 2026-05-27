@@ -3,35 +3,48 @@ import * as styles from './drawing-canvas.css'
 
 const COLORS = ['#F5622E', '#FCC944', '#4CAF50', '#2196F3', '#9C27B0', '#FF69B4', '#68462B']
 const BRUSH_SIZE = 6
+const ERASER_SIZE = BRUSH_SIZE * 4
+
+const getPos = (point: { clientX: number; clientY: number }, canvas: HTMLCanvasElement) => {
+  const rect = canvas.getBoundingClientRect()
+  return {
+    x: (point.clientX - rect.left) * (canvas.width / rect.width),
+    y: (point.clientY - rect.top) * (canvas.height / rect.height),
+  }
+}
 
 const DrawingCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const isDrawing = useRef(false)
   const [activeColor, setActiveColor] = useState(COLORS[0])
   const [isEraser, setIsEraser] = useState(false)
 
   useEffect(() => {
+    const container = containerRef.current
     const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    ctx.fillStyle = '#ffffff'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    if (!container || !canvas) return
+
+    const initCanvas = (width: number, height: number) => {
+      canvas.width = Math.floor(width)
+      canvas.height = Math.floor(height)
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
+
+    const observer = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect
+      if (width > 0 && height > 0) initCanvas(width, height)
+    })
+    observer.observe(container)
+
+    return () => observer.disconnect()
   }, [])
 
-  const getPos = (e: { clientX: number; clientY: number }, canvas: HTMLCanvasElement) => {
-    const rect = canvas.getBoundingClientRect()
-    const scaleX = canvas.width / rect.width
-    const scaleY = canvas.height / rect.height
-    return {
-      x: (e.clientX - rect.left) * scaleX,
-      y: (e.clientY - rect.top) * scaleY,
-    }
-  }
-
   const startDraw = useCallback((x: number, y: number) => {
-    const canvas = canvasRef.current
-    const ctx = canvas?.getContext('2d')
+    const ctx = canvasRef.current?.getContext('2d')
     if (!ctx) return
     isDrawing.current = true
     ctx.beginPath()
@@ -41,10 +54,9 @@ const DrawingCanvas = () => {
   const draw = useCallback(
     (x: number, y: number) => {
       if (!isDrawing.current) return
-      const canvas = canvasRef.current
-      const ctx = canvas?.getContext('2d')
+      const ctx = canvasRef.current?.getContext('2d')
       if (!ctx) return
-      ctx.lineWidth = isEraser ? BRUSH_SIZE * 4 : BRUSH_SIZE
+      ctx.lineWidth = isEraser ? ERASER_SIZE : BRUSH_SIZE
       ctx.lineCap = 'round'
       ctx.strokeStyle = isEraser ? '#ffffff' : activeColor
       ctx.lineTo(x, y)
@@ -61,24 +73,10 @@ const DrawingCanvas = () => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const onMouseDown = (e: MouseEvent) => {
-      const { x, y } = getPos(e, canvas)
-      startDraw(x, y)
-    }
-    const onMouseMove = (e: MouseEvent) => {
-      const { x, y } = getPos(e, canvas)
-      draw(x, y)
-    }
-    const onTouchStart = (e: TouchEvent) => {
-      e.preventDefault()
-      const { x, y } = getPos(e.touches[0], canvas)
-      startDraw(x, y)
-    }
-    const onTouchMove = (e: TouchEvent) => {
-      e.preventDefault()
-      const { x, y } = getPos(e.touches[0], canvas)
-      draw(x, y)
-    }
+    const onMouseDown = (e: MouseEvent) => { const { x, y } = getPos(e, canvas); startDraw(x, y) }
+    const onMouseMove = (e: MouseEvent) => { const { x, y } = getPos(e, canvas); draw(x, y) }
+    const onTouchStart = (e: TouchEvent) => { e.preventDefault(); const { x, y } = getPos(e.touches[0], canvas); startDraw(x, y) }
+    const onTouchMove = (e: TouchEvent) => { e.preventDefault(); const { x, y } = getPos(e.touches[0], canvas); draw(x, y) }
 
     canvas.addEventListener('mousedown', onMouseDown)
     canvas.addEventListener('mousemove', onMouseMove)
@@ -102,7 +100,9 @@ const DrawingCanvas = () => {
   return (
     <div className={styles.wrapper}>
       <p className={styles.label}>🎨 그림을 만들어지는 동안 나도 그려볼까요?</p>
-      <canvas ref={canvasRef} width={480} height={300} className={styles.canvas} />
+      <div ref={containerRef} className={styles.canvasContainer}>
+        <canvas ref={canvasRef} className={styles.canvas} />
+      </div>
       <div className={styles.toolbar}>
         {COLORS.map((color) => (
           <button
@@ -110,10 +110,7 @@ const DrawingCanvas = () => {
             type='button'
             className={`${styles.colorButton} ${!isEraser && activeColor === color ? styles.colorButtonActive : ''}`}
             style={{ backgroundColor: color }}
-            onClick={() => {
-              setActiveColor(color)
-              setIsEraser(false)
-            }}
+            onClick={() => { setActiveColor(color); setIsEraser(false) }}
           />
         ))}
         <button
