@@ -2,7 +2,6 @@ export const END_POINT = {
   CHILD_INFO: {
     PRESIGNED_UPLOAD: '/s3/presigned-upload',
     CREATE_MEMBER: '/members',
-
   },
   EMOTION_SELECT: {
     STORIES: '/stories',
@@ -13,6 +12,10 @@ export const END_POINT = {
     SELECT_CHOICE: (playSessionId: number) => `/play-sessions/${playSessionId}/choices`,
     END_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}/end`,
     GENERATE_IMAGE: '/images/generate',
+  },
+  BOOKSHELF: {
+    SHARED_STORIES: '/shared-stories',
+    SHARED_STORY: (playSessionId: number) => `/shared-stories/${playSessionId}`,
   },
   RESULT: {
     CREATE: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,

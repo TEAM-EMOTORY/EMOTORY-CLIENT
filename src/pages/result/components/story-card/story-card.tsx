@@ -7,26 +7,37 @@ interface StoryCardProps {
   className?: string
 }
 
+/** 오늘의 이야기 요약 (Figma 07 Summary card) */
 const StoryCard = ({ imageUrl, summary, isLoading, className }: StoryCardProps) => {
   return (
-    <Card icon='📖' title='오늘의 이야기 요약' cardVariant='light' className={className}>
-      <div className='flex h-full min-h-180 items-center gap-28'>
+    <Card icon={<BookIcon />} title='오늘의 이야기 요약' className={className}>
+      <div className='flex h-full items-center gap-18 pt-34 pr-18 pb-18 pl-22'>
         {isLoading || !imageUrl ? (
-          <div className='flex size-180 shrink-0 animate-bg-pulse flex-col items-center justify-center gap-16 rounded-md'>
-            <div className='flex items-end gap-10'>
-              <div className='size-24 animate-pop-bounce rounded-full bg-accent' />
-              <div className='size-24 animate-pop-bounce rounded-full bg-yellow-500 [animation-delay:0.15s]' />
-              <div className='size-24 animate-pop-bounce rounded-full bg-leaf [animation-delay:0.3s]' />
-              <div className='size-24 animate-pop-bounce rounded-full bg-sadness-500 [animation-delay:0.45s]' />
-            </div>
+          <div className='flex size-124 shrink-0 animate-bg-pulse items-end justify-center gap-6 rounded-md pb-48'>
+            <span className='size-14 animate-pop-bounce rounded-full bg-accent' />
+            <span className='size-14 animate-pop-bounce rounded-full bg-yellow-500 [animation-delay:0.15s]' />
+            <span className='size-14 animate-pop-bounce rounded-full bg-leaf [animation-delay:0.3s]' />
+            <span className='size-14 animate-pop-bounce rounded-full bg-sadness-500 [animation-delay:0.45s]' />
           </div>
         ) : (
-          <img src={imageUrl} className='size-180 shrink-0 rounded-md object-cover' />
+          <img src={imageUrl} alt='' className='size-124 shrink-0 rounded-md object-cover' />
         )}
-        <p className='flex-1 break-keep text-subtitle text-ink-2'>{summary}</p>
+        <p className='flex-1 break-keep whitespace-pre-line text-caption text-ink-2'>{summary}</p>
       </div>
     </Card>
   )
 }
+
+const BookIcon = () => (
+  <svg viewBox='0 0 24 24' fill='none' aria-hidden className='size-20 text-on-primary'>
+    <path
+      d='M12 6.5C10.3 5.3 8 4.8 4 5v13c4-.2 6.3.3 8 1.5 1.7-1.2 4-1.7 8-1.5V5c-4-.2-6.3.3-8 1.5Zm0 0v13'
+      stroke='currentColor'
+      strokeWidth='1.8'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+)
 
 export default StoryCard
