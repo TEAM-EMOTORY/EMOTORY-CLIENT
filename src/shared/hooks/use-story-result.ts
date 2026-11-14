@@ -13,7 +13,16 @@ export const useStoryResult = (playSessionId: number | undefined) => {
 
 export const useCreateStoryResult = () => {
   return useMutation({
-    mutationFn: ({ playSessionId, emotion, summary, advice }: { playSessionId: number; emotion: string; summary: string; advice: string }) =>
-      createStoryResult(playSessionId, emotion, summary, advice),
+    mutationFn: ({
+      playSessionId,
+      emotion,
+      summary,
+      advice,
+    }: {
+      playSessionId: number
+      emotion: string
+      summary: string
+      advice: string
+    }) => createStoryResult(playSessionId, emotion, summary, advice),
   })
 }

@@ -102,7 +102,12 @@ const DrawingCanvas = () => {
   return (
     <div className='flex size-full animate-fade-in flex-col items-center justify-center gap-12 bg-surface-page'>
       <p className='text-label text-ink'>🎨 그림을 만들어지는 동안 나도 그려볼까요?</p>
-      <canvas ref={canvasRef} width={480} height={300} className='cursor-crosshair touch-none rounded-md border-2 border-dashed border-border bg-white' />
+      <canvas
+        ref={canvasRef}
+        width={480}
+        height={300}
+        className='cursor-crosshair touch-none rounded-md border-2 border-dashed border-border bg-white'
+      />
       <div className='flex items-center gap-10'>
         {COLORS.map((color) => (
           <button

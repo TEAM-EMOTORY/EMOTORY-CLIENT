@@ -11,6 +11,8 @@ import EmotionCard from './components/emotion-card/emotion-card'
 import type { EmotionKey } from './components/emotion-card/emotion-card'
 import StartButton from './components/start-button/start-button'
 import { useCreatePlaySession } from './hooks/use-create-play-session'
+import { usePrepareStory } from './hooks/use-prepare-story'
+import StoryLoading from '@shared/components/story-loading/story-loading'
 
 interface Emotion {
   key: EmotionKey
@@ -39,17 +41,23 @@ const EmotionSelectPage = () => {
   const childName = localStorage.getItem('childName') ?? ''
 
   const { mutate: createPlaySession, isPending } = useCreatePlaySession()
+  const prepareStory = usePrepareStory()
+  const [isPreparing, setIsPreparing] = useState(false)
 
   const handleStart = () => {
-    if (!selected?.storyId) return
+    if (!selected?.storyId || isPreparing) return
+    setIsPreparing(true)
     createPlaySession(
       { memberId: 1, storyId: selected.storyId },
       {
-        onSuccess: ({ playSessionId, currentNodeId }) => {
+        // 첫 장면 그림까지 만들어 둔 뒤 이야기로 넘어간다 — 책을 펼쳤을 때 기다리지 않도록
+        onSuccess: async ({ playSessionId, currentNodeId }) => {
+          await prepareStory(currentNodeId, playSessionId)
           navigate(`/story/${currentNodeId}`, {
             state: { playSessionId, emotionLabel: selected.label },
           })
         },
+        onError: () => setIsPreparing(false),
       },
     )
   }
@@ -74,7 +82,7 @@ const EmotionSelectPage = () => {
             label={emotion.label}
             img={emotion.img}
             selected={selected?.key === emotion.key}
-            disabled={emotion.storyId === null || isPending}
+            disabled={emotion.storyId === null || isPreparing}
             style={{ rotate: `${emotion.rotate}deg`, translate: `0 ${emotion.drop / 10}rem` }}
             onClick={() => setSelected(emotion)}
           />
@@ -82,8 +90,15 @@ const EmotionSelectPage = () => {
       </section>
 
       <div className='mt-56'>
-        <StartButton onClick={handleStart} disabled={!selected || isPending} />
+        <StartButton onClick={handleStart} disabled={!selected || isPending || isPreparing} />
       </div>
+
+      {isPreparing && selected && (
+        <StoryLoading
+          image={selected.img}
+          title={`${childName}의 ${selected.label} 이야기를 그리고 있어요`}
+        />
+      )}
     </div>
   )
 }
