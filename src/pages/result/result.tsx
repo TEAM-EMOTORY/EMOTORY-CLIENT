@@ -1,11 +1,26 @@
+import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Button from '@shared/components/button/button'
 import StoryCard from './components/story-card/story-card'
 import EmotionCard from './components/emotion-card/emotion-card'
 import TipCard from './components/tip-card/tip-card'
+import ShareModal from './components/share-modal/share-modal'
+import { useEndSession } from '@shared/hooks/use-end-session'
 import { useStoryResult } from '@shared/hooks/use-story-result'
 import { useGenerateImage } from '@shared/hooks/use-generate-image'
 import { replaceNameInContent, hasConsonantEnding } from '@shared/utils/korean-particle'
+
+// 공개 여부는 한 번만 정한다 — 새로고침해도 모달이 다시 뜨지 않도록 세션별로 기억한다
+const decidedKey = (playSessionId: number) => `share-decided:${playSessionId}`
+
+const readDecided = (playSessionId: number | undefined) => {
+  if (!playSessionId) return true
+  try {
+    return sessionStorage.getItem(decidedKey(playSessionId)) === 'true'
+  } catch {
+    return false
+  }
+}
 
 const ResultPage = () => {
   const navigate = useNavigate()
@@ -16,7 +31,33 @@ const ResultPage = () => {
   const playSessionId = state?.playSessionId
   const lastNodeId = state?.lastNodeId
   const { data: resultData } = useStoryResult(playSessionId)
-  const { data: imageData, isLoading: isImageLoading } = useGenerateImage(faceImageKey, lastNodeId, playSessionId)
+  const { data: imageData, isLoading: isImageLoading } = useGenerateImage(
+    faceImageKey,
+    lastNodeId,
+    playSessionId,
+  )
+  const storyImageUrl = imageData?.imageUrl ?? resultData?.generatedImageUrl ?? ''
+
+  // 공개 여부를 고르면 그 값으로 플레이를 종료한다 (종료 후에는 공개 여부를 바꿀 수 없음)
+  const [isDecided, setIsDecided] = useState(() => readDecided(playSessionId))
+  const { mutate: endSession, isPending: isEnding, isError: isEndError } = useEndSession()
+
+  const handleShareConfirm = (shared: boolean) => {
+    if (!playSessionId) return
+    endSession(
+      { playSessionId, shared },
+      {
+        onSuccess: () => {
+          try {
+            sessionStorage.setItem(decidedKey(playSessionId), 'true')
+          } catch {
+            // 저장 실패해도 화면은 계속 진행한다
+          }
+          setIsDecided(true)
+        },
+      },
+    )
+  }
 
   return (
     <main className='flex min-h-screen items-center justify-center text-ink'>
@@ -33,7 +74,7 @@ const ResultPage = () => {
 
         <div className='flex items-stretch gap-20'>
           <StoryCard
-            imageUrl={imageData?.imageUrl ?? resultData?.generatedImageUrl ?? ''}
+            imageUrl={storyImageUrl}
             isLoading={isImageLoading}
             summary={
               resultData?.summary
@@ -50,10 +91,12 @@ const ResultPage = () => {
           />
         </div>
 
-        <TipCard tips={resultData?.advices.map((a) => a.description) ?? []} />
+        <TipCard
+          tips={resultData?.advices.map(({ title, description }) => ({ title, description })) ?? []}
+        />
 
         <div className='flex items-center justify-center gap-16'>
-          <Button color='white' onClick={() => navigate('/')}>
+          <Button color='white' onClick={() => navigate('/emotion-select')}>
             🏠 처음으로
           </Button>
           <button
@@ -68,6 +111,16 @@ const ResultPage = () => {
           </Button>
         </div>
       </div>
+
+      {!isDecided && (
+        <ShareModal
+          childName={childName}
+          imageUrl={storyImageUrl || undefined}
+          isPending={isEnding}
+          isError={isEndError}
+          onConfirm={handleShareConfirm}
+        />
+      )}
     </main>
   )
 }

@@ -17,7 +17,7 @@ const CURL_SIZE = 'size-[clamp(4.8rem,6vw,6.4rem)]'
 
 /**
  * 화면을 꽉 채우는 펼친 책 (Figma 06D).
- * 표지 · 책 두께 · 책등 · 책갈피 · 귀퉁이 말림 같은 "고정된 책 껍데기"만 그리고,
+ * 표지 · 책 두께 · 책갈피 · 귀퉁이 말림 같은 "고정된 책 껍데기"만 그리고,
  * 실제 페이지는 children(책 넘김 영역)으로 받는다.
  */
 const Book = ({ children, overlay }: BookProps) => {
@@ -31,11 +31,6 @@ const Book = ({ children, overlay }: BookProps) => {
         {/* 펼친 두 페이지 */}
         <div className='relative size-full overflow-hidden rounded-sm bg-surface-card shadow-[0_0.6rem_1.8rem_rgb(59_42_26/0.35)]'>
           {children}
-          {/* 책등 */}
-          <div
-            aria-hidden
-            className='pointer-events-none absolute inset-y-0 left-1/2 z-10 w-2 -translate-x-1/2 bg-ink/22'
-          />
         </div>
 
         {/* 귀퉁이 말림 (장식) */}

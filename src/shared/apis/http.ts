@@ -17,8 +17,12 @@ export const http = {
     return response.data
   },
 
-  patch: async <TResponse = void>(url: string, config?: AxiosRequestConfig): Promise<TResponse> => {
-    const response = await axiosInstance.patch<TResponse>(url, undefined, config)
+  patch: async <TResponse = void, TRequest = unknown>(
+    url: string,
+    data?: TRequest,
+    config?: AxiosRequestConfig,
+  ): Promise<TResponse> => {
+    const response = await axiosInstance.patch<TResponse>(url, data, config)
     return response.data
   },
 }

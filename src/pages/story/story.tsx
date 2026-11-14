@@ -12,7 +12,6 @@ import type { StoryBookHandle } from './components/story-book/story-book'
 import { usePrepareStory } from '@shared/hooks/use-prepare-story'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
-import { useEndSession } from './hooks/use-end-session'
 import { useCreateStoryResult } from '@shared/hooks/use-story-result'
 
 const STORY_TOTAL_STEPS = 4
@@ -36,7 +35,6 @@ const StoryPage = () => {
   const currentNodeId = storyNodeId ? Number(storyNodeId) : undefined
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
   const { mutate: selectChoice } = useSelectChoice()
-  const { mutate: endSession } = useEndSession()
   const { mutate: createStoryResult } = useCreateStoryResult()
   const endCalledRef = useRef(false)
   const currentStep = Math.min(nodeData?.nodeOrder ?? 1, STORY_TOTAL_STEPS)
@@ -139,7 +137,7 @@ const StoryPage = () => {
     ) {
       endCalledRef.current = true
       const summary = (state.selectedChoices ?? []).join(', ')
-      endSession(state.playSessionId)
+      // 플레이 종료(공개 여부 저장)는 결과 화면의 공개 여부 모달에서 한다
       createStoryResult({
         playSessionId: state.playSessionId,
         emotion: state.emotionLabel ?? '',
