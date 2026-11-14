@@ -4,7 +4,10 @@ import happyCharacterImg from '@shared/assets/emotion-img/happy_character.webp'
 import happyIconImg from '@shared/assets/emotion-img/happy_icon.webp'
 import sadCharacterImg from '@shared/assets/emotion-img/sad_character.webp'
 import sadIconImg from '@shared/assets/emotion-img/sad_icon.webp'
-import { joyBar, sadBar, angryBar } from './graph-card.css'
+
+const joyBar = 'bg-linear-to-b from-yellow-300 to-yellow-500'
+const sadBar = 'bg-linear-to-b from-sadness-500/70 to-sadness-500'
+const angryBar = 'bg-linear-to-b from-anger-500/70 to-anger-500'
 
 export type DiaryEmotion = 'joy' | 'sad' | 'angry'
 

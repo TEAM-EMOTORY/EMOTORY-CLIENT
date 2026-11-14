@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import Button from '@shared/components/button/button'
 import Input from '@shared/components/input/input'
-import * as styles from './child-info.css'
 import PhotoUpload from './components/PhotoUpload/photo-upload'
 import { useUploadPhoto } from './hooks/use-upload-photo'
 import { useCreateMember } from './hooks/use-create-member'
@@ -67,25 +66,25 @@ const ChildInfoPage = () => {
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.title}>
-        <p className={styles.titleRow}>
-          <span className={styles.titleStar}>★</span>
+    <div className='flex h-full flex-col items-center justify-center gap-80 text-ink'>
+      <div className='flex flex-col items-center text-display text-glow'>
+        <p className='flex items-center'>
+          <span className='p-10 text-heading text-yellow-500'>★</span>
           우리
-          <span className={styles.pointText}> 아이</span>를 소개해 주세요
-          <span className={styles.titleStar}>★</span>
+          <span className='text-accent'> 아이</span>를 소개해 주세요
+          <span className='p-10 text-heading text-yellow-500'>★</span>
         </p>
-        <p className={styles.subtitle}>아이에게 더 맞는 이야기와 경험을 제공해드려요.</p>
+        <p className='text-body text-ink-2'>아이에게 더 맞는 이야기와 경험을 제공해드려요.</p>
       </div>
 
-      <div className={styles.container}>
+      <div className='flex gap-50'>
         <PhotoUpload onFileSelect={handlePhotoSelect} previewUrl={photoUrl} />
 
-        <div className={styles.formSection}>
-          <p className={styles.nameLabel}>아이 이름</p>
+        <div className='flex flex-1 flex-col justify-center gap-20'>
+          <p className='text-subtitle'>아이 이름</p>
           <Input placeholder='이름을 입력해 주세요' value={name} onChange={setName} />
-          <p className={styles.notice}>
-            <span className={styles.titleStar}>★</span>
+          <p className='flex items-center text-body text-ink-2'>
+            <span className='p-10 text-heading text-yellow-500'>★</span>
             이름은 언제든지 변경할 수 있어요.
           </p>
           <Button

@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
-import * as styles from './drawing-canvas.css'
+import { cn } from '@shared/utils/cn'
 
 const COLORS = ['#F5622E', '#FCC944', '#4CAF50', '#2196F3', '#9C27B0', '#FF69B4', '#68462B']
 const BRUSH_SIZE = 6
@@ -100,15 +100,18 @@ const DrawingCanvas = () => {
   }, [startDraw, draw, stopDraw])
 
   return (
-    <div className={styles.wrapper}>
-      <p className={styles.label}>🎨 그림을 만들어지는 동안 나도 그려볼까요?</p>
-      <canvas ref={canvasRef} width={480} height={300} className={styles.canvas} />
-      <div className={styles.toolbar}>
+    <div className='flex size-full animate-fade-in flex-col items-center justify-center gap-12 bg-surface-page'>
+      <p className='text-label text-ink'>🎨 그림을 만들어지는 동안 나도 그려볼까요?</p>
+      <canvas ref={canvasRef} width={480} height={300} className='cursor-crosshair touch-none rounded-md border-2 border-dashed border-border bg-white' />
+      <div className='flex items-center gap-10'>
         {COLORS.map((color) => (
           <button
             key={color}
             type='button'
-            className={`${styles.colorButton} ${!isEraser && activeColor === color ? styles.colorButtonActive : ''}`}
+            className={cn(
+              'size-32 cursor-pointer rounded-full border-3 border-transparent transition-[transform,border-color] duration-150 active:scale-90',
+              !isEraser && activeColor === color && 'scale-115 border-ink',
+            )}
             style={{ backgroundColor: color }}
             onClick={() => {
               setActiveColor(color)
@@ -118,7 +121,10 @@ const DrawingCanvas = () => {
         ))}
         <button
           type='button'
-          className={`${styles.eraserButton} ${isEraser ? styles.eraserButtonActive : ''}`}
+          className={cn(
+            'cursor-pointer rounded-pill border-[1.5px] px-12 py-4 text-label text-ink',
+            isEraser ? 'border-border-strong bg-surface-inset' : 'border-border bg-white',
+          )}
           onClick={() => setIsEraser((v) => !v)}
         >
           지우개

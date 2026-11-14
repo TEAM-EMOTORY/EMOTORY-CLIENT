@@ -1,6 +1,5 @@
 import router from '@routes/Router'
 import { queryClient } from '@shared/apis/query-client'
-import ThemeProvider from '@shared/styles/theme-provider'
 import { useBackgroundMusic } from '@shared/hooks/use-background-music'
 import { useTouchSound } from '@shared/hooks/use-touch-sound'
 import SparkleEffect from '@shared/components/sparkle-effect/sparkle-effect'
@@ -13,9 +12,7 @@ function App() {
   useTouchSound()
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={false} />
       <SparkleEffect />
     </QueryClientProvider>

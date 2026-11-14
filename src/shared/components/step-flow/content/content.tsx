@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import * as styles from './content.css'
 import muteIcon from '@shared/assets/speak-icon/mute.svg'
 import volumeIcon from '@shared/assets/speak-icon/volume.svg'
 
@@ -87,22 +86,22 @@ const Content = ({ title, content, showStar = true, autoSpeak = false }: Content
   }
 
   return (
-    <div className={styles.content}>
-      {showStar && <span className={styles.star}>★</span>}
-      {title && <h2 className={styles.title}>{title}</h2>}
-      <p className={styles.line}>{content}</p>
+    <div className='relative flex h-full min-w-0 flex-1 rotate-3 flex-col items-center justify-center gap-24 rounded-lg border-[1.5px] border-border bg-white px-56 py-32 shadow-card'>
+      {showStar && <span className='text-heading text-yellow-500'>★</span>}
+      {title && <h2 className='text-center text-title text-ink'>{title}</h2>}
+      <p className='break-keep text-center text-heading text-ink-2'>{content}</p>
       {autoSpeak && (
-        <div className={styles.voiceControls} aria-label='음성 제어'>
+        <div className='absolute right-20 bottom-20 flex justify-center' aria-label='음성 제어'>
           <button
             type='button'
-            className={styles.voiceButton}
+            className='flex size-48 items-center justify-center rounded-full border-[1.5px] border-border bg-surface-card p-0 shadow-sm'
             aria-label={isMuted ? '음성 재생' : '음소거'}
             onClick={isMuted ? handlePlay : handleMuteToggle}
           >
             <img
               src={isMuted ? volumeIcon : muteIcon}
               alt=''
-              className={styles.voiceIcon}
+              className='size-28 object-contain'
               aria-hidden='true'
             />
           </button>

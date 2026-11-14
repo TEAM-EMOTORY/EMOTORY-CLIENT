@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import * as styles from './frame.css'
 
 interface FrameProps {
   header: ReactNode
@@ -11,10 +10,10 @@ interface FrameProps {
 
 const Frame = ({ header, scene, content, choices, nav }: FrameProps) => {
   return (
-    <div className={styles.page}>
+    <div className='flex h-dvh flex-col px-20 py-30'>
       {header}
-      <div className={styles.wrapper}>
-        <div className={styles.main}>
+      <div className='flex min-h-0 flex-1 flex-col'>
+        <div className='flex min-h-0 flex-1 items-stretch justify-center gap-24'>
           {scene}
           {content}
         </div>

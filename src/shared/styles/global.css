@@ -1,0 +1,276 @@
+@import 'tailwindcss';
+
+/* ───────── Font ───────── */
+@font-face {
+  font-family: 'TmoneyRoundWind';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff')
+    format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TmoneyRoundWind';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff')
+    format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * Emotory Design System 토큰 — Figma "Emotory Design System" (node 551:2)와 1:1
+ * html font-size 62.5% → 1rem = 10px
+ * --spacing 0.1rem → 숫자 유틸리티가 px 단위 (p-16 = 16px, Figma space-4)
+ */
+@theme {
+  --font-*: initial;
+  --font-sans: 'TmoneyRoundWind', sans-serif;
+
+  --spacing: 0.1rem;
+
+  /* Color */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+
+  --color-yellow-100: #fff1cc;
+  --color-yellow-300: #ffd98a;
+  --color-yellow-500: #fcc230;
+  --color-yellow-700: #e3a417;
+  --color-on-primary: #6b4510;
+
+  --color-surface-page: #fef7ee;
+  --color-surface-card: #fffbf5;
+  --color-surface-inset: #fff1dc;
+  --color-border: #efddc3;
+  --color-border-strong: #b88a52;
+
+  --color-ink: #3b2a1a;
+  --color-ink-2: #5e4b3a;
+  --color-ink-3: #7a6552;
+
+  --color-accent: #e85a24;
+  --color-accent-text: #b94315;
+  --color-leaf: #4a7535;
+
+  --color-sadness-100: #e3edf8;
+  --color-sadness-500: #5a8fcb;
+  --color-sadness-700: #245b8f;
+  --color-anger-100: #fde3d6;
+  --color-anger-500: #ec5b2d;
+  --color-anger-700: #b23a1a;
+  --color-fear-100: #f0e6f7;
+  --color-fear-500: #9466c2;
+  --color-fear-700: #5e3e8b;
+  --color-disgust-100: #eef3d6;
+  --color-disgust-500: #8fb03a;
+  --color-disgust-700: #4f6a22;
+  --color-surprise-100: #dff2ef;
+  --color-surprise-500: #4fb5b0;
+  --color-surprise-700: #1f6e62;
+
+  /* Typography — 7단계, 행간 150% */
+  --text-*: initial;
+  --text-display: 4.4rem;
+  --text-display--line-height: 1.5;
+  --text-display--font-weight: 800;
+  --text-title: 3.6rem;
+  --text-title--line-height: 1.5;
+  --text-title--font-weight: 800;
+  --text-heading: 2.8rem;
+  --text-heading--line-height: 1.5;
+  --text-heading--font-weight: 800;
+  --text-subtitle: 2.2rem;
+  --text-subtitle--line-height: 1.5;
+  --text-subtitle--font-weight: 800;
+  --text-label: 1.8rem;
+  --text-label--line-height: 1.5;
+  --text-label--font-weight: 800;
+  --text-body: 1.8rem;
+  --text-body--line-height: 1.5;
+  --text-body--font-weight: 400;
+  --text-caption: 1.4rem;
+  --text-caption--line-height: 1.5;
+  --text-caption--font-weight: 400;
+
+  /* Radius */
+  --radius-*: initial;
+  --radius-sm: 1.2rem;
+  --radius-md: 2rem;
+  --radius-lg: 2.8rem;
+  --radius-pill: 999px;
+
+  /* Shadow */
+  --shadow-*: initial;
+  --shadow-sm: 0 2px 8px #9664281a;
+  --shadow-card: 0 8px 24px #96642824;
+  --shadow-primary: 0 10px 20px #e3a4174d, 0 4px 0 #e3a417;
+
+  /* Animation */
+  --animate-fade-in: fade-in 0.4s both;
+  --animate-fade-slide-up: fade-slide-up 0.4s ease-out both;
+  --animate-pop-in: fade-slide-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-bar-grow: bar-grow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-slide-in-up: slide-in-up 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+  --animate-star: star-bounce-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+    star-wobble 1.8s ease-in-out 0.7s infinite;
+  --animate-pop-bounce: pop-bounce 0.9s ease-in-out infinite;
+  --animate-bg-pulse: bg-pulse 2s ease-in-out infinite;
+  --animate-card-pop: card-pop 0.36s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-character-bounce: character-bounce 0.36s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-slide-up {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  @keyframes bar-grow {
+    0% {
+      transform: scaleY(0);
+    }
+    70% {
+      transform: scaleY(1.06);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
+  @keyframes slide-in-up {
+    0% {
+      transform: rotate(-4deg) translateY(120%);
+    }
+    70% {
+      transform: rotate(-4deg) translateY(-8%);
+    }
+    100% {
+      transform: rotate(-4deg) translateY(0);
+    }
+  }
+  @keyframes star-bounce-in {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-20px) rotate(-15deg);
+    }
+    70% {
+      transform: translateY(-8px) rotate(10deg);
+    }
+    85% {
+      transform: translateY(-14px) rotate(-8deg);
+    }
+    100% {
+      transform: translateY(-10px) rotate(0deg);
+    }
+  }
+  @keyframes star-wobble {
+    0%,
+    50%,
+    100% {
+      transform: translateY(-10px) rotate(-12deg);
+    }
+    25%,
+    75% {
+      transform: translateY(-16px) rotate(12deg);
+    }
+  }
+  @keyframes pop-bounce {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+    40% {
+      transform: translateY(-20px) scale(1.15);
+    }
+    60% {
+      transform: translateY(-14px) scale(0.95);
+    }
+  }
+  @keyframes bg-pulse {
+    0%,
+    100% {
+      background-color: var(--color-surface-inset);
+    }
+    50% {
+      background-color: var(--color-border);
+    }
+  }
+  @keyframes card-pop {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    45% {
+      transform: translateY(-1.2rem) scale(1.04);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes character-bounce {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    35% {
+      transform: translateY(-1.4rem) rotate(-6deg);
+    }
+    70% {
+      transform: translateY(0.2rem) rotate(5deg);
+    }
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+}
+
+/* 일러스트 위 제목을 읽히게 하는 흰색 글로우 */
+@utility text-glow {
+  filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 24px rgb(255 255 255 / 0.9))
+    drop-shadow(0 0 48px rgb(255 255 255 / 0.4));
+}
+
+@layer base {
+  html {
+    font-size: 62.5%;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
