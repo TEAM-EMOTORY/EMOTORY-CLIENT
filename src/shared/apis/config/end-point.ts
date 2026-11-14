@@ -15,6 +15,7 @@ export const END_POINT = {
   },
   BOOKSHELF: {
     SHARED_STORIES: '/shared-stories',
+    SHARED_STORY: (playSessionId: number) => `/shared-stories/${playSessionId}`,
   },
   RESULT: {
     CREATE: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,

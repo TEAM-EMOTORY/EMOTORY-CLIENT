@@ -1,4 +1,5 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { forwardRef, useImperativeHandle, useRef } from 'react'
+import { useElementSize } from '@shared/hooks/use-element-size'
 import HTMLFlipBook from 'react-pageflip'
 import { LeftPage, RightPage } from './story-pages'
 import { StoryBookContext } from './story-book-context'
@@ -20,25 +21,6 @@ interface StoryBookProps {
 }
 
 const FLIP_MS = 900
-
-/** 부모 크기를 재서 책 넘김 라이브러리에 넘긴다 (라이브러리는 고정 px만 받는다) */
-const useElementSize = () => {
-  const ref = useRef<HTMLDivElement>(null)
-  const [size, setSize] = useState<{ width: number; height: number } | null>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect
-      setSize({ width: Math.floor(width), height: Math.floor(height) })
-    })
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  return [ref, size] as const
-}
 
 /**
  * 장면 하나 = 펼친 두 페이지(왼쪽 글 · 오른쪽 그림).

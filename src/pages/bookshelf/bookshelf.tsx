@@ -74,7 +74,14 @@ const BookshelfPage = () => {
                     {books.map((story, i) =>
                       story ? (
                         <li key={story.playSessionId}>
-                          <ShelfBook story={story} />
+                          <button
+                            type='button'
+                            aria-label={`${story.name}의 이야기 「${story.title}」 읽기`}
+                            onClick={() => navigate(`/bookshelf/${story.playSessionId}`)}
+                            className='block w-full transition-transform hover:-translate-y-4 active:-translate-y-2'
+                          >
+                            <ShelfBook story={story} />
+                          </button>
                         </li>
                       ) : (
                         <li

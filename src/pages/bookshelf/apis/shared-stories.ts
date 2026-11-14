@@ -32,3 +32,23 @@ interface SharedStoryListResponse {
 
 export const fetchSharedStories = (page: number, size = 20) =>
   http.get<SharedStoryListResponse>(END_POINT.BOOKSHELF.SHARED_STORIES, { params: { page, size } })
+
+export interface SharedStoryNode {
+  id: number
+  /** 장면 그림 */
+  imgSrc: string
+  /** 장면 본문 */
+  story: string
+}
+
+export interface SharedStoryDetail {
+  playSessionId: number
+  name: string
+  emotion: StoryEmotion
+  title: string
+  /** 실제로 진행한 순서의 장면들 (마지막은 결말) */
+  nodes: SharedStoryNode[]
+}
+
+export const fetchSharedStory = (playSessionId: number) =>
+  http.get<SharedStoryDetail>(END_POINT.BOOKSHELF.SHARED_STORY(playSessionId))

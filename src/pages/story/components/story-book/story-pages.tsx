@@ -30,7 +30,7 @@ export const LeftPage = forwardRef<HTMLDivElement, LeftPageProps>(({ nodeId, isC
           className='pointer-events-none absolute inset-0 bg-linear-to-r from-ink/6 to-transparent to-12%'
         />
         <div className='relative flex min-h-0 flex-1 flex-col justify-center gap-20 overflow-y-auto px-[clamp(2.4rem,3.2vw,4rem)] pt-[clamp(8rem,11vh,9.6rem)] pb-[clamp(5.6rem,8vh,7.2rem)]'>
-          <StoryText title={`${childName}의 모험`} content={content} autoSpeak={isCurrent} />
+          <StoryText title={`${childName}의 모험`} content={content} />
           <hr className='border-border' />
           <ChoiceList
             choices={

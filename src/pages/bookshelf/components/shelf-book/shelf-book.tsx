@@ -1,33 +1,7 @@
 import EmotionIcon from '@shared/components/emotion-icon/emotion-icon'
-import type { EmotionKey } from '@shared/components/emotion-icon/emotion-icon'
 import { cn } from '@shared/utils/cn'
-import type { SharedStory, StoryEmotion } from '../../apis/shared-stories'
-
-// 서버 감정 10가지 → 디자인 시스템 감정 색 6가지
-const EMOTION_THEME: Record<StoryEmotion, { key: EmotionKey; spine: string; badge: string }> = {
-  HAPPY: { key: 'joy', spine: 'bg-yellow-500', badge: 'border-yellow-500 text-yellow-500' },
-  EXCITED: { key: 'joy', spine: 'bg-yellow-500', badge: 'border-yellow-500 text-yellow-500' },
-  SAD: { key: 'sadness', spine: 'bg-sadness-500', badge: 'border-sadness-500 text-sadness-500' },
-  LONELY: { key: 'sadness', spine: 'bg-sadness-500', badge: 'border-sadness-500 text-sadness-500' },
-  ANGRY: { key: 'anger', spine: 'bg-anger-500', badge: 'border-anger-500 text-anger-500' },
-  FEAR: { key: 'fear', spine: 'bg-fear-500', badge: 'border-fear-500 text-fear-500' },
-  ANXIOUS: { key: 'fear', spine: 'bg-fear-500', badge: 'border-fear-500 text-fear-500' },
-  EMBARRASSED: {
-    key: 'disgust',
-    spine: 'bg-disgust-500',
-    badge: 'border-disgust-500 text-disgust-500',
-  },
-  SURPRISED: {
-    key: 'surprise',
-    spine: 'bg-surprise-500',
-    badge: 'border-surprise-500 text-surprise-500',
-  },
-  CALM: {
-    key: 'surprise',
-    spine: 'bg-surprise-500',
-    badge: 'border-surprise-500 text-surprise-500',
-  },
-}
+import type { SharedStory } from '../../apis/shared-stories'
+import { EMOTION_THEME } from '../../constants/emotion'
 
 interface ShelfBookProps {
   story: SharedStory

@@ -3,6 +3,7 @@ export const QUERY_KEYS = {
   storyNode: (storyNodeId: number) => ['story-node', storyNodeId] as const,
   generateImage: (nodeId: number) => ['generate-image', nodeId] as const,
   sharedStories: ['shared-stories'] as const,
+  sharedStory: (playSessionId: number) => ['shared-story', playSessionId] as const,
 
   member: (memberId: string) => ['member', memberId] as const,
 

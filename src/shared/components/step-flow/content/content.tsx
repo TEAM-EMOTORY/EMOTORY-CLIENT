@@ -6,27 +6,28 @@ interface ContentProps {
   title?: string
   content: string
   showStar?: boolean
-  autoSpeak?: boolean
+  /** 읽어주기(TTS) 버튼을 보여줄지 — 눌렀을 때만 읽는다 */
+  speakable?: boolean
 }
 
-const Content = ({ title, content, showStar = true, autoSpeak = false }: ContentProps) => {
-  const { isMuted, play, mute } = useSpeech(content, autoSpeak)
+const Content = ({ title, content, showStar = true, speakable = false }: ContentProps) => {
+  const { isSpeaking, play, stop } = useSpeech(content)
 
   return (
     <div className='relative flex h-full min-w-0 flex-1 rotate-3 flex-col items-center justify-center gap-24 rounded-lg border-[1.5px] border-border bg-white px-56 py-32 shadow-card'>
       {showStar && <span className='text-heading text-yellow-500'>★</span>}
       {title && <h2 className='text-center text-title text-ink'>{title}</h2>}
       <p className='break-keep text-center text-heading text-ink-2'>{content}</p>
-      {autoSpeak && (
+      {speakable && (
         <div className='absolute right-20 bottom-20 flex justify-center' aria-label='음성 제어'>
           <button
             type='button'
             className='flex size-48 items-center justify-center rounded-full border-[1.5px] border-border bg-surface-card p-0 shadow-sm'
-            aria-label={isMuted ? '음성 재생' : '음소거'}
-            onClick={isMuted ? play : mute}
+            aria-label={isSpeaking ? '읽어주기 멈추기' : '읽어주기'}
+            onClick={isSpeaking ? stop : play}
           >
             <img
-              src={isMuted ? volumeIcon : muteIcon}
+              src={isSpeaking ? muteIcon : volumeIcon}
               alt=''
               className='size-28 object-contain'
               aria-hidden='true'
