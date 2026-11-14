@@ -115,12 +115,15 @@
   --animate-pop-in: fade-slide-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   --animate-bar-grow: bar-grow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   --animate-slide-in-up: slide-in-up 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
-  --animate-star: star-bounce-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+  --animate-star:
+    star-bounce-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
     star-wobble 1.8s ease-in-out 0.7s infinite;
   --animate-pop-bounce: pop-bounce 0.9s ease-in-out infinite;
   --animate-bg-pulse: bg-pulse 2s ease-in-out infinite;
   --animate-card-pop: card-pop 0.36s cubic-bezier(0.34, 1.56, 0.64, 1);
   --animate-character-bounce: character-bounce 0.36s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-glow: glow-pulse 2.4s ease-in-out infinite;
+  --animate-sparkle: sparkle 1.8s ease-in-out infinite;
 
   @keyframes fade-in {
     from {
@@ -215,6 +218,26 @@
     }
     50% {
       background-color: var(--color-border);
+    }
+  }
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 0.85;
+    }
+  }
+  @keyframes sparkle {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(0.7);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
     }
   }
   @keyframes card-pop {
