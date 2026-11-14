@@ -11,7 +11,7 @@ import EmotionCard from './components/emotion-card/emotion-card'
 import type { EmotionKey } from './components/emotion-card/emotion-card'
 import StartButton from './components/start-button/start-button'
 import { useCreatePlaySession } from './hooks/use-create-play-session'
-import { usePrepareStory } from './hooks/use-prepare-story'
+import { usePrepareStory } from '@shared/hooks/use-prepare-story'
 import StoryLoading from '@shared/components/story-loading/story-loading'
 
 interface Emotion {

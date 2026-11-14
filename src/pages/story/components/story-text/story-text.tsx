@@ -3,6 +3,8 @@ import { useSpeech } from '@shared/hooks/use-speech'
 interface StoryTextProps {
   title: string
   content: string
+  /** 화면에 들어오면 자동으로 읽어줄지 */
+  autoSpeak?: boolean
 }
 
 /** 문장 단위로 줄을 나눈다. 마지막 문장은 강조 색으로 보여준다 (Figma 06D) */
@@ -12,8 +14,8 @@ const splitSentences = (content: string) =>
     .map((line) => line.trim())
     .filter(Boolean)
 
-const StoryText = ({ title, content }: StoryTextProps) => {
-  const { isMuted, play, mute } = useSpeech(content, true)
+const StoryText = ({ title, content, autoSpeak = true }: StoryTextProps) => {
+  const { isMuted, play, mute } = useSpeech(content, autoSpeak)
   const lines = splitSentences(content)
 
   return (
