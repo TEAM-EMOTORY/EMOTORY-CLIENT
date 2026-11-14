@@ -1,5 +1,5 @@
 import Card from '@shared/components/card/card'
-import * as styles from './emotion-card.css'
+import { cn } from '@shared/utils/cn'
 
 interface EmotionCardProps {
   name: string
@@ -11,16 +11,16 @@ interface EmotionCardProps {
 const EmotionCard = ({ name, title, tags, className }: EmotionCardProps) => {
   return (
     <Card
-      icon={<span className={styles.headerStar}>★</span>}
+      icon={<span className='text-yellow-500'>★</span>}
       title={`${name}가 느낀 감정`}
       cardVariant='warm'
-      className={`${styles.cardFlex}${className ? ` ${className}` : ''}`}
+      className={cn('flex flex-col', className)}
     >
-      <div className={styles.infoBlock}>
-        <p className={styles.emotionTitle}>{title}</p>
-        <div className={styles.tags}>
+      <div className='flex flex-1 flex-col items-center justify-center gap-10 py-10'>
+        <p className='text-center text-title text-accent-text'>{title}</p>
+        <div className='flex flex-wrap justify-center gap-8'>
           {tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
+            <span key={tag} className='rounded-pill border-[1.5px] border-border bg-surface-inset px-14 py-4 text-caption text-accent-text'>
               {tag}
             </span>
           ))}

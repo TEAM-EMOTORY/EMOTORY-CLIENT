@@ -1,6 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import Button from '@shared/components/button/button'
-import * as styles from './result.css'
 import StoryCard from './components/story-card/story-card'
 import EmotionCard from './components/emotion-card/emotion-card'
 import TipCard from './components/tip-card/tip-card'
@@ -20,19 +19,19 @@ const ResultPage = () => {
   const { data: imageData, isLoading: isImageLoading } = useGenerateImage(faceImageKey, lastNodeId, playSessionId)
 
   return (
-    <main className={styles.page}>
-      <div className={styles.wrapper}>
-        <div className={styles.titleSection}>
-          <p className={styles.title}>
-            <span className={styles.star}>★</span>
+    <main className='flex min-h-screen items-center justify-center text-ink'>
+      <div className='relative flex w-full max-w-1040 flex-col gap-30'>
+        <div className='flex flex-col items-center text-glow'>
+          <p className='flex gap-12 text-display'>
+            <span className='text-yellow-500'>★</span>
             {childName}
             {hasConsonantEnding(childName) ? '이의' : '의'} 이야기가 끝났어요!
-            <span className={styles.star}>★</span>
+            <span className='text-yellow-500'>★</span>
           </p>
-          <p className={styles.description}>오늘도 함께 감정을 탐험해봐요.</p>
+          <p className='text-body text-ink-2'>오늘도 함께 감정을 탐험해봐요.</p>
         </div>
 
-        <div className={styles.mainCards}>
+        <div className='flex items-stretch gap-20'>
           <StoryCard
             imageUrl={imageData?.imageUrl ?? resultData?.generatedImageUrl ?? ''}
             isLoading={isImageLoading}
@@ -41,25 +40,25 @@ const ResultPage = () => {
                 ? replaceNameInContent(resultData.summary, childName)
                 : '이야기 요약을 불러오는 중이에요...'
             }
-            className={styles.storyCard}
+            className='flex-5'
           />
           <EmotionCard
             name={childName}
             title={resultData?.emotion ?? '감정을 분석 중이에요...'}
             tags={[]}
-            className={styles.emotionCard}
+            className='flex-4'
           />
         </div>
 
         <TipCard tips={resultData?.advices.map((a) => a.description) ?? []} />
 
-        <div className={styles.bottomNav}>
+        <div className='flex items-center justify-center gap-16'>
           <Button color='white' onClick={() => navigate('/')}>
             🏠 처음으로
           </Button>
           <button
             type='button'
-            className={styles.ctaButton}
+            className='flex h-60 items-center justify-center gap-8 whitespace-nowrap rounded-pill bg-yellow-500 px-40 text-subtitle text-on-primary shadow-primary'
             onClick={() => navigate('/emotion-select')}
           >
             ✦ 다른 감정을 탐험해볼래요? &gt;

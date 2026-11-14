@@ -1,5 +1,4 @@
 import DrawingCanvas from '@pages/story/components/drawing-canvas/drawing-canvas'
-import * as styles from './scene.css'
 
 interface SceneProps {
   imageUrl: string
@@ -8,8 +7,8 @@ interface SceneProps {
 
 const Scene = ({ imageUrl, isLoading }: SceneProps) => {
   return (
-    <div className={styles.scene}>
-      {isLoading || !imageUrl ? <DrawingCanvas /> : <img src={imageUrl} className={styles.image} />}
+    <div className='h-full min-w-0 flex-1 overflow-hidden rounded-lg bg-white'>
+      {isLoading || !imageUrl ? <DrawingCanvas /> : <img src={imageUrl} className='size-full object-cover' />}
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import homeBg from '@shared/assets/background-img/home.webp'
-import * as styles from './home.css'
 import { useImageButtonPos } from './hooks/use-image-button-pos'
 
 const HomePage = () => {
@@ -10,10 +9,10 @@ const HomePage = () => {
   useImageButtonPos(containerRef)
 
   return (
-    <div ref={containerRef} className={styles.bgContainer}>
-      <img src={homeBg} alt='' className={styles.bgImage} />
+    <div ref={containerRef} className='relative h-dvh w-screen overflow-hidden'>
+      <img src={homeBg} alt='' className='absolute inset-0 size-full object-cover object-center' />
       <button
-        className={styles.storyButton}
+        className='absolute top-(--home-story-top) left-(--home-story-left) h-(--home-story-height) w-(--home-story-width) -translate-x-1/2 -translate-y-1/2 rounded-pill'
         aria-label='이야기 시작하기'
         onClick={() => navigate('/agreement?next=story')}
       />

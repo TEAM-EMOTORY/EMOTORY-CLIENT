@@ -1,14 +1,17 @@
 import { Outlet } from 'react-router-dom'
-import * as styles from './layout.css'
+import bgImage from '@shared/assets/background-img/bg.webp'
+import storyBgImage from '@shared/assets/background-img/storyBg.webp'
+
+const LAYOUT = 'h-dvh w-full bg-cover bg-center bg-no-repeat'
 
 export const Layout = () => (
-  <div className={styles.layout}>
+  <div className={LAYOUT} style={{ backgroundImage: `url(${bgImage})` }}>
     <Outlet />
   </div>
 )
 
 export const StoryLayout = () => (
-  <div className={styles.storyLayout}>
+  <div className={LAYOUT} style={{ backgroundImage: `url(${storyBgImage})` }}>
     <Outlet />
   </div>
 )

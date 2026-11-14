@@ -1,5 +1,10 @@
 import { useEffect, useCallback } from 'react'
-import { STORY_LEFT_VAR, STORY_TOP_VAR, STORY_WIDTH_VAR, STORY_HEIGHT_VAR } from '../home.css'
+
+// home.tsx 의 '이야기 시작하기' 버튼이 읽는 CSS 변수
+const STORY_LEFT_VAR = '--home-story-left'
+const STORY_TOP_VAR = '--home-story-top'
+const STORY_WIDTH_VAR = '--home-story-width'
+const STORY_HEIGHT_VAR = '--home-story-height'
 
 // home.webp 자연 크기 (iPad Air 4 해상도)
 const IMAGE_W = 2360
