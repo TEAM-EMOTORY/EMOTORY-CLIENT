@@ -13,11 +13,8 @@ const HomePage = () => {
     <div ref={containerRef} className={styles.bgContainer}>
       <img src={homeBg} alt='' className={styles.bgImage} />
       <button
-        className={styles.diaryButton}
-        onClick={() => navigate('/agreement?next=diary')}
-      />
-      <button
-        className={styles.agreementButton}
+        className={styles.storyButton}
+        aria-label='이야기 시작하기'
         onClick={() => navigate('/agreement?next=story')}
       />
     </div>
