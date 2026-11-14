@@ -7,6 +7,7 @@ import StoryPage from '@pages/story/story'
 import DiaryPage from '@pages/diary/diary'
 import DiaryResultPage from '@pages/diary-result/diary-result'
 import ResultPage from '@pages/result/result'
+import BookshelfPage from '@pages/bookshelf/bookshelf'
 import { Layout, StoryLayout } from '@shared/components/layout/layout'
 
 const router = createBrowserRouter([
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: '/agreement', element: <AgreementPage /> },
       { path: '/child-info', element: <ChildInfoPage /> },
       { path: '/emotion-select', element: <EmotionSelectPage /> },
+      { path: '/bookshelf', element: <BookshelfPage /> },
     ],
   },
   {

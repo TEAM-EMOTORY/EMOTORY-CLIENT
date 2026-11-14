@@ -7,6 +7,7 @@ import fearImg from '@shared/assets/emotion-card/fear.webp'
 import disgustImg from '@shared/assets/emotion-card/disgust.webp'
 import surpriseImg from '@shared/assets/emotion-card/surprise.webp'
 import { hasConsonantEnding } from '@shared/utils/korean-particle'
+import MenuButton from '@shared/components/menu-button/menu-button'
 import EmotionCard from './components/emotion-card/emotion-card'
 import type { EmotionKey } from './components/emotion-card/emotion-card'
 import StartButton from './components/start-button/start-button'
@@ -63,7 +64,16 @@ const EmotionSelectPage = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center pt-100'>
+    <div className='relative flex flex-col items-center justify-center pt-100'>
+      {/* 오른쪽 아래 메뉴 (홈 이미지와 같은 자리) — 감정 사전 · 부모 가이드는 화면이 생기면 onClick 연결 (지금은 눌러도 반응 없음) */}
+      <nav
+        aria-label='메뉴'
+        className='fixed right-[clamp(3.2rem,4vw,4.8rem)] bottom-[clamp(4.4rem,6.5vh,6.4rem)] z-10 flex gap-12'
+      >
+        <MenuButton type='dictionary' />
+        <MenuButton type='bookshelf' onClick={() => navigate('/bookshelf')} />
+        <MenuButton type='guide' />
+      </nav>
       <div className='flex flex-col gap-10 text-center text-glow'>
         <h1 className='text-display text-ink [-webkit-text-stroke:0.5rem_white] [paint-order:stroke_fill]'>
           {childName}

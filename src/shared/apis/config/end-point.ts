@@ -13,6 +13,9 @@ export const END_POINT = {
     END_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}/end`,
     GENERATE_IMAGE: '/images/generate',
   },
+  BOOKSHELF: {
+    SHARED_STORIES: '/shared-stories',
+  },
   RESULT: {
     CREATE: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
     GET: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
