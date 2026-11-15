@@ -6,7 +6,7 @@ interface HeaderProps {
 
 const Header = ({ emotionLabel }: HeaderProps) => {
   return (
-    <header className='flex items-center gap-20 pb-24'>
+    <header className='flex items-center gap-20 pb-[clamp(1.2rem,2dvh,2.4rem)]'>
       <img src={logoImg} alt='emotory logo' className='h-56 w-auto object-contain' />
       {emotionLabel && (
         <div className='flex items-center gap-6 rounded-pill border border-border bg-surface-card px-16 py-7 text-label text-ink shadow-sm'>

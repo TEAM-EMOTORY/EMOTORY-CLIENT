@@ -60,8 +60,8 @@ const ResultPage = () => {
   }
 
   return (
-    <main className='flex min-h-screen items-center justify-center text-ink'>
-      <div className='relative flex w-full max-w-1040 flex-col gap-30'>
+    <main className='flex h-full items-center justify-center overflow-y-auto text-ink'>
+      <div className='relative flex w-full max-w-1040 flex-col gap-[clamp(3rem,3.5dvh,4rem)] p-20'>
         <div className='flex flex-col items-center text-glow'>
           <p className='flex gap-12 text-display'>
             <span className='text-yellow-500'>★</span>

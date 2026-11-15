@@ -14,7 +14,7 @@ const Content = ({ title, content, showStar = true, speakable = false }: Content
   const { isSpeaking, play, stop } = useSpeech(content)
 
   return (
-    <div className='relative flex h-full min-w-0 flex-1 rotate-3 flex-col items-center justify-center gap-24 rounded-lg border-[1.5px] border-border bg-white px-56 py-32 shadow-card'>
+    <div className='relative flex h-full min-w-0 flex-1 rotate-3 flex-col items-center justify-center gap-[clamp(1.4rem,2dvh,2.4rem)] overflow-hidden rounded-lg border-[1.5px] border-border bg-white px-[clamp(3.2rem,5vw,5.6rem)] py-[clamp(2rem,2.8dvh,3.2rem)] shadow-card'>
       {showStar && <span className='text-heading text-yellow-500'>★</span>}
       {title && <h2 className='text-center text-title text-ink'>{title}</h2>}
       <p className='break-keep text-center text-heading text-ink-2'>{content}</p>

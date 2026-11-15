@@ -3,31 +3,45 @@ import { cn } from '@shared/utils/cn'
 
 const COLORS = ['#F5622E', '#FCC944', '#4CAF50', '#2196F3', '#9C27B0', '#FF69B4', '#68462B']
 const BRUSH_SIZE = 6
+const ERASER_SIZE = BRUSH_SIZE * 4
+
+const getPos = (point: { clientX: number; clientY: number }, canvas: HTMLCanvasElement) => {
+  const rect = canvas.getBoundingClientRect()
+  return {
+    x: (point.clientX - rect.left) * (canvas.width / rect.width),
+    y: (point.clientY - rect.top) * (canvas.height / rect.height),
+  }
+}
 
 const DrawingCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const isDrawing = useRef(false)
   const [activeColor, setActiveColor] = useState(COLORS[0])
   const [isEraser, setIsEraser] = useState(false)
 
   useEffect(() => {
+    const container = containerRef.current
     const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    ctx.fillStyle = '#ffffff'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
-  }, [])
+    if (!container || !canvas) return
 
-  const getPos = (e: { clientX: number; clientY: number }, canvas: HTMLCanvasElement) => {
-    const rect = canvas.getBoundingClientRect()
-    const scaleX = canvas.width / rect.width
-    const scaleY = canvas.height / rect.height
-    return {
-      x: (e.clientX - rect.left) * scaleX,
-      y: (e.clientY - rect.top) * scaleY,
+    const initCanvas = (width: number, height: number) => {
+      canvas.width = Math.floor(width)
+      canvas.height = Math.floor(height)
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
-  }
+
+    const observer = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect
+      if (width > 0 && height > 0) initCanvas(width, height)
+    })
+    observer.observe(container)
+
+    return () => observer.disconnect()
+  }, [])
 
   const startDraw = useCallback((x: number, y: number) => {
     const canvas = canvasRef.current
@@ -44,7 +58,7 @@ const DrawingCanvas = () => {
       const canvas = canvasRef.current
       const ctx = canvas?.getContext('2d')
       if (!ctx) return
-      ctx.lineWidth = isEraser ? BRUSH_SIZE * 4 : BRUSH_SIZE
+      ctx.lineWidth = isEraser ? ERASER_SIZE : BRUSH_SIZE
       ctx.lineCap = 'round'
       ctx.strokeStyle = isEraser ? '#ffffff' : activeColor
       ctx.lineTo(x, y)
@@ -100,14 +114,14 @@ const DrawingCanvas = () => {
   }, [startDraw, draw, stopDraw])
 
   return (
-    <div className='flex size-full animate-fade-in flex-col items-center justify-center gap-12 bg-surface-page'>
+    <div className='flex size-full animate-fade-in flex-col p-30 items-center justify-center gap-12 bg-surface-page'>
       <p className='text-label text-ink'>🎨 그림을 만들어지는 동안 나도 그려볼까요?</p>
-      <canvas
-        ref={canvasRef}
-        width={480}
-        height={300}
-        className='cursor-crosshair touch-none rounded-md border-2 border-dashed border-border bg-white'
-      />
+      <div ref={containerRef} className='min-h-0 w-full flex-1'>
+        <canvas
+          ref={canvasRef}
+          className='block size-full cursor-crosshair touch-none rounded-md border-2 border-dashed border-border bg-white'
+        />
+      </div>
       <div className='flex items-center gap-10'>
         {COLORS.map((color) => (
           <button

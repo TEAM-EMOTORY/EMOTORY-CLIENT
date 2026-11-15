@@ -26,8 +26,8 @@ const ProfileCard = ({ childName }: ProfileCardProps) => {
   return (
     <aside className='relative flex min-h-0 flex-col items-center overflow-hidden rounded-lg border-[1.5px] border-border bg-white/82 px-[clamp(1.2rem,1.8vw,2.4rem)] pt-[clamp(1.6rem,2.5vh,3.6rem)] pb-20 shadow-card'>
       <img src={childProfileImage} alt='' className='mb-[clamp(1rem,1.5vh,2rem)] size-[clamp(8rem,12vh,16rem)] rounded-full border-[1.5px] border-border bg-surface-page object-cover object-center' />
-      <strong className='mb-[clamp(1.2rem,2vh,2.8rem)] text-title text-ink'>{childName}</strong>
-      <div className='flex w-full items-center gap-12 rounded-md border-[1.5px] border-border bg-surface-page/90 p-[clamp(1rem,1.5vh,1.8rem)] text-body text-ink-2'>
+      <strong className='mb-[clamp(1.2rem,2dvh,2.8rem)] text-title text-ink'>{childName}</strong>
+      <div className='flex w-full items-center gap-12 rounded-md border-[1.5px] border-border bg-surface-page/90 p-[clamp(1rem,1.5dvh,1.8rem)] text-body text-ink-2'>
         <span>♥</span>
         <p>{randomMessage}</p>
       </div>

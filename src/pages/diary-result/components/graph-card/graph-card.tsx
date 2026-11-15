@@ -11,7 +11,7 @@ const getBarStyles = (id: DiaryEmotion, count: number, barHeight: number, index:
       ...(id === 'joy' && { left: '54%' }),
     },
     count: {
-      bottom: `calc(${barHeight}% + ${count === 0 ? 7.6 : 9}rem)`,
+      bottom: `calc(${barHeight}% + ${count === 0 ? '7.6rem' : 'min(9rem, 9dvh)'})`,
       animationDelay: `${0.8 + index * 0.2}s`,
     },
   }
@@ -25,17 +25,17 @@ interface GraphCardProps {
 }
 
 const GraphCard = ({ counts, maxCount, childName, hasConsonant }: GraphCardProps) => (
-  <section className='relative flex min-h-0 flex-col items-center rounded-lg border-[1.5px] border-border bg-white/68 px-[clamp(1.6rem,2.5vw,3.2rem)] pt-[clamp(3rem,5vh,6rem)] pb-[clamp(1.2rem,2vh,2.4rem)]'>
-    <div className='absolute -top-22 left-1/2 flex min-w-240 -translate-x-1/2 items-center justify-center gap-12 rounded-pill border-[1.5px] border-border bg-surface-card px-32 py-12 text-subtitle text-on-primary shadow-sm'>
+  <section className='relative flex min-h-0 flex-col items-center rounded-lg border-[1.5px] border-border bg-white/68 px-[clamp(1.6rem,2.5vw,3.2rem)] pt-[clamp(4rem,6dvh,7rem)] pb-[clamp(1.2rem,2dvh,2.4rem)]'>
+    <div className='absolute -top-22 left-1/2 flex -translate-x-1/2 whitespace-nowrap items-center justify-center gap-12 rounded-pill border-[1.5px] border-border bg-surface-card px-32 py-12 text-subtitle text-on-primary shadow-sm'>
       <span>▮</span>
       <span>오늘의 감정 그래프</span>
     </div>
-    <p className='mb-[clamp(0.8rem,1.5vh,2rem)] text-body text-ink-2'>
+    <p className='mb-[clamp(0.8rem,1.5dvh,2rem)] text-body text-ink-2'>
       {childName}{hasConsonant ? '이가' : '가'} 느낀 감정들을 확인해볼까요?
     </p>
 
     <div className='relative min-h-0 w-full flex-1 pt-[clamp(4rem,7vh,7rem)] pr-20 pl-40'>
-      <div className='absolute top-80 bottom-88 left-32 w-2 bg-linear-to-b from-border/20 via-border to-border/20' />
+      <div className='absolute top-[clamp(4rem,7dvh,7rem)] bottom-[clamp(8rem,12dvh,10rem)] left-32 w-2 bg-linear-to-b from-border/20 via-border to-border/20' />
       <div className='absolute top-[clamp(4rem,7vh,7rem)] right-20 bottom-0 left-60 grid grid-cols-3 gap-[clamp(1.6rem,5vw,5.2rem)] border-b-[1.5px] border-border'>
         {EMOTION_RESULTS.map(({ id, label, characterImg, iconImg, barClassName }, index) => {
           const count = counts[id]
@@ -58,7 +58,7 @@ const GraphCard = ({ counts, maxCount, childName, hasConsonant }: GraphCardProps
                     barClassName,
                   )} style={barStyles.bar} />
               </div>
-              <img src={iconImg} alt='' className='mt-16 aspect-square w-[clamp(3.4rem,34%,4.8rem)] object-contain' />
+              <img src={iconImg} alt='' className='mt-[clamp(0.8rem,1.5dvh,1.6rem)] aspect-square w-[clamp(3.4rem,34%,4.8rem)] object-contain' />
               <span className='mt-4 text-label text-ink'>{label}</span>
             </div>
           )
