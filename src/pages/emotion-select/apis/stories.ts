@@ -2,8 +2,9 @@ import { http } from '@shared/apis/http'
 import { END_POINT } from '@shared/apis/config/end-point'
 
 export interface Story {
-  id: number
-  name: string
+  storyId: number
+  title: string
+  description: string
 }
 
 interface StoriesResponse {

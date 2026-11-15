@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.9",
-    "@vanilla-extract/recipes": "^0.5.7",
     "axios": "^1.16.0",
     "canvas-confetti": "^1.9.4",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-pageflip": "2.0.3",
     "react-router-dom": "^7.14.2"
   },
   "pnpm": {
@@ -27,13 +27,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@tailwindcss/vite": "^4.3.5",
     "@tanstack/react-query-devtools": "^5.100.10",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vanilla-extract/css": "^1.20.1",
-    "@vanilla-extract/vite-plugin": "^5.2.2",
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
@@ -41,6 +40,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
     "prettier": "3.8.3",
+    "tailwindcss": "^4.3.5",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.1",

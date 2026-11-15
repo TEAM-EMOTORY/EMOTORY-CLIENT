@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import * as styles from './diary-sun-scene.css'
+import './diary-sun-scene.css'
 
 interface DiarySunSceneProps {
   currentStep: number
@@ -32,20 +32,20 @@ const DiarySunScene = ({ currentStep, totalSteps }: DiarySunSceneProps) => {
   const skyOpacity = getLayerOpacity(progress)
 
   return (
-    <div className={styles.scene} aria-label='하루 진행 장면'>
-      <div className={styles.dawnSky} style={{ opacity: skyOpacity.dawn }} />
-      <div className={styles.daySky} style={{ opacity: skyOpacity.day }} />
-      <div className={styles.duskSky} style={{ opacity: skyOpacity.dusk }} />
-      <div className={styles.nightSky} style={{ opacity: skyOpacity.night }} />
-      <div className={styles.sunPath} />
-      <div className={styles.sparkleOne} />
-      <div className={styles.sparkleTwo} />
-      <div className={styles.sparkleThree} />
-      <div className={styles.cloudLeft} />
-      <div className={styles.cloudRight} />
-      <div className={styles.sun} style={sunStyle} />
-      <div className={styles.moon} style={moonStyle} />
-      <div className={styles.ground} />
+    <div className='sun-scene' aria-label='하루 진행 장면'>
+      <div className='sun-scene__sky sun-scene__sky--dawn' style={{ opacity: skyOpacity.dawn }} />
+      <div className='sun-scene__sky sun-scene__sky--day' style={{ opacity: skyOpacity.day }} />
+      <div className='sun-scene__sky sun-scene__sky--dusk' style={{ opacity: skyOpacity.dusk }} />
+      <div className='sun-scene__sky sun-scene__sky--night' style={{ opacity: skyOpacity.night }} />
+      <div className='sun-scene__path' />
+      <div className='sun-scene__sparkle sun-scene__sparkle--1' />
+      <div className='sun-scene__sparkle sun-scene__sparkle--2' />
+      <div className='sun-scene__sparkle sun-scene__sparkle--3' />
+      <div className='sun-scene__cloud sun-scene__cloud--left' />
+      <div className='sun-scene__cloud sun-scene__cloud--right' />
+      <div className='sun-scene__sun' style={sunStyle} />
+      <div className='sun-scene__moon' style={moonStyle} />
+      <div className='sun-scene__ground' />
     </div>
   )
 }

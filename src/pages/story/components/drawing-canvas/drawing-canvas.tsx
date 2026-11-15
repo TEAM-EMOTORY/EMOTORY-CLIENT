@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
-import * as styles from './drawing-canvas.css'
+import { cn } from '@shared/utils/cn'
 
 const COLORS = ['#F5622E', '#FCC944', '#4CAF50', '#2196F3', '#9C27B0', '#FF69B4', '#68462B']
 const BRUSH_SIZE = 6
@@ -44,7 +44,8 @@ const DrawingCanvas = () => {
   }, [])
 
   const startDraw = useCallback((x: number, y: number) => {
-    const ctx = canvasRef.current?.getContext('2d')
+    const canvas = canvasRef.current
+    const ctx = canvas?.getContext('2d')
     if (!ctx) return
     isDrawing.current = true
     ctx.beginPath()
@@ -54,7 +55,8 @@ const DrawingCanvas = () => {
   const draw = useCallback(
     (x: number, y: number) => {
       if (!isDrawing.current) return
-      const ctx = canvasRef.current?.getContext('2d')
+      const canvas = canvasRef.current
+      const ctx = canvas?.getContext('2d')
       if (!ctx) return
       ctx.lineWidth = isEraser ? ERASER_SIZE : BRUSH_SIZE
       ctx.lineCap = 'round'
@@ -73,10 +75,24 @@ const DrawingCanvas = () => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const onMouseDown = (e: MouseEvent) => { const { x, y } = getPos(e, canvas); startDraw(x, y) }
-    const onMouseMove = (e: MouseEvent) => { const { x, y } = getPos(e, canvas); draw(x, y) }
-    const onTouchStart = (e: TouchEvent) => { e.preventDefault(); const { x, y } = getPos(e.touches[0], canvas); startDraw(x, y) }
-    const onTouchMove = (e: TouchEvent) => { e.preventDefault(); const { x, y } = getPos(e.touches[0], canvas); draw(x, y) }
+    const onMouseDown = (e: MouseEvent) => {
+      const { x, y } = getPos(e, canvas)
+      startDraw(x, y)
+    }
+    const onMouseMove = (e: MouseEvent) => {
+      const { x, y } = getPos(e, canvas)
+      draw(x, y)
+    }
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault()
+      const { x, y } = getPos(e.touches[0], canvas)
+      startDraw(x, y)
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+      const { x, y } = getPos(e.touches[0], canvas)
+      draw(x, y)
+    }
 
     canvas.addEventListener('mousedown', onMouseDown)
     canvas.addEventListener('mousemove', onMouseMove)
@@ -98,24 +114,36 @@ const DrawingCanvas = () => {
   }, [startDraw, draw, stopDraw])
 
   return (
-    <div className={styles.wrapper}>
-      <p className={styles.label}>🎨 그림을 만들어지는 동안 나도 그려볼까요?</p>
-      <div ref={containerRef} className={styles.canvasContainer}>
-        <canvas ref={canvasRef} className={styles.canvas} />
+    <div className='flex size-full animate-fade-in flex-col p-30 items-center justify-center gap-12 bg-surface-page'>
+      <p className='text-label text-ink'>🎨 그림을 만들어지는 동안 나도 그려볼까요?</p>
+      <div ref={containerRef} className='min-h-0 w-full flex-1'>
+        <canvas
+          ref={canvasRef}
+          className='block size-full cursor-crosshair touch-none rounded-md border-2 border-dashed border-border bg-white'
+        />
       </div>
-      <div className={styles.toolbar}>
+      <div className='flex items-center gap-10'>
         {COLORS.map((color) => (
           <button
             key={color}
             type='button'
-            className={`${styles.colorButton} ${!isEraser && activeColor === color ? styles.colorButtonActive : ''}`}
+            className={cn(
+              'size-32 cursor-pointer rounded-full border-3 border-transparent transition-[transform,border-color] duration-150 active:scale-90',
+              !isEraser && activeColor === color && 'scale-115 border-ink',
+            )}
             style={{ backgroundColor: color }}
-            onClick={() => { setActiveColor(color); setIsEraser(false) }}
+            onClick={() => {
+              setActiveColor(color)
+              setIsEraser(false)
+            }}
           />
         ))}
         <button
           type='button'
-          className={`${styles.eraserButton} ${isEraser ? styles.eraserButtonActive : ''}`}
+          className={cn(
+            'cursor-pointer rounded-pill border-[1.5px] px-12 py-4 text-label text-ink',
+            isEraser ? 'border-border-strong bg-surface-inset' : 'border-border bg-white',
+          )}
           onClick={() => setIsEraser((v) => !v)}
         >
           지우개

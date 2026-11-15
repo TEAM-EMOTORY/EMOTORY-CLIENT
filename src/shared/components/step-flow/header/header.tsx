@@ -1,5 +1,4 @@
 import logoImg from '@shared/assets/logo.webp'
-import * as styles from './header.css'
 
 interface HeaderProps {
   emotionLabel?: string
@@ -7,13 +6,13 @@ interface HeaderProps {
 
 const Header = ({ emotionLabel }: HeaderProps) => {
   return (
-    <header className={styles.header}>
-      <img src={logoImg} alt='emotory logo' className={styles.logo} />
+    <header className='flex items-center gap-20 pb-[clamp(1.2rem,2dvh,2.4rem)]'>
+      <img src={logoImg} alt='emotory logo' className='h-56 w-auto object-contain' />
       {emotionLabel && (
-        <div className={styles.emotionChip}>
+        <div className='flex items-center gap-6 rounded-pill border border-border bg-surface-card px-16 py-7 text-label text-ink shadow-sm'>
           <span>🐥</span>
           <span>{emotionLabel}</span>
-          <span className={styles.chevron}>›</span>
+          <span className='text-[3.4rem]'>›</span>
         </div>
       )}
     </header>
