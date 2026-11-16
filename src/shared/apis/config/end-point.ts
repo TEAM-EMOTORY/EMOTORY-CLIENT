@@ -19,7 +19,6 @@ export const END_POINT = {
     SHARED_STORY: (playSessionId: number) => `/shared-stories/${playSessionId}`,
   },
   RESULT: {
-    CREATE: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
     GET: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
   },
 }

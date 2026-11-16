@@ -47,9 +47,14 @@ const EmotionSelectPage = () => {
 
   const handleStart = () => {
     if (!selected?.storyId || isPreparing) return
+    const memberId = Number(localStorage.getItem('memberId'))
+    if (!Number.isSafeInteger(memberId) || memberId <= 0) {
+      navigate('/child-info')
+      return
+    }
     setIsPreparing(true)
     createPlaySession(
-      { memberId: 1, storyId: selected.storyId },
+      { memberId, storyId: selected.storyId },
       {
         // 첫 장면 그림까지 만들어 둔 뒤 이야기로 넘어간다 — 책을 펼쳤을 때 기다리지 않도록
         onSuccess: async ({ playSessionId, currentNodeId }) => {

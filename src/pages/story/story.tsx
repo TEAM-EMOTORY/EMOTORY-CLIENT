@@ -15,7 +15,6 @@ import { useSelectChoice } from './hooks/use-select-choice'
 import { usePlayHistories } from './hooks/use-play-histories'
 import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@shared/apis/config/query-keys'
-import { useCreateStoryResult } from '@shared/hooks/use-story-result'
 
 const STORY_TOTAL_STEPS = 4
 
@@ -41,7 +40,6 @@ const StoryPage = () => {
   const { mutate: selectChoice } = useSelectChoice()
   const { data: historyChosen } = usePlayHistories(playSessionId)
   const queryClient = useQueryClient()
-  const { mutate: createStoryResult } = useCreateStoryResult()
   const endCalledRef = useRef(false)
   const currentStep = Math.min(nodeData?.nodeOrder ?? 1, STORY_TOTAL_STEPS)
 
@@ -154,30 +152,17 @@ const StoryPage = () => {
     [],
   )
 
-  useEffect(() => {
-    if (!isFetching && nodeData?.choices.length === 0 && playSessionId && !endCalledRef.current) {
-      endCalledRef.current = true
-      const summary = (state?.selectedChoices ?? []).join(', ')
-      // 플레이 종료(공개 여부 저장)는 결과 화면의 공개 여부 모달에서 한다
-      createStoryResult({
-        playSessionId,
-        emotion: state?.emotionLabel ?? '',
-        summary,
-        advice: summary,
-      })
-      navigate('/result', {
-        state: { playSessionId, lastNodeId: currentNodeId },
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    isFetching,
-    nodeData,
-    playSessionId,
-    state?.selectedChoices,
-    state?.emotionLabel,
-    currentNodeId,
-  ])
+  useEffect(
+    function navigateToStoryResult() {
+      if (!isFetching && nodeData?.choices.length === 0 && playSessionId && !endCalledRef.current) {
+        endCalledRef.current = true
+        navigate('/result', {
+          state: { playSessionId, lastNodeId: currentNodeId },
+        })
+      }
+    },
+    [isFetching, nodeData?.choices.length, playSessionId, navigate, currentNodeId],
+  )
 
   const emotionLabel: string | undefined = state?.emotionLabel
 

@@ -31,7 +31,7 @@ const ChildInfoPage = () => {
   const redirectPath = searchParams.get('redirect')
   const nextPath = redirectPath === '/diary' ? '/diary' : '/emotion-select'
 
-  const { mutate: uploadPhoto, isPending: isUploading } = useUploadPhoto()
+  const { mutate: uploadPhoto, isPending: isUploading, isError: isUploadError } = useUploadPhoto()
   const { mutate: createMember, isPending: isCreating } = useCreateMember()
 
   const handlePhotoSelect = (file: File) => {
@@ -56,7 +56,8 @@ const ChildInfoPage = () => {
     createMember(
       { name, faceImageUrl, isPrivacyAgreed: true },
       {
-        onSuccess: () => {
+        onSuccess: (memberId) => {
+          localStorage.setItem('memberId', String(memberId))
           localStorage.setItem('childName', name)
           localStorage.setItem('faceImageKey', fileKey)
           navigate(nextPath)
@@ -107,6 +108,11 @@ const ChildInfoPage = () => {
               다음으로
               <ChevronRightIcon className='ml-8 size-24' />
             </Button>
+            {isUploadError && (
+              <p role='alert' className='mt-12 text-caption text-accent-text'>
+                사진 업로드에 실패했어요. 사진을 다시 선택해 주세요.
+              </p>
+            )}
           </div>
         </div>
       </div>
