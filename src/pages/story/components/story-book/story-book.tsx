@@ -16,6 +16,8 @@ interface StoryBookProps {
   disabled: boolean
   chosen: Record<number, string>
   onChoose: (nodeId: number, choiceId: string, choiceText: string) => void
+  /** 바뀌면 책을 새로 펼친다 — 지난 장면으로 돌아와 장면 수가 줄었을 때 빈 페이지가 남지 않도록 */
+  resetKey: number
   /** 넘김이 끝났을 때 — 펼쳐진 장면의 순번(0부터) */
   onSpreadChange: (spreadIndex: number) => void
 }
@@ -27,7 +29,10 @@ const FLIP_MS = 900
  * 손으로 끌어 넘기는 기능은 끄고(선택지 버튼과 겹치지 않도록), 코드로만 넘긴다.
  */
 const StoryBook = forwardRef<StoryBookHandle, StoryBookProps>(
-  ({ nodeIds, playSessionId, childName, disabled, chosen, onChoose, onSpreadChange }, ref) => {
+  (
+    { nodeIds, playSessionId, childName, disabled, chosen, resetKey, onChoose, onSpreadChange },
+    ref,
+  ) => {
     const [containerRef, size] = useElementSize()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bookRef = useRef<any>(null)
@@ -43,8 +48,8 @@ const StoryBook = forwardRef<StoryBookHandle, StoryBookProps>(
         <div ref={containerRef} className='size-full'>
           {size && (
             <HTMLFlipBook
-              // 화면 크기가 바뀌면 새로 그린다 (현재 장면에서 다시 시작)
-              key={`${size.width}x${size.height}`}
+              // 화면 크기가 바뀌거나 장면을 되돌리면 새로 그린다 (현재 장면에서 다시 시작)
+              key={`${size.width}x${size.height}-${resetKey}`}
               className=''
               style={{}}
               width={Math.floor(size.width / 2)}

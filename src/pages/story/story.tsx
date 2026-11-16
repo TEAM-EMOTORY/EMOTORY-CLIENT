@@ -12,6 +12,9 @@ import type { StoryBookHandle } from './components/story-book/story-book'
 import { usePrepareStory } from '@shared/hooks/use-prepare-story'
 import { useStoryNode } from './hooks/use-story-node'
 import { useSelectChoice } from './hooks/use-select-choice'
+import { usePlayHistories } from './hooks/use-play-histories'
+import { useQueryClient } from '@tanstack/react-query'
+import { QUERY_KEYS } from '@shared/apis/config/query-keys'
 import { useCreateStoryResult } from '@shared/hooks/use-story-result'
 
 const STORY_TOTAL_STEPS = 4
@@ -33,8 +36,11 @@ const StoryPage = () => {
   const childName = localStorage.getItem('childName') ?? ''
 
   const currentNodeId = storyNodeId ? Number(storyNodeId) : undefined
+  const playSessionId: number | undefined = state?.playSessionId
   const { data: nodeData, isFetching } = useStoryNode(currentNodeId)
   const { mutate: selectChoice } = useSelectChoice()
+  const { data: historyChosen } = usePlayHistories(playSessionId)
+  const queryClient = useQueryClient()
   const { mutate: createStoryResult } = useCreateStoryResult()
   const endCalledRef = useRef(false)
   const currentStep = Math.min(nodeData?.nodeOrder ?? 1, STORY_TOTAL_STEPS)
@@ -49,22 +55,41 @@ const StoryPage = () => {
   // isTurning: 선택 ~ 책장 넘김 완료 (선택지 잠금) / isPreparing: 선택 ~ 다음 장면 준비 완료 (준비 중 안내 표시)
   const [isTurning, setIsTurning] = useState(false)
   const [isPreparing, setIsPreparing] = useState(false)
+  // 장면을 되돌릴 때마다 올려 책을 새로 펼친다
+  const [bookResetKey, setBookResetKey] = useState(0)
   const pendingRef = useRef<{ nextNodeId: number; choiceText: string } | null>(null)
-  const playSessionId: number | undefined = state?.playSessionId
 
   // 주소가 바뀌면(브라우저 뒤로 가기 등) 그 장면부터 다시 펼친다 (렌더 중 상태 맞추기)
+  // 이미 고른 선택은 서버 기록(histories)으로 다시 표시하고 잠근다 — 서버가 같은 장면의 재선택을 받지 않는다
   const [syncedNodeId, setSyncedNodeId] = useState(currentNodeId)
   if (currentNodeId !== syncedNodeId) {
     setSyncedNodeId(currentNodeId)
     if (currentNodeId && spreads[spreads.length - 1] !== currentNodeId) {
       setSpreads([currentNodeId])
+      setBookResetKey((key) => key + 1)
+      setChosen({})
+      setIsTurning(false)
+      setIsPreparing(false)
     }
   }
+
+  // 넘김 도중 주소가 바뀌면 대기 중이던 넘김은 버린다 (돌아온 장면에서 엉뚱한 장면으로 이동하지 않도록)
+  useEffect(() => {
+    if (pendingRef.current && pendingRef.current.nextNodeId !== currentNodeId) {
+      pendingRef.current = null
+    }
+  }, [currentNodeId])
 
   // 선택 → 다음 장면 글·그림을 미리 받아 둔 뒤 → 페이지를 넘긴다 (그림이 없는 페이지를 보여주지 않도록)
   const handleChoose = useCallback(
     (nodeId: number, choiceId: string, choiceText: string) => {
-      if (!playSessionId || nodeId !== currentNodeId || pendingRef.current) return
+      if (
+        !playSessionId ||
+        nodeId !== currentNodeId ||
+        pendingRef.current ||
+        historyChosen?.[nodeId]
+      )
+        return
       setIsTurning(true)
       setIsPreparing(true)
       setChosen((prev) => ({ ...prev, [nodeId]: choiceId }))
@@ -72,6 +97,7 @@ const StoryPage = () => {
         { playSessionId, choiceId: Number(choiceId) },
         {
           onSuccess: async ({ currentNodeId: nextNodeId }) => {
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.playHistories(playSessionId) })
             await prepareStory(nextNodeId, playSessionId)
             pendingRef.current = { nextNodeId, choiceText }
             setIsPreparing(false)
@@ -89,7 +115,7 @@ const StoryPage = () => {
         },
       )
     },
-    [currentNodeId, playSessionId, prepareStory, selectChoice],
+    [currentNodeId, historyChosen, playSessionId, prepareStory, queryClient, selectChoice],
   )
 
   // 새 장면 페이지가 책에 붙으면 넘긴다
@@ -129,30 +155,25 @@ const StoryPage = () => {
   )
 
   useEffect(() => {
-    if (
-      !isFetching &&
-      nodeData?.choices.length === 0 &&
-      state?.playSessionId &&
-      !endCalledRef.current
-    ) {
+    if (!isFetching && nodeData?.choices.length === 0 && playSessionId && !endCalledRef.current) {
       endCalledRef.current = true
-      const summary = (state.selectedChoices ?? []).join(', ')
+      const summary = (state?.selectedChoices ?? []).join(', ')
       // 플레이 종료(공개 여부 저장)는 결과 화면의 공개 여부 모달에서 한다
       createStoryResult({
-        playSessionId: state.playSessionId,
-        emotion: state.emotionLabel ?? '',
+        playSessionId,
+        emotion: state?.emotionLabel ?? '',
         summary,
         advice: summary,
       })
       navigate('/result', {
-        state: { playSessionId: state.playSessionId, lastNodeId: currentNodeId },
+        state: { playSessionId, lastNodeId: currentNodeId },
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isFetching,
     nodeData,
-    state?.playSessionId,
+    playSessionId,
     state?.selectedChoices,
     state?.emotionLabel,
     currentNodeId,
@@ -181,7 +202,7 @@ const StoryPage = () => {
             )}
             <button
               type='button'
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/emotion-select')}
               className='flex h-46 items-center gap-8 rounded-pill border border-border bg-surface-card px-24 text-label text-ink-2 shadow-sm'
             >
               <HomeIcon />
@@ -215,7 +236,8 @@ const StoryPage = () => {
         playSessionId={playSessionId}
         childName={childName}
         disabled={isTurning}
-        chosen={chosen}
+        chosen={{ ...historyChosen, ...chosen }}
+        resetKey={bookResetKey}
         onChoose={onChoose}
         onSpreadChange={onSpreadChange}
       />
