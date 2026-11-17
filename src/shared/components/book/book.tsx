@@ -5,9 +5,9 @@ interface BookProps {
   children: ReactNode
   /** 책 위에 고정되는 UI — 넘김 효과와 무관하게 제자리에 있는다 */
   overlay?: ReactNode
-  /** 있으면 왼쪽 아래 귀퉁이가 "앞 페이지" 버튼이 된다 */
+  /** 있으면 왼쪽 가장자리 전체가 "앞 페이지" 버튼이 된다 */
   onPrev?: () => void
-  /** 있으면 오른쪽 아래 귀퉁이가 "다음 페이지" 버튼이 된다 */
+  /** 있으면 오른쪽 가장자리 전체가 "다음 페이지" 버튼이 된다 */
   onNext?: () => void
 }
 
@@ -18,6 +18,11 @@ const EDGE_RIGHT =
   'shadow-[0.3rem_0.15rem_0_var(--color-surface-inset),0.35rem_0.2rem_0_var(--color-border),0.6rem_0.3rem_0_var(--color-surface-card),0.65rem_0.35rem_0_var(--color-border),0.9rem_0.45rem_0_var(--color-surface-inset),0.95rem_0.5rem_0_var(--color-border)]'
 
 const CURL_SIZE = 'size-[clamp(4.8rem,6vw,6.4rem)]'
+// 넘김 버튼 영역 — 왼쪽은 글 페이지 여백만큼(선택지와 겹치지 않도록), 오른쪽은 그림 페이지라 귀퉁이 너비만큼
+const EDGE_WIDTH = {
+  left: 'w-[clamp(2.4rem,3.2vw,4rem)]',
+  right: 'w-[clamp(4.8rem,6vw,6.4rem)]',
+}
 
 /**
  * 화면을 꽉 채우는 펼친 책 (Figma 06D).
@@ -37,9 +42,9 @@ const Book = ({ children, overlay, onPrev, onNext }: BookProps) => {
           {children}
         </div>
 
-        {/* 귀퉁이 말림 — 넘길 수 있을 때만 버튼, 아니면 장식 */}
-        <Corner side='left' label='앞 페이지 보기' onClick={onPrev} />
-        <Corner side='right' label='다음 페이지 보기' onClick={onNext} />
+        {/* 양쪽 가장자리 — 넘길 수 있을 때만 위아래 전체가 버튼, 귀퉁이 말림은 늘 장식으로 보인다 */}
+        <Edge side='left' label='앞 페이지 보기' onClick={onPrev} />
+        <Edge side='right' label='다음 페이지 보기' onClick={onNext} />
 
         {/* 책갈피 */}
         <svg
@@ -59,7 +64,7 @@ const Book = ({ children, overlay, onPrev, onNext }: BookProps) => {
   )
 }
 
-const Corner = ({
+const Edge = ({
   side,
   label,
   onClick,
@@ -69,19 +74,41 @@ const Corner = ({
   onClick?: () => void
 }) => {
   const position = side === 'left' ? 'left-0' : 'right-0'
-  return onClick ? (
-    <button
-      type='button'
-      aria-label={label}
-      onClick={onClick}
-      className={`absolute bottom-0 z-20 ${position} ${CURL_SIZE}`}
-    >
-      <PageCurl flip={side === 'left'} />
-    </button>
-  ) : (
-    <span aria-hidden className={`absolute bottom-0 z-20 ${position} ${CURL_SIZE}`}>
-      <PageCurl flip={side === 'left'} />
-    </span>
+  // 누르는 동안 가장자리가 살짝 어두워져 넘길 수 있는 곳임을 알려준다
+  const pressed =
+    side === 'left'
+      ? 'active:bg-linear-to-r active:from-ink/10 active:to-transparent'
+      : 'active:bg-linear-to-l active:from-ink/10 active:to-transparent'
+
+  return (
+    <>
+      {onClick && (
+        <>
+          {/* 가장자리 위아래 전체 */}
+          <button
+            type='button'
+            aria-label={label}
+            onClick={onClick}
+            className={`absolute inset-y-0 z-20 ${position} ${EDGE_WIDTH[side]} ${pressed}`}
+          />
+          {/* 가장자리보다 넓은 귀퉁이 말림 부분도 누를 수 있게 */}
+          <button
+            type='button'
+            tabIndex={-1}
+            aria-hidden
+            onClick={onClick}
+            className={`absolute bottom-0 z-20 ${position} ${CURL_SIZE}`}
+          />
+        </>
+      )}
+      {/* 귀퉁이 말림 — 늘 보이는 장식, 클릭은 아래 버튼으로 통과시킨다 */}
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute bottom-0 z-20 ${position} ${CURL_SIZE}`}
+      >
+        <PageCurl flip={side === 'left'} />
+      </span>
+    </>
   )
 }
 

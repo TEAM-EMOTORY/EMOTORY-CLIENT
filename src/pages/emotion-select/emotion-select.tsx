@@ -14,6 +14,7 @@ import StartButton from './components/start-button/start-button'
 import { useCreatePlaySession } from './hooks/use-create-play-session'
 import { usePrepareStory } from '@shared/hooks/use-prepare-story'
 import StoryLoading from '@shared/components/story-loading/story-loading'
+import { useDelayedFlag } from '@shared/hooks/use-delayed-flag'
 
 interface Emotion {
   key: EmotionKey
@@ -44,6 +45,8 @@ const EmotionSelectPage = () => {
   const { mutate: createPlaySession, isPending } = useCreatePlaySession()
   const prepareStory = usePrepareStory()
   const [isPreparing, setIsPreparing] = useState(false)
+  // 첫 장면이 금방 준비되면(서버에 이미 있는 그림) 로딩 화면을 띄우지 않는다
+  const showLoading = useDelayedFlag(isPreparing, 600)
 
   const handleStart = () => {
     if (!selected?.storyId || isPreparing) return
@@ -108,7 +111,7 @@ const EmotionSelectPage = () => {
         <StartButton onClick={handleStart} disabled={!selected || isPending || isPreparing} />
       </div>
 
-      {isPreparing && selected && (
+      {showLoading && selected && (
         <StoryLoading
           image={selected.img}
           title={`${childName}의 ${selected.label} 이야기를 그리고 있어요`}

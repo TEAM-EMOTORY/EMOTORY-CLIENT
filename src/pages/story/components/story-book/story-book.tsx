@@ -6,6 +6,9 @@ import { StoryBookContext } from './story-book-context'
 
 export interface StoryBookHandle {
   flipNext: () => void
+  flipPrev: () => void
+  /** 넘김 효과로 해당 장면(순번)까지 넘긴다 */
+  flipTo: (spreadIndex: number) => void
 }
 
 interface StoryBookProps {
@@ -18,6 +21,8 @@ interface StoryBookProps {
   onChoose: (nodeId: number, choiceId: string, choiceText: string) => void
   /** 바뀌면 책을 새로 펼친다 — 지난 장면으로 돌아와 장면 수가 줄었을 때 빈 페이지가 남지 않도록 */
   resetKey: number
+  /** 책을 새로 펼칠 때 처음 보여줄 장면 순번 */
+  startIndex: number
   /** 넘김이 끝났을 때 — 펼쳐진 장면의 순번(0부터) */
   onSpreadChange: (spreadIndex: number) => void
 }
@@ -30,7 +35,17 @@ const FLIP_MS = 900
  */
 const StoryBook = forwardRef<StoryBookHandle, StoryBookProps>(
   (
-    { nodeIds, playSessionId, childName, disabled, chosen, resetKey, onChoose, onSpreadChange },
+    {
+      nodeIds,
+      playSessionId,
+      childName,
+      disabled,
+      chosen,
+      resetKey,
+      startIndex,
+      onChoose,
+      onSpreadChange,
+    },
     ref,
   ) => {
     const [containerRef, size] = useElementSize()
@@ -39,6 +54,8 @@ const StoryBook = forwardRef<StoryBookHandle, StoryBookProps>(
 
     useImperativeHandle(ref, () => ({
       flipNext: () => bookRef.current?.pageFlip()?.flipNext('bottom'),
+      flipPrev: () => bookRef.current?.pageFlip()?.flipPrev('bottom'),
+      flipTo: (spreadIndex: number) => bookRef.current?.pageFlip()?.flip(spreadIndex * 2, 'bottom'),
     }))
 
     const lastIndex = nodeIds.length - 1
@@ -50,7 +67,7 @@ const StoryBook = forwardRef<StoryBookHandle, StoryBookProps>(
             <HTMLFlipBook
               // 화면 크기가 바뀌거나 장면을 되돌리면 새로 그린다 (현재 장면에서 다시 시작)
               key={`${size.width}x${size.height}-${resetKey}`}
-              className=''
+              className='flip-book'
               style={{}}
               width={Math.floor(size.width / 2)}
               height={size.height}
@@ -59,7 +76,7 @@ const StoryBook = forwardRef<StoryBookHandle, StoryBookProps>(
               maxWidth={size.width}
               minHeight={0}
               maxHeight={size.height}
-              startPage={lastIndex * 2}
+              startPage={startIndex * 2}
               showCover={false}
               usePortrait={false}
               autoSize={false}

@@ -81,7 +81,7 @@ const DiaryPage = () => {
         <StepFlowNav
           currentStep={currentQuestionIndex + 1}
           totalSteps={DIARY_QUESTION_SUFFIXES.length}
-          onHome={() => navigate('/')}
+          onHome={() => navigate('/emotion-select')}
           onPrev={handlePrev}
         />
       }

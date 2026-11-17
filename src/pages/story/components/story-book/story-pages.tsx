@@ -1,6 +1,7 @@
 import { forwardRef, useContext } from 'react'
 import { StoryBookContext } from './story-book-context'
 import { useGenerateImage } from '@shared/hooks/use-generate-image'
+import FadeInImage from '@shared/components/fade-in-image/fade-in-image'
 import { replaceNameInContent } from '@shared/utils/korean-particle'
 import { useStoryNode } from '../../hooks/use-story-node'
 import StoryText from '../story-text/story-text'
@@ -65,19 +66,21 @@ interface RightPageProps {
 export const RightPage = forwardRef<HTMLDivElement, RightPageProps>(({ nodeId }, ref) => {
   const { playSessionId } = useContext(StoryBookContext)
   const faceImageKey = localStorage.getItem('faceImageKey') ?? ''
-  const { data, isLoading } = useGenerateImage(faceImageKey, nodeId, playSessionId)
+  const { data } = useGenerateImage(faceImageKey, nodeId, playSessionId)
 
   return (
     <div ref={ref} className='size-full overflow-hidden bg-surface-page'>
       <div className='relative size-full'>
-        {data?.imageUrl && !isLoading ? (
-          <img src={data.imageUrl} alt='' className='size-full object-cover' />
-        ) : (
-          <div className='flex size-full animate-pulse flex-col items-center justify-center gap-12 bg-surface-inset text-ink-3'>
-            <span className='text-heading'>✦</span>
-            <p className='text-caption'>그림을 그리고 있어요</p>
-          </div>
-        )}
+        <FadeInImage
+          src={data?.imageUrl}
+          className='size-full'
+          placeholder={
+            <div className='flex size-full animate-pulse flex-col items-center justify-center gap-12 bg-surface-inset text-ink-3'>
+              <span className='text-heading'>✦</span>
+              <p className='text-caption'>그림을 그리고 있어요</p>
+            </div>
+          }
+        />
         <div
           aria-hidden
           className='pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-linear-to-r from-ink/45 via-ink/18 via-25% to-transparent'
