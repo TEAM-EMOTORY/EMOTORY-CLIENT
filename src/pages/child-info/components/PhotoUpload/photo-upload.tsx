@@ -6,6 +6,7 @@ interface PhotoUploadProps {
 const PhotoUpload = ({ onFileSelect, previewUrl }: PhotoUploadProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
+    e.target.value = ''
     if (file) onFileSelect?.(file)
   }
 

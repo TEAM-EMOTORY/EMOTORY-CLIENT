@@ -7,6 +7,7 @@ import { cn } from '@shared/utils/cn'
 import StoryText from '@pages/story/components/story-text/story-text'
 import type { SharedStoryDetail } from '../../apis/shared-stories'
 import { EMOTION_THEME } from '../../constants/emotion'
+import FadeInImage from '@shared/components/fade-in-image/fade-in-image'
 
 export interface StoryReaderHandle {
   flipNext: () => void
@@ -51,7 +52,7 @@ const StoryReader = forwardRef<StoryReaderHandle, StoryReaderProps>(
         {size && (
           <HTMLFlipBook
             key={`${size.width}x${size.height}`}
-            className=''
+            className='flip-book'
             style={{}}
             width={Math.floor(size.width / 2)}
             height={size.height}
@@ -161,13 +162,13 @@ const ImagePage = forwardRef<HTMLDivElement, { src?: string; faded?: boolean }>(
   ({ src, faded }, ref) => (
     <div ref={ref} className='size-full overflow-hidden bg-surface-page'>
       <div className='relative size-full'>
-        {src && (
-          <img
-            src={src}
-            alt=''
-            className={cn('size-full object-cover', faded && 'opacity-40 blur-[0.2rem]')}
-          />
-        )}
+        <FadeInImage
+          src={src}
+          className='size-full'
+          imgClassName={cn(faded && 'blur-[0.2rem]')}
+          placeholder={<div className='size-full animate-pulse bg-surface-inset' />}
+        />
+        {faded && <div aria-hidden className='absolute inset-0 bg-surface-page/60' />}
         <div
           aria-hidden
           className='pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-linear-to-r from-ink/45 via-ink/18 via-25% to-transparent'

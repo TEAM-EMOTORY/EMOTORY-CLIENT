@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { cn } from '@shared/utils/cn'
 
-export type MenuType = 'dictionary' | 'my-emotion' | 'guide' | 'bookshelf'
+export type MenuType = 'dictionary' | 'my-emotion' | 'guide' | 'bookshelf' | 'exit'
 
 interface MenuButtonProps {
   type: MenuType
@@ -60,6 +60,19 @@ const MENU: Record<MenuType, { label: string; disc: string; text: string; icon: 
           strokeLinecap='round'
         />
         <Blush cx={20} cy={24.5} gap={7.5} />
+      </>
+    ),
+  },
+  exit: {
+    label: '나가기',
+    disc: 'bg-disgust-500/62',
+    text: 'text-disgust-700',
+    icon: (
+      <>
+        {/* 둥근 문 + 손잡이 */}
+        <path d='M9 36V15a11 11 0 0 1 22 0v21Z' fill='#fff' />
+        <circle cx='26.5' cy='29' r='1.5' className='fill-ink' />
+        <Face cx={20} cy={18} scale={0.8} />
       </>
     ),
   },
