@@ -13,7 +13,13 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       devOptions: { enabled: true },
-      includeAssets: ['favicon.png'],
+      includeAssets: [
+        'favicon.png',
+        'favicon-48.png',
+        'favicon-96.png',
+        'favicon-192.png',
+        'apple-touch-icon.png',
+      ],
       workbox: {
         runtimeCaching: [
           {
@@ -29,13 +35,13 @@ export default defineConfig({
       manifest: {
         name: 'Emotory',
         short_name: 'Emotory',
-        description: '아동 감정 동화',
+        description: '아이의 감정을 이야기로, 아동 감정 동화',
         start_url: '/',
         display: 'standalone',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         icons: [
-          { src: 'favicon.png', sizes: '192x192', type: 'image/png' },
+          { src: 'favicon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'favicon.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
           { src: 'favicon.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
