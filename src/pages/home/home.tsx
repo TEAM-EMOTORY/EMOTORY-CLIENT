@@ -16,6 +16,11 @@ const HomePage = () => {
         aria-label='이야기 시작하기'
         onClick={() => navigate('/agreement?next=story')}
       />
+      <button
+        className='absolute top-(--home-dictionary-top) left-(--home-dictionary-left) h-(--home-dictionary-height) w-(--home-dictionary-width) -translate-x-1/2 -translate-y-1/2 rounded-t-[4.2rem] rounded-b-[1.8rem]'
+        aria-label='감정 사전'
+        onClick={() => navigate('/emotion-dictionary')}
+      />
     </div>
   )
 }
