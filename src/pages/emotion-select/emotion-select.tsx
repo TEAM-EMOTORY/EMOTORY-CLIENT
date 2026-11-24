@@ -73,12 +73,12 @@ const EmotionSelectPage = () => {
 
   return (
     <div className='relative flex flex-col items-center justify-center pt-100'>
-      {/* 오른쪽 아래 메뉴 (홈 이미지와 같은 자리) — 감정 사전 · 부모 가이드는 화면이 생기면 onClick 연결 (지금은 눌러도 반응 없음) */}
+      {/* 오른쪽 아래 메뉴 (홈 이미지와 같은 자리) — 부모 가이드는 화면이 생기면 onClick 연결 (지금은 눌러도 반응 없음) */}
       <nav
         aria-label='메뉴'
         className='fixed right-[clamp(3.2rem,4vw,4.8rem)] bottom-[clamp(4.4rem,6.5vh,6.4rem)] z-10 flex gap-12'
       >
-        <MenuButton type='dictionary' />
+        <MenuButton type='dictionary' onClick={() => navigate('/emotion-dictionary')} />
         <MenuButton type='bookshelf' onClick={() => navigate('/bookshelf')} />
         <MenuButton type='guide' />
       </nav>

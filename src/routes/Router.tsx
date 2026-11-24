@@ -9,6 +9,7 @@ import DiaryResultPage from '@pages/diary-result/diary-result'
 import ResultPage from '@pages/result/result'
 import BookshelfPage from '@pages/bookshelf/bookshelf'
 import SharedStoryPage from '@pages/bookshelf/shared-story'
+import EmotionDictionaryPage from '@pages/emotion-dictionary/emotion-dictionary'
 import { Layout, StoryLayout } from '@shared/components/layout/layout'
 
 const router = createBrowserRouter([
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: '/emotion-select', element: <EmotionSelectPage /> },
       { path: '/bookshelf', element: <BookshelfPage /> },
       { path: '/bookshelf/:playSessionId', element: <SharedStoryPage /> },
+      { path: '/emotion-dictionary', element: <EmotionDictionaryPage /> },
     ],
   },
   {
