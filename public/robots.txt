@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /story/
+Disallow: /diary
+Disallow: /diary-result
+Disallow: /result
+Disallow: /bookshelf/
+
+Sitemap: https://emotory.shop/sitemap.xml
