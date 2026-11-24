@@ -50,7 +50,7 @@ const SharedStoryPage = () => {
 
           {story && spread === 0 && (
             <p className='absolute right-[clamp(8rem,9vw,10rem)] bottom-[clamp(1.6rem,2.4vh,2.4rem)] rounded-pill bg-surface-card/90 px-14 py-6 text-caption text-ink-3'>
-              귀퉁이를 누르거나 밀어서 넘겨요
+              양끝을 누르거나 밀어서 넘겨요
             </p>
           )}
         </>

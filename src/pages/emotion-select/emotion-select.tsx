@@ -14,6 +14,7 @@ import StartButton from './components/start-button/start-button'
 import { useCreatePlaySession } from './hooks/use-create-play-session'
 import { usePrepareStory } from '@shared/hooks/use-prepare-story'
 import StoryLoading from '@shared/components/story-loading/story-loading'
+import { useDelayedFlag } from '@shared/hooks/use-delayed-flag'
 
 interface Emotion {
   key: EmotionKey
@@ -44,12 +45,19 @@ const EmotionSelectPage = () => {
   const { mutate: createPlaySession, isPending } = useCreatePlaySession()
   const prepareStory = usePrepareStory()
   const [isPreparing, setIsPreparing] = useState(false)
+  // 첫 장면이 금방 준비되면(서버에 이미 있는 그림) 로딩 화면을 띄우지 않는다
+  const showLoading = useDelayedFlag(isPreparing, 600)
 
   const handleStart = () => {
     if (!selected?.storyId || isPreparing) return
+    const memberId = Number(localStorage.getItem('memberId'))
+    if (!Number.isSafeInteger(memberId) || memberId <= 0) {
+      navigate('/child-info')
+      return
+    }
     setIsPreparing(true)
     createPlaySession(
-      { memberId: 1, storyId: selected.storyId },
+      { memberId, storyId: selected.storyId },
       {
         // 첫 장면 그림까지 만들어 둔 뒤 이야기로 넘어간다 — 책을 펼쳤을 때 기다리지 않도록
         onSuccess: async ({ playSessionId, currentNodeId }) => {
@@ -65,14 +73,14 @@ const EmotionSelectPage = () => {
 
   return (
     <div className='relative flex flex-col items-center justify-center pt-100'>
-      {/* 오른쪽 아래 메뉴 (홈 이미지와 같은 자리) — 부모 가이드는 화면이 생기면 onClick 연결 (지금은 눌러도 반응 없음) */}
+      {/* 오른쪽 아래 메뉴 (홈 이미지와 같은 자리) — 나가기는 시작 전 홈(/)으로 이동 */}
       <nav
         aria-label='메뉴'
         className='fixed right-[clamp(3.2rem,4vw,4.8rem)] bottom-[clamp(4.4rem,6.5vh,6.4rem)] z-10 flex gap-12'
       >
         <MenuButton type='dictionary' onClick={() => navigate('/emotion-dictionary')} />
         <MenuButton type='bookshelf' onClick={() => navigate('/bookshelf')} />
-        <MenuButton type='guide' />
+        <MenuButton type='exit' onClick={() => navigate('/')} />
       </nav>
       <div className='flex flex-col gap-10 text-center text-glow'>
         <h1 className='text-display text-ink [-webkit-text-stroke:0.5rem_white] [paint-order:stroke_fill]'>
@@ -103,7 +111,7 @@ const EmotionSelectPage = () => {
         <StartButton onClick={handleStart} disabled={!selected || isPending || isPreparing} />
       </div>
 
-      {isPreparing && selected && (
+      {showLoading && selected && (
         <StoryLoading
           image={selected.img}
           title={`${childName}의 ${selected.label} 이야기를 그리고 있어요`}

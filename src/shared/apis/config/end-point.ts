@@ -11,6 +11,8 @@ export const END_POINT = {
     STORY_NODE: (storyNodeId: number) => `/story-nodes/${storyNodeId}`,
     SELECT_CHOICE: (playSessionId: number) => `/play-sessions/${playSessionId}/choices`,
     END_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}/end`,
+    PLAY_SESSION: (playSessionId: number) => `/play-sessions/${playSessionId}`,
+    HISTORIES: (playSessionId: number) => `/play-sessions/${playSessionId}/histories`,
     GENERATE_IMAGE: '/images/generate',
   },
   BOOKSHELF: {
@@ -18,7 +20,6 @@ export const END_POINT = {
     SHARED_STORY: (playSessionId: number) => `/shared-stories/${playSessionId}`,
   },
   RESULT: {
-    CREATE: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
     GET: (playSessionId: number) => `/play-sessions/${playSessionId}/results`,
   },
 }

@@ -14,8 +14,5 @@ export interface StoryResultResponse {
   generatedImageUrl: string | null
 }
 
-export const createStoryResult = (playSessionId: number, emotion: string, summary: string, advice: string) =>
-  http.post<StoryResultResponse>(END_POINT.RESULT.CREATE(playSessionId), { emotion, summary, advice })
-
 export const fetchStoryResult = (playSessionId: number) =>
   http.get<StoryResultResponse>(END_POINT.RESULT.GET(playSessionId))

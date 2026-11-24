@@ -8,7 +8,7 @@ export const useGenerateImage = (
   playSessionId: number | undefined,
 ) =>
   useQuery({
-    queryKey: QUERY_KEYS.generateImage(nodeId ?? 0),
+    queryKey: QUERY_KEYS.generateImage(nodeId ?? 0, playSessionId, faceImageKey),
     queryFn: () => generateImage({ faceImageKey, nodeId: nodeId!, playSessionId: playSessionId! }),
     enabled: !!faceImageKey && !!nodeId && !!playSessionId,
     retry: false,

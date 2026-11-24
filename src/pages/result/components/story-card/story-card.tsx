@@ -1,4 +1,5 @@
 import Card from '@shared/components/card/card'
+import FadeInImage from '@shared/components/fade-in-image/fade-in-image'
 
 interface StoryCardProps {
   imageUrl: string
@@ -12,16 +13,18 @@ const StoryCard = ({ imageUrl, summary, isLoading, className }: StoryCardProps) 
   return (
     <Card icon={<BookIcon />} title='오늘의 이야기 요약' className={className}>
       <div className='flex h-full items-center gap-18 pt-34 pr-18 pb-18 pl-22'>
-        {isLoading || !imageUrl ? (
-          <div className='flex size-124 shrink-0 animate-bg-pulse items-end justify-center gap-6 rounded-md pb-48'>
-            <span className='size-14 animate-pop-bounce rounded-full bg-accent' />
-            <span className='size-14 animate-pop-bounce rounded-full bg-yellow-500 [animation-delay:0.15s]' />
-            <span className='size-14 animate-pop-bounce rounded-full bg-leaf [animation-delay:0.3s]' />
-            <span className='size-14 animate-pop-bounce rounded-full bg-sadness-500 [animation-delay:0.45s]' />
-          </div>
-        ) : (
-          <img src={imageUrl} alt='' className='size-124 shrink-0 rounded-md object-cover' />
-        )}
+        <FadeInImage
+          src={isLoading ? undefined : imageUrl || undefined}
+          className='size-124 shrink-0 rounded-md'
+          placeholder={
+            <div className='flex size-full animate-bg-pulse items-end justify-center gap-6 pb-48'>
+              <span className='size-14 animate-pop-bounce rounded-full bg-accent' />
+              <span className='size-14 animate-pop-bounce rounded-full bg-yellow-500 [animation-delay:0.15s]' />
+              <span className='size-14 animate-pop-bounce rounded-full bg-leaf [animation-delay:0.3s]' />
+              <span className='size-14 animate-pop-bounce rounded-full bg-sadness-500 [animation-delay:0.45s]' />
+            </div>
+          }
+        />
         <p className='flex-1 break-keep whitespace-pre-line text-caption text-ink-2'>{summary}</p>
       </div>
     </Card>

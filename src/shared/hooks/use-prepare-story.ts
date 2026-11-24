@@ -21,7 +21,7 @@ export const usePrepareStory = () => {
       }),
       faceImageKey
         ? queryClient.prefetchQuery({
-            queryKey: QUERY_KEYS.generateImage(nodeId),
+            queryKey: QUERY_KEYS.generateImage(nodeId, playSessionId, faceImageKey),
             queryFn: () => generateImage({ faceImageKey, nodeId, playSessionId }),
             staleTime: Infinity,
           })
