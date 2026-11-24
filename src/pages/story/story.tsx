@@ -19,6 +19,8 @@ import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@shared/apis/config/query-keys'
 
 const STORY_TOTAL_STEPS = 4
+// 새 장면으로 넘김을 다시 시도하는 횟수 (100ms 간격)
+const FLIP_RETRY_LIMIT = 20
 
 const EMOTION_FACE: Record<string, string> = {
   기쁨: joyImg,
@@ -136,7 +138,7 @@ const StoryPage = () => {
     const index = spreads.indexOf(currentNodeId)
     if (index < 0 || index === shownIndex || flipTargetRef.current === index) return
     flipTargetRef.current = index
-    bookRef.current?.flipTo(index)
+    if (!bookRef.current?.flipTo(index)) flipTargetRef.current = null
   }, [currentNodeId, spreads, shownIndex, isFlipping])
 
   // 넘김 도중 주소가 바뀌면 대기 중이던 넘김은 버린다 (돌아온 장면에서 엉뚱한 장면으로 이동하지 않도록)
@@ -197,13 +199,6 @@ const StoryPage = () => {
     ],
   )
 
-  // 새 장면 페이지가 책에 붙으면 넘긴다
-  useEffect(() => {
-    if (!pendingRef.current) return
-    const timer = window.setTimeout(() => bookRef.current?.flipNext(), 80)
-    return () => window.clearTimeout(timer)
-  }, [spreads])
-
   const handleSpreadChange = useCallback(
     (index: number) => {
       setShownIndex(index)
@@ -247,6 +242,27 @@ const StoryPage = () => {
     [],
   )
 
+  // 새 장면 페이지가 책에 붙으면 넘긴다.
+  // 책 넘김 라이브러리가 새 페이지를 늦게(또는 못) 등록하면 넘김 요청이 조용히 무시되므로,
+  // 넘김이 실제로 시작될 때까지 잠시 간격을 두고 다시 시도하고, 끝내 안 되면 넘김 효과 없이 펼친다
+  useEffect(() => {
+    if (!pendingRef.current) return
+    let tries = 0
+    const timer = window.setInterval(() => {
+      if (!pendingRef.current) return window.clearInterval(timer)
+      tries += 1
+      if (bookRef.current?.flipToLast()) return window.clearInterval(timer)
+      if (tries < FLIP_RETRY_LIMIT) return
+      window.clearInterval(timer)
+      if (bookRef.current?.jumpToLast()) return
+      // 책 자체가 아직 없으면(화면 크기 변경으로 새로 그리는 중 등) 다시 그려질 때 새 장면부터 펼치게 하고 넘김을 마친다
+      const lastIndex = spreads.length - 1
+      setStartIndex(lastIndex)
+      spreadChangeRef.current(lastIndex)
+    }, 100)
+    return () => window.clearInterval(timer)
+  }, [spreads])
+
   useEffect(
     function navigateToStoryResult() {
       if (!isFetching && nodeData?.choices.length === 0 && playSessionId && !endCalledRef.current) {
@@ -265,9 +281,9 @@ const StoryPage = () => {
     const target = shownIndex + step
     if (isBusy || target < 0 || target >= spreads.length) return undefined
     return () => {
-      setIsFlipping(true)
-      if (step < 0) bookRef.current?.flipPrev()
-      else bookRef.current?.flipNext()
+      const started = step < 0 ? bookRef.current?.flipPrev() : bookRef.current?.flipNext()
+      // 넘김이 시작되지 않으면 완료 이벤트도 오지 않으므로 잠그지 않는다 (버튼이 계속 막히지 않도록)
+      if (started) setIsFlipping(true)
     }
   }
 

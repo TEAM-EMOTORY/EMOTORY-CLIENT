@@ -5,10 +5,18 @@ import { LeftPage, RightPage } from './story-pages'
 import { StoryBookContext } from './story-book-context'
 
 export interface StoryBookHandle {
-  flipNext: () => void
-  flipPrev: () => void
-  /** 넘김 효과로 해당 장면(순번)까지 넘긴다 */
-  flipTo: (spreadIndex: number) => void
+  /** 한 장면 앞/뒤로 넘긴다 — 넘김이 시작되지 않았으면 false (넘김 완료 이벤트가 오지 않는다) */
+  flipNext: () => boolean
+  flipPrev: () => boolean
+  /** 넘김 효과로 해당 장면(순번)까지 넘긴다 — 넘김이 안 되면 효과 없이 바로 펼친다. 책이 없으면 false */
+  flipTo: (spreadIndex: number) => boolean
+  /**
+   * 마지막(새로 붙은) 장면으로 넘김 효과로 넘긴다.
+   * 넘김이 시작됐으면(또는 이미 그 장면이면) true — false면 아직 책이 준비되지 않은 것이니 잠시 뒤 다시 부른다
+   */
+  flipToLast: () => boolean
+  /** 넘김 효과 없이 마지막 장면을 바로 펼친다 (넘김이 계속 실패할 때 마지막 수단) — 펼쳤으면 true */
+  jumpToLast: () => boolean
 }
 
 interface StoryBookProps {
@@ -52,13 +60,69 @@ const StoryBook = forwardRef<StoryBookHandle, StoryBookProps>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bookRef = useRef<any>(null)
 
-    useImperativeHandle(ref, () => ({
-      flipNext: () => bookRef.current?.pageFlip()?.flipNext('bottom'),
-      flipPrev: () => bookRef.current?.pageFlip()?.flipPrev('bottom'),
-      flipTo: (spreadIndex: number) => bookRef.current?.pageFlip()?.flip(spreadIndex * 2, 'bottom'),
-    }))
-
     const lastIndex = nodeIds.length - 1
+
+    /**
+     * 책 넘김 엔진(page-flip)이 실제 페이지 수와 같은 페이지를 알고 있게 맞춘 뒤 엔진을 돌려준다.
+     * react-pageflip은 페이지 수가 바뀐 렌더와 다른 리렌더가 한 번에 커밋되면
+     * 새 페이지 등록(updateFromHtml)을 건너뛰는 버그가 있어, 새 장면을 붙여도 엔진은 모르는 채로 남는다
+     * (그러면 flipNext가 아무 일도 하지 않아 책장이 넘어가지 않는다). 그때는 직접 등록한다.
+     */
+    const getSyncedFlip = () => {
+      const flip = bookRef.current?.pageFlip()
+      if (!flip?.getFlipController()) return null
+      const expected = nodeIds.length * 2
+      if (flip.getPageCount() !== expected) {
+        const pages = Array.from(
+          containerRef.current?.querySelectorAll<HTMLElement>('[data-book-page]') ?? [],
+        ).sort((a, b) => Number(a.dataset.bookPage) - Number(b.dataset.bookPage))
+        if (pages.length !== expected) return null
+        flip.updateFromHtml(pages)
+      }
+      return flip
+    }
+
+    useImperativeHandle(ref, () => ({
+      flipNext: () => {
+        const flip = getSyncedFlip()
+        if (!flip || flip.getState() === 'flipping') return false
+        flip.flipNext('bottom')
+        return flip.getState() === 'flipping'
+      },
+      flipPrev: () => {
+        const flip = getSyncedFlip()
+        if (!flip || flip.getState() === 'flipping') return false
+        flip.flipPrev('bottom')
+        return flip.getState() === 'flipping'
+      },
+      flipTo: (spreadIndex: number) => {
+        const flip = getSyncedFlip()
+        if (!flip) return false
+        if (flip.getState() !== 'flipping') flip.flip(spreadIndex * 2, 'bottom')
+        // 넘김이 시작되지 않았으면 효과 없이 펼친다 (flip 이벤트가 나서 넘김 완료로 처리된다)
+        if (flip.getState() !== 'flipping') flip.turnToPage(spreadIndex * 2)
+        return true
+      },
+      flipToLast: () => {
+        const flip = getSyncedFlip()
+        if (!flip) return false
+        if (flip.getState() === 'flipping') return true
+        const lastPage = lastIndex * 2
+        // 이미 마지막 장면이 펼쳐져 있으면 넘김 완료를 알리도록 다시 펼친다 (flip 이벤트가 난다)
+        if (flip.getCurrentPageIndex() >= lastPage) {
+          flip.turnToPage(lastPage)
+          return true
+        }
+        flip.flipNext('bottom')
+        return flip.getState() === 'flipping'
+      },
+      jumpToLast: () => {
+        const flip = getSyncedFlip()
+        if (!flip) return false
+        flip.turnToPage(lastIndex * 2)
+        return true
+      },
+    }))
 
     return (
       <StoryBookContext.Provider value={{ childName, playSessionId, disabled, chosen, onChoose }}>
@@ -95,8 +159,13 @@ const StoryBook = forwardRef<StoryBookHandle, StoryBookProps>(
               ref={bookRef}
             >
               {nodeIds.flatMap((nodeId, i) => [
-                <LeftPage key={`left-${nodeId}`} nodeId={nodeId} isCurrent={i === lastIndex} />,
-                <RightPage key={`right-${nodeId}`} nodeId={nodeId} />,
+                <LeftPage
+                  key={`left-${nodeId}`}
+                  nodeId={nodeId}
+                  pageIndex={i * 2}
+                  isCurrent={i === lastIndex}
+                />,
+                <RightPage key={`right-${nodeId}`} nodeId={nodeId} pageIndex={i * 2 + 1} />,
               ])}
             </HTMLFlipBook>
           )}
